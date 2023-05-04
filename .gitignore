@@ -49,3 +49,7 @@ qtcreator-*
 
 # Catkin custom files
 CATKIN_IGNORE
+*.workspace
+.catkin_workspace
+.catkin_tools/
+
