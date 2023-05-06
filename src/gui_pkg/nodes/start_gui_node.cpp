@@ -1,5 +1,5 @@
 #include <QApplication>
-#include "selection_form.h"
+#include "main_form.h"
 
 int main(int argc, char *argv[])
 {
@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
   ros::init(argc, argv, "start_gui_node");
   QApplication a(argc, argv);
 
-  SelectionForm w;
+  MainForm w;
   w.show();
 
   // set the window title as the node name
