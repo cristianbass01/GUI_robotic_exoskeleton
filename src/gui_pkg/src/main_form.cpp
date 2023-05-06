@@ -19,12 +19,13 @@ void MainForm::on_BT_createUser_clicked()
 {
 
   CreateUserF.show();
-  //this->hide();
+  this->hide();
 }
 
 void MainForm::on_BT_selectUser_clicked()
 {
   SelectUserF.show();
+  this->hide();
 }
 
 void MainForm::on_BT_demo_clicked()
