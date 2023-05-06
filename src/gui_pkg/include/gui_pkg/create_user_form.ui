@@ -1,21 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>CreateUserForm</class>
- <widget name="CreateUserForm" class="QWidget">
+ <widget class="QWidget" name="CreateUserForm">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>659</width>
+    <height>482</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>50</y>
+     <width>301</width>
+     <height>211</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QLineEdit" name="TB_name">
+      <property name="placeholderText">
+       <string>Nome</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="TB_surname">
+      <property name="placeholderText">
+       <string>Cognome</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="LB_height">
+      <property name="text">
+       <string>Altezza (in cm)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QSpinBox" name="NB_height"/>
+    </item>
+    <item row="2" column="1">
+     <widget class="QDateEdit" name="DE_birthday"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="LB_birthday">
+      <property name="text">
+       <string>Data Nascita</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QGroupBox" name="GB_gender">
+      <property name="title">
+       <string>Sesso</string>
+      </property>
+      <widget class="QRadioButton" name="RB_male">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>20</y>
+         <width>112</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Maschio</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="RB_female">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>40</y>
+         <width>112</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Femmina</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="RB_other">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>60</y>
+         <width>112</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Altro</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="2">
+     <widget class="QLineEdit" name="TB_cf">
+      <property name="maxLength">
+       <number>16</number>
+      </property>
+      <property name="placeholderText">
+       <string>Codice FIscale</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="BT_create">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>290</y>
+     <width>146</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Crea Utente</string>
+   </property>
+  </widget>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>

@@ -12,3 +12,8 @@ CreateUserForm::~CreateUserForm()
 {
   delete ui;
 }
+
+void CreateUserForm::on_BT_create_clicked()
+{
+
+}

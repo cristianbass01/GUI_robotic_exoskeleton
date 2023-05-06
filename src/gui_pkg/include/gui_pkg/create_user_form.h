@@ -15,6 +15,9 @@ public:
   explicit CreateUserForm(QWidget *parent = nullptr);
   ~CreateUserForm();
 
+private slots:
+  void on_BT_create_clicked();
+
 private:
   Ui::CreateUserForm *ui;
 };
