@@ -1,6 +1,7 @@
 #include "main_form.h"
 #include "ui_main_form.h"
 #include "select_user_form.h"
+#include "create_user_form.h"
 
 MainForm::MainForm(QWidget *parent) :
   QWidget(parent),
@@ -16,13 +17,14 @@ MainForm::~MainForm()
 
 void MainForm::on_BT_createUser_clicked()
 {
-    SelectUserForm SelectUserF;
-    SelectUserF.show();
+
+  CreateUserF.show();
+  //this->hide();
 }
 
 void MainForm::on_BT_selectUser_clicked()
 {
-
+  SelectUserF.show();
 }
 
 void MainForm::on_BT_demo_clicked()

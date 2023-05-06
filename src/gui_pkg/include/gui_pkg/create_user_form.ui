@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>659</width>
-    <height>482</height>
+    <width>414</width>
+    <height>362</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -45,10 +45,28 @@
      </widget>
     </item>
     <item row="5" column="1">
-     <widget class="QSpinBox" name="NB_height"/>
+     <widget class="QSpinBox" name="NB_height">
+      <property name="maximum">
+       <number>300</number>
+      </property>
+      <property name="value">
+       <number>170</number>
+      </property>
+     </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QDateEdit" name="DE_birthday"/>
+     <widget class="QDateEdit" name="DE_birthday">
+      <property name="minimumDate">
+       <date>
+        <year>1900</year>
+        <month>1</month>
+        <day>1</day>
+       </date>
+      </property>
+      <property name="displayFormat">
+       <string>dd/MM/yyyy</string>
+      </property>
+     </widget>
     </item>
     <item row="2" column="0">
      <widget class="QLabel" name="LB_birthday">
@@ -99,6 +117,9 @@
        </property>
        <property name="text">
         <string>Altro</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>

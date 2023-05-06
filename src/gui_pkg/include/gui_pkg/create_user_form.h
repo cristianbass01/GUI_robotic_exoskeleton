@@ -2,6 +2,8 @@
 #define CREATE_USER_FORM_H
 
 #include <QWidget>
+#include <iostream>
+#include <fstream>
 
 namespace Ui {
 class CreateUserForm;

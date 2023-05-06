@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <ros/ros.h>
+#include "select_user_form.h"
+#include "create_user_form.h"
 
 namespace Ui {
 class MainForm;
@@ -25,6 +27,8 @@ private slots:
 
 private:
   Ui::MainForm *ui;
+  CreateUserForm CreateUserF;
+  SelectUserForm SelectUserF;
 };
 
 #endif // MAIN_FORM_H
