@@ -2,8 +2,8 @@
  <author/>
  <comment/>
  <exportmacro/>
- <class>InsertForm</class>
- <widget class="QWidget" name="InsertForm">
+ <class>SelectUserForm</class>
+ <widget name="SelectUserForm" class="QWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
