@@ -20,6 +20,11 @@ public:
 private slots:
   void on_BT_create_clicked();
 
+  void on_BT_test_clicked();
+
+public slots:
+  void test_Dialog();
+
 private:
   Ui::CreateUserForm *ui;
 };

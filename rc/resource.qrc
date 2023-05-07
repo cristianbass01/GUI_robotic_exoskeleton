@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>exoskeleton_icon.png</file>
+    </qresource>
+</RCC>

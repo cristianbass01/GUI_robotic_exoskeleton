@@ -27,8 +27,6 @@ private slots:
 
 private:
   Ui::MainForm *ui;
-  CreateUserForm CreateUserF;
-  SelectUserForm SelectUserF;
 };
 
 #endif // MAIN_FORM_H

@@ -1,9 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>SelectUserForm</class>
- <widget name="SelectUserForm" class="QWidget">
+ <widget class="QWidget" name="SelectUserForm">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,7 +13,35 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <widget class="QComboBox" name="comboBox">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>10</y>
+     <width>221</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>A</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPushButton" name="BT_select">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>240</y>
+     <width>89</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PushButton</string>
+   </property>
+  </widget>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>

@@ -17,14 +17,17 @@ MainForm::~MainForm()
 
 void MainForm::on_BT_createUser_clicked()
 {
+  CreateUserForm *CreateUserF = new CreateUserForm();
 
-  CreateUserF.show();
+  CreateUserF->show();
   this->hide();
 }
 
 void MainForm::on_BT_selectUser_clicked()
 {
-  SelectUserF.show();
+  SelectUserForm *SelectUserF = new SelectUserForm();
+  SelectUserF->show();
+
   this->hide();
 }
 

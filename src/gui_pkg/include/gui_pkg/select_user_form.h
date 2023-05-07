@@ -15,6 +15,9 @@ public:
   explicit SelectUserForm(QWidget *parent = nullptr);
   ~SelectUserForm();
 
+signals:
+    void on_BT_select_clicked();
+
 private:
   Ui::SelectUserForm *ui;
 };

@@ -149,6 +149,19 @@
     <string>Crea Utente</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="BT_test">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>290</y>
+     <width>89</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Test dialog</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

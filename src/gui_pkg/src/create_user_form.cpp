@@ -3,6 +3,9 @@
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
+#include <QObject>
+#include <QMessageBox>
+#include <select_user_form.h>
 
 using namespace std;
 
@@ -21,7 +24,9 @@ CreateUserForm::~CreateUserForm()
 void CreateUserForm::on_BT_create_clicked()
 {
 
-  QString path("../../Users/"+ ui->TB_cf->text() + "/");
+
+
+  QString path("../../Exoskeleton/Users/"+ ui->TB_cf->text() + "/");
   QDir dir; // Initialize to the desired dir if 'path' is relative
             // By default the program's working directory "." is used.
 
@@ -48,4 +53,20 @@ void CreateUserForm::on_BT_create_clicked()
          << ui->NB_height->value();         // Altezza
             ;
   file.close();
+}
+
+void CreateUserForm::on_BT_test_clicked()
+{
+  SelectUserForm *suf = new SelectUserForm();
+  //popupForm *pf2 = new popupForm(nullptr);
+
+      suf->show();
+      QObject::connect(suf, SIGNAL(on_BT_select_clicked()), this, SLOT(test_Dialog()));
+
+      //QMessageBox::information(this,"ok","ok");
+}
+
+void CreateUserForm::test_Dialog()
+{
+  QMessageBox::information(this,"ok","ok");
 }

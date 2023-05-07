@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../../../../GUI_robotic_exoskeleton222/rc/exoskeleton_icon.png</normaloff>../../../../../GUI_robotic_exoskeleton222/rc/exoskeleton_icon.png</iconset>
+  </property>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
