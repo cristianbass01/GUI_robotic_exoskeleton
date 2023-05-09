@@ -43,14 +43,15 @@ void CreateUserForm::on_BT_create_clicked()
 
   QFile users(path + "users.csv");
 
-
+  QString s;
 
   list<QString> users_list;
   if(users.open(QIODevice::ReadWrite)) { // Or QIODevice::ReadWrite
      QTextStream in(&users);
      while (!in.atEnd()) {
-        users_list.push_back(in.readLine());
-        if(cf.toStdString() == users_list.end())
+        s = in.readLine();
+        users_list.push_back(s);
+        if(QString::compare(cf,s))
         {
 
         }
