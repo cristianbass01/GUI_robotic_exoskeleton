@@ -27,6 +27,9 @@ public slots:
 
 private:
   Ui::CreateUserForm *ui;
+  QString path = "../../Exoskeleton/Users/";
+
+  //QString path(QStandardPaths::locate(QStandardPaths::DesktopLocation, "") "/");
 };
 
 #endif // CREATE_USER_FORM_H
