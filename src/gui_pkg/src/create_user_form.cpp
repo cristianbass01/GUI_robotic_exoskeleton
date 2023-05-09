@@ -7,6 +7,9 @@
 #include <QMessageBox>
 #include <select_user_form.h>
 
+#include <QStandardPaths>
+#include <list>
+
 using namespace std;
 
 CreateUserForm::CreateUserForm(QWidget *parent) :
@@ -26,17 +29,40 @@ void CreateUserForm::on_BT_create_clicked()
 
 
 
-  QString path("../../Exoskeleton/Users/"+ ui->TB_cf->text() + "/");
+  QString path("../../Exoskeleton/Users/");
+  //QString path(QStandardPaths::locate(QStandardPaths::DesktopLocation, "") + ui->TB_cf->text() + "/");
   QDir dir; // Initialize to the desired dir if 'path' is relative
             // By default the program's working directory "." is used.
 
   // We create the directory if needed
-  if (!dir.exists(path))
-      dir.mkpath(path); // You can check the success if needed
+  if (!dir.exists(path+ ui->TB_cf->text() + "/"))
+      dir.mkpath(path + ui->TB_cf->text() + "/"); // You can check the success if needed
 
-  QFile file(path + "info.csv");
-  file.open(QIODevice::WriteOnly); // Or QIODevice::ReadWrite
-  QTextStream stream(&file);
+  QFile users(path + "users.csv");
+  QFile info_user(path + ui->TB_cf->text() + "/info.csv");
+  list<QString> users_name;
+  if(users.open(QIODevice::ReadWrite)) { // Or QIODevice::ReadWrite
+     QTextStream in(&users);
+     while (!in.atEnd()) {
+        users_name.push_back(in.readLine());
+    }
+  }
+  users_name.push_back(ui->TB_cf->text());
+  users_name.sort();
+  users.close();
+
+  users.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text);
+  QTextStream user_writer(&users);
+  while (users.size()>0) {
+     user_writer << users_name.front();
+     users_name.pop_front();
+
+ }
+  users.close();
+
+  info_user.open(QIODevice::WriteOnly); // Or QIODevice::ReadWrite
+
+  QTextStream stream(&info_user);
   QString gender;
   if(ui->RB_male->isChecked())
     gender="Maschio";
@@ -52,7 +78,7 @@ void CreateUserForm::on_BT_create_clicked()
          << gender << ","                   // Genere
          << ui->NB_height->value();         // Altezza
             ;
-  file.close();
+  info_user.close();
 }
 
 void CreateUserForm::on_BT_test_clicked()
