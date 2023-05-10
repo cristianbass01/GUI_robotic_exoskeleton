@@ -9,6 +9,7 @@
 #include <fstream>
 #include <QList>
 #include <QCloseEvent>
+#include <QStandardPaths>
 #include <ros/ros.h>
 
 namespace Ui {
@@ -37,7 +38,7 @@ private:
   Ui::CreateUserForm *ui;
 
 
-  QString path = "../../Exoskeleton/Users/";
+  QString path = QStandardPaths::HomeLocation + "/Alice/Log/";
   QString cf;
   QList<QString> users_list;
 

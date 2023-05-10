@@ -44,7 +44,7 @@ void CreateUserForm::on_BT_create_clicked()
   }
 
   QFile users(path + "users.csv");
-
+  QString p = QStandardPaths::HomeLocation + "/log";
   QString s;
 
   users_list.clear();
