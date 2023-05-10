@@ -12,4 +12,3 @@ SelectUserForm::~SelectUserForm()
 {
   delete ui;
 }
-

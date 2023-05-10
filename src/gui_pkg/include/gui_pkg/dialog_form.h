@@ -15,6 +15,14 @@ public:
   explicit DialogForm(QWidget *parent = nullptr);
   ~DialogForm();
 
+public slots:
+  void setTitle(QString title);
+
+  void setDescription(QString desc);
+
+signals:
+  void on_buttonBox_accepted();
+
 private:
   Ui::DialogForm *ui;
 };

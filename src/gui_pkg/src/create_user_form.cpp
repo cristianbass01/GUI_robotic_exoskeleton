@@ -9,6 +9,7 @@
 
 #include <QStandardPaths>
 #include <list>
+#include <dialog_form.h>
 
 using namespace std;
 
@@ -53,7 +54,7 @@ void CreateUserForm::on_BT_create_clicked()
         users_list.push_back(s);
         if(QString::compare(cf,s))
         {
-
+            
         }
 
     }
@@ -102,11 +103,13 @@ void CreateUserForm::on_BT_create_clicked()
 
 void CreateUserForm::on_BT_test_clicked()
 {
-  SelectUserForm *suf = new SelectUserForm();
+  //SelectUserForm *suf = new SelectUserForm();
+
+  DialogForm *dial = new DialogForm();
   //popupForm *pf2 = new popupForm(nullptr);
 
-      suf->show();
-      QObject::connect(suf, SIGNAL(on_BT_select_clicked()), this, SLOT(test_Dialog()));
+  dial->show();
+  QObject::connect(dial, SIGNAL(on_buttonBox_accepted()), this, SLOT(test_Dialog()));
 
       //QMessageBox::information(this,"ok","ok");
 }

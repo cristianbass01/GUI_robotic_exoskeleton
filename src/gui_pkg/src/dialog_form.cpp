@@ -12,3 +12,11 @@ DialogForm::~DialogForm()
 {
   delete ui;
 }
+
+void DialogForm::setTitle(QString title){
+  this->setTitle(title);
+}
+
+void DialogForm::setDescription(QString desc){
+  this->
+}
