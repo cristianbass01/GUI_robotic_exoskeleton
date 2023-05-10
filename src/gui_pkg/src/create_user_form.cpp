@@ -6,7 +6,9 @@
 #include <QObject>
 #include <QMessageBox>
 #include <QStandardPaths>
-#include <dialog_form.h>
+
+#include "dialog_form.h"
+#include "select_user_form.h"
 
 using namespace std;
 
@@ -26,10 +28,15 @@ CreateUserForm::~CreateUserForm()
   delete ui;
 }
 
+void CreateUserForm::closeEvent (QCloseEvent *event)
+{
+  //parent->show();
+}
+
 void CreateUserForm::on_BT_create_clicked()
 {
   bool create = true;
-  QString cf = ui->TB_cf->text();
+  cf = ui->TB_cf->text();
   if(ui->TB_name->text().size() < 3 || ui->TB_surname->text().size() < 3 || cf.length() != 16)
   {
     QMessageBox::warning(this,"Attenzione","Uno o più campi potrebbero essere incompleti\n\nNome e Cognome devono avere almeno 3 lettre, e il CF composto da 16");
@@ -40,7 +47,7 @@ void CreateUserForm::on_BT_create_clicked()
 
   QString s;
 
-  QList<QString> users_list;
+  users_list.clear();
   if(users.open(QIODevice::ReadWrite)) { // Or QIODevice::ReadWrite
      QTextStream in(&users);
      while (!in.atEnd()) {
@@ -51,13 +58,13 @@ void CreateUserForm::on_BT_create_clicked()
           DialogForm *dial = new DialogForm();
           dial->show();
           QObject::connect(dial, SIGNAL(on_BT_dialog_rejected()), this, SLOT(rejected()));
-          QObject::connect(dial, SIGNAL(on_BT_dialog_accepted()), this, SLOT(createUser(users_list, cf)));
+          QObject::connect(dial, SIGNAL(on_BT_dialog_accepted()), this, SLOT(createUser()));
           create = false;
         }
     }
   }
   if(create)
-      createUser(users_list, cf);
+      createUser();
   users.close();
 }
 
@@ -66,7 +73,7 @@ void CreateUserForm::rejected()
   //QMessageBox::information(this,"ok","ok");
 }
 
-void CreateUserForm::createUser(QList<QString> users_list, QString cf){
+void CreateUserForm::createUser(){
 
     QDir dir; // Initialize to the desired dir if 'path' is relative
             // By default the program's working directory "." is used.
@@ -74,9 +81,9 @@ void CreateUserForm::createUser(QList<QString> users_list, QString cf){
     // We create the directory if needed
     if (!dir.exists(path+ cf + "/"))
         dir.mkpath(path + cf + "/"); // You can check the success if needed
-    ROS_INFO("sono qui");
 
     users_list.sort();
+    users_list.removeDuplicates();
 
     QFile users(path + "users.csv");
     users.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text);
@@ -108,4 +115,15 @@ void CreateUserForm::createUser(QList<QString> users_list, QString cf){
            << ui->NB_height->value();         // Altezza
               ;
     info_user.close();
+
+    QMessageBox::information(this,"Informazioni","Utente creato correttamente.\nPuoi chiudere questa scheda");
+}
+
+void CreateUserForm::on_BT_selectUser_clicked()
+{
+  SelectUserForm *SelectUserF = new SelectUserForm();
+  SelectUserF->show();
+
+  this->hide();
+  this->deleteLater();
 }

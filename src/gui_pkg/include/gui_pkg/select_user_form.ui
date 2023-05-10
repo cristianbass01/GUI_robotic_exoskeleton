@@ -7,45 +7,40 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>355</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="CB_selectUser">
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>10</y>
+     <y>20</y>
      <width>221</width>
      <height>25</height>
     </rect>
    </property>
-   <item>
-    <property name="text">
-     <string>A</string>
-    </property>
-   </item>
   </widget>
   <widget class="QPushButton" name="BT_select">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>250</y>
+     <x>260</x>
+     <y>300</y>
      <width>89</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>Seleziona</string>
    </property>
   </widget>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>40</y>
+     <y>60</y>
      <width>301</width>
      <height>211</height>
     </rect>
@@ -53,6 +48,9 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QLineEdit" name="TB_name">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="placeholderText">
        <string>Nome</string>
       </property>
@@ -60,6 +58,9 @@
     </item>
     <item row="0" column="1">
      <widget class="QLineEdit" name="TB_surname">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="placeholderText">
        <string>Cognome</string>
       </property>
@@ -74,6 +75,9 @@
     </item>
     <item row="5" column="1">
      <widget class="QSpinBox" name="NB_height">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="maximum">
        <number>300</number>
       </property>
@@ -84,6 +88,9 @@
     </item>
     <item row="2" column="1">
      <widget class="QDateEdit" name="DE_birthday">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="minimumDate">
        <date>
         <year>1900</year>
@@ -109,6 +116,9 @@
        <string>Sesso</string>
       </property>
       <widget class="QRadioButton" name="RB_male">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -122,6 +132,9 @@
        </property>
       </widget>
       <widget class="QRadioButton" name="RB_female">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -135,6 +148,9 @@
        </property>
       </widget>
       <widget class="QRadioButton" name="RB_other">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -154,6 +170,9 @@
     </item>
     <item row="1" column="0" colspan="2">
      <widget class="QLineEdit" name="TB_cf">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="maxLength">
        <number>16</number>
       </property>

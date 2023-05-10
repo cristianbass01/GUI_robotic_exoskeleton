@@ -21,6 +21,7 @@ void MainForm::on_BT_createUser_clicked()
 
   CreateUserF->show();
   this->hide();
+  //this->deleteLater();
 }
 
 void MainForm::on_BT_selectUser_clicked()
@@ -29,6 +30,7 @@ void MainForm::on_BT_selectUser_clicked()
   SelectUserF->show();
 
   this->hide();
+  //this->deleteLater();
 }
 
 void MainForm::on_BT_demo_clicked()

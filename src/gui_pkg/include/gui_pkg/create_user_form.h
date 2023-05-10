@@ -8,6 +8,7 @@
 #include <iostream>
 #include <fstream>
 #include <QList>
+#include <QCloseEvent>
 #include <ros/ros.h>
 
 namespace Ui {
@@ -24,15 +25,21 @@ public:
 
 private slots:
   void on_BT_create_clicked();
+  void closeEvent (QCloseEvent *event);
+
+  void on_BT_selectUser_clicked();
 
 public slots:
   void rejected();
-public Q_SLOT:
-  void createUser(QList<QString> users_list, QString cf);
+  void createUser();
 
 private:
   Ui::CreateUserForm *ui;
+
+
   QString path = "../../Exoskeleton/Users/";
+  QString cf;
+  QList<QString> users_list;
 
   //QString path(QStandardPaths::locate(QStandardPaths::DesktopLocation, "") "/");
 };
