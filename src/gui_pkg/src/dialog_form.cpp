@@ -18,5 +18,5 @@ void DialogForm::setTitle(QString title){
 }
 
 void DialogForm::setDescription(QString desc){
-  this->
+  //ui->LB_desc
 }

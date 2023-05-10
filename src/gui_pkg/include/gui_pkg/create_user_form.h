@@ -2,8 +2,12 @@
 #define CREATE_USER_FORM_H
 
 #include <QWidget>
+#include <QObject>
+#include <QTextStream>
+#include <QString>
 #include <iostream>
 #include <fstream>
+#include <list>
 
 namespace Ui {
 class CreateUserForm;
@@ -23,7 +27,8 @@ private slots:
   void on_BT_test_clicked();
 
 public slots:
-  void test_Dialog();
+  void rejected();
+  void createUser(std::list<QString> users_list, QString cf);
 
 private:
   Ui::CreateUserForm *ui;

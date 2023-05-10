@@ -6,18 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>354</width>
+    <height>121</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <widget class="QDialogButtonBox" name="BT_dialog">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>240</y>
+     <x>150</x>
+     <y>70</y>
      <width>171</width>
      <height>32</height>
     </rect>
@@ -29,24 +29,24 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="LB_desc">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>100</y>
-     <width>67</width>
-     <height>17</height>
+     <x>30</x>
+     <y>20</y>
+     <width>301</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string>L'utente è già presente, vuoi sovrascriverlo?</string>
    </property>
   </widget>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>BT_dialog</sender>
    <signal>accepted()</signal>
    <receiver>DialogForm</receiver>
    <slot>accept()</slot>
@@ -62,7 +62,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>BT_dialog</sender>
    <signal>rejected()</signal>
    <receiver>DialogForm</receiver>
    <slot>reject()</slot>

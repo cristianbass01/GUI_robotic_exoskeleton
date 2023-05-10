@@ -21,7 +21,10 @@ public slots:
   void setDescription(QString desc);
 
 signals:
-  void on_buttonBox_accepted();
+  void on_BT_dialog_accepted();
+
+  void on_BT_dialog_rejected();
+
 
 private:
   Ui::DialogForm *ui;
