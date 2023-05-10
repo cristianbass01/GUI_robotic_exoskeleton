@@ -5,8 +5,6 @@
 #include <QTextStream>
 #include <QObject>
 #include <QMessageBox>
-#include <select_user_form.h>
-
 #include <QStandardPaths>
 #include <dialog_form.h>
 
@@ -42,7 +40,7 @@ void CreateUserForm::on_BT_create_clicked()
 
   QString s;
 
-  list<QString> users_list;
+  QList<QString> users_list;
   if(users.open(QIODevice::ReadWrite)) { // Or QIODevice::ReadWrite
      QTextStream in(&users);
      while (!in.atEnd()) {
@@ -63,22 +61,12 @@ void CreateUserForm::on_BT_create_clicked()
   users.close();
 }
 
-void CreateUserForm::on_BT_test_clicked()
-{
-  //SelectUserForm *suf = new SelectUserForm();
-
-
-  //popupForm *pf2 = new popupForm(nullptr);
-
-      //QMessageBox::information(this,"ok","ok");
-}
-
 void CreateUserForm::rejected()
 {
   //QMessageBox::information(this,"ok","ok");
 }
 
-void CreateUserForm::createUser(list<QString> users_list, QString cf){
+void CreateUserForm::createUser(QList<QString> users_list, QString cf){
 
     QDir dir; // Initialize to the desired dir if 'path' is relative
             // By default the program's working directory "." is used.
@@ -86,7 +74,7 @@ void CreateUserForm::createUser(list<QString> users_list, QString cf){
     // We create the directory if needed
     if (!dir.exists(path+ cf + "/"))
         dir.mkpath(path + cf + "/"); // You can check the success if needed
-
+    ROS_INFO("sono qui");
 
     users_list.sort();
 

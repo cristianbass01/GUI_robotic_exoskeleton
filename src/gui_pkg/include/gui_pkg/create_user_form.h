@@ -7,7 +7,8 @@
 #include <QString>
 #include <iostream>
 #include <fstream>
-#include <list>
+#include <QList>
+#include <ros/ros.h>
 
 namespace Ui {
 class CreateUserForm;
@@ -24,11 +25,10 @@ public:
 private slots:
   void on_BT_create_clicked();
 
-  void on_BT_test_clicked();
-
 public slots:
   void rejected();
-  void createUser(std::list<QString> users_list, QString cf);
+public Q_SLOT:
+  void createUser(QList<QString> users_list, QString cf);
 
 private:
   Ui::CreateUserForm *ui;

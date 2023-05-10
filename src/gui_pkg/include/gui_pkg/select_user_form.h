@@ -2,6 +2,13 @@
 #define SELECT_USER_FORM_H
 
 #include <QWidget>
+#include <QObject>
+#include <QTextStream>
+#include <QString>
+#include <iostream>
+#include <fstream>
+#include <QList>
+#include <ros/ros.h>
 
 namespace Ui {
 class SelectUserForm;
@@ -20,6 +27,7 @@ signals:
 
 private:
   Ui::SelectUserForm *ui;
+  QString path = "../../Exoskeleton/Users/";
 };
 
 #endif // SELECT_USER_FORM_H
