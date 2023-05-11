@@ -1,6 +1,10 @@
 #include <QApplication>
 #include <qicon.h>
 #include "main_form.h"
+#include "global_user_list.h"
+
+QString path = "../../Alice/Log/";
+UserList userList;
 
 int main(int argc, char *argv[])
 {
@@ -15,7 +19,7 @@ int main(int argc, char *argv[])
   // load the icon from our qrc file and set it as the application icon
   QIcon icon(":/icons/exoskeleton_icon.png");
   w.setWindowIcon(icon);
-
+  userList.loadXml(path + "users.xml");
   w.show();
 
   return a.exec();

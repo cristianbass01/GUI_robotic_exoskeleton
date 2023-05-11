@@ -9,6 +9,7 @@
 #include <QStandardPaths>
 
 #include <user_list.h>
+#include <global_user_list.h>
 
 SelectUserForm::SelectUserForm(QWidget *parent) :
   QWidget(parent),
@@ -19,14 +20,14 @@ SelectUserForm::SelectUserForm(QWidget *parent) :
 
   QFile users(path + "users.csv");
 
-  users_list.clear();
+  //users_list.clear();
   QString s;
 
   if(users.open(QIODevice::ReadWrite)) { // Or QIODevice::ReadWrite
      QTextStream in(&users);
      while (!in.atEnd()) {
         s = in.readLine();
-        users_list.push_back(s);
+        //users_list.push_back(s);
         ui->CB_selectUser->addItem(s);
     }
   }

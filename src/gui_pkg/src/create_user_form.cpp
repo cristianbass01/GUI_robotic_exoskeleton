@@ -9,7 +9,7 @@
 
 #include "dialog_form.h"
 #include "select_user_form.h"
-
+#include <main_form.h>
 
 using namespace std;
 
@@ -18,7 +18,7 @@ CreateUserForm::CreateUserForm(QWidget *parent) :
   ui(new Ui::CreateUserForm)
 {
   ui->setupUi(this);
-
+  //QString path;
   QDir dir;
   if (!dir.exists(path))
       dir.mkpath(path); // You can check the success if needed

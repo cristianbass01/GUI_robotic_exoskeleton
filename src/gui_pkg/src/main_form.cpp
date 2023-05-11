@@ -4,18 +4,15 @@
 #include "create_user_form.h"
 
 
-
 MainForm::MainForm(QWidget *parent) :
   QWidget(parent),
   ui(new Ui::MainForm)
 {
   ui->setupUi(this);
 
-  userList = new UserList();
-  QString path = QStandardPaths::HomeLocation + "/Alice/Log/";
-  userList->loadXml(path + "users.xml");
-}
 
+  //path = QStandardPaths::HomeLocation + "";// + "/Alice/Log/";
+}
 MainForm::~MainForm()
 {
   delete ui;

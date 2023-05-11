@@ -31,8 +31,8 @@ private slots:
 
 private:
   Ui::SelectUserForm *ui;
-  QString path = "../../Exoskeleton/Users/";
-  QList<QString> users_list;
+  //QString path = "../../Exoskeleton/Users/";
+  //QList<QString> users_list;
 };
 
 #endif // SELECT_USER_FORM_H

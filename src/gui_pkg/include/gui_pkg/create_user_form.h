@@ -40,9 +40,9 @@ private:
   Ui::CreateUserForm *ui;
 
 
-  QString path = QStandardPaths::HomeLocation + "/Alice/Log/";
+  //QString path = QStandardPaths::HomeLocation + "/Alice/Log/";
   QString cf;
-  UserList userList;
+  //UserList userList;
 
   //QString path(QStandardPaths::locate(QStandardPaths::DesktopLocation, "") "/");
 };

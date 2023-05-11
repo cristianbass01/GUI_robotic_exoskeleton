@@ -5,7 +5,6 @@
 #include <ros/ros.h>
 #include "select_user_form.h"
 #include "create_user_form.h"
-#include <global_user_list.h>
 
 namespace Ui {
 class MainForm;
