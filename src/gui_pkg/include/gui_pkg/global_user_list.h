@@ -1,0 +1,4 @@
+#ifndef GLOBALUSERLIST_H
+#define GLOBALUSERLIST_H
+
+#endif // GLOBALUSERLIST_H
