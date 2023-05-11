@@ -12,6 +12,8 @@
 #include <QStandardPaths>
 #include <ros/ros.h>
 
+#include <user_list.h>
+
 namespace Ui {
 class CreateUserForm;
 }
@@ -40,7 +42,7 @@ private:
 
   QString path = QStandardPaths::HomeLocation + "/Alice/Log/";
   QString cf;
-  QList<QString> users_list;
+  UserList userList;
 
   //QString path(QStandardPaths::locate(QStandardPaths::DesktopLocation, "") "/");
 };

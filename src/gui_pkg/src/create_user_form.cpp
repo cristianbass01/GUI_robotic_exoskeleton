@@ -10,6 +10,7 @@
 #include "dialog_form.h"
 #include "select_user_form.h"
 
+
 using namespace std;
 
 CreateUserForm::CreateUserForm(QWidget *parent) :
@@ -43,8 +44,12 @@ void CreateUserForm::on_BT_create_clicked()
     return;
   }
 
+  createUser();
+
+  //Per ora niente ricerca se è già presente
+  /*
   QFile users(path + "users.csv");
-  QString p = QStandardPaths::HomeLocation + "/log";
+  //QString p = QStandardPaths::HomeLocation + "/log";
   QString s;
 
   users_list.clear();
@@ -66,6 +71,7 @@ void CreateUserForm::on_BT_create_clicked()
   if(create)
       createUser();
   users.close();
+  */
 }
 
 void CreateUserForm::rejected()
@@ -75,15 +81,37 @@ void CreateUserForm::rejected()
 
 void CreateUserForm::createUser(){
 
+    QString sex;
+    if(ui->RB_male->isChecked())
+      sex="Male";
+    else if(ui->RB_female->isChecked())
+      sex="Female";
+    else
+      sex="Other";
+
+    QString dir = "aa000";
+
+    User u(dir,cf,ui->TB_name->text(),ui->TB_surname->text(),ui->DE_birthday->date(), sex,
+                       ui->NB_height->value(), ui->NB_height->value(), ui->NB_femur->value(), ui->NB_tibia->value());
+
+    userList.add(u);
+
+    userList.saveXml(path + "users.xml");
+
+    /*
+
     QDir dir; // Initialize to the desired dir if 'path' is relative
             // By default the program's working directory "." is used.
-    users_list.push_back(cf);
+
     // We create the directory if needed
     if (!dir.exists(path+ cf + "/"))
         dir.mkpath(path + cf + "/"); // You can check the success if needed
 
-    users_list.sort();
-    users_list.removeDuplicates();
+    //users_list.sort();
+    if(!users_list.contains(cf))
+        users_list.push_back(cf);
+
+    //users_list.removeDuplicates(); // nel caso dovessi reinserire lo stesso utente
 
     QFile users(path + "users.csv");
     users.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text);
@@ -99,13 +127,7 @@ void CreateUserForm::createUser(){
     info_user.open(QIODevice::WriteOnly); // Or QIODevice::ReadWrite
 
     QTextStream stream(&info_user);
-    QString gender;
-    if(ui->RB_male->isChecked())
-      gender="Maschio";
-    else if(ui->RB_female->isChecked())
-      gender="Femmina";
-    else
-      gender="Altro";
+
 
     stream << ui->TB_name->text() << ","      // Nome
            << ui->TB_surname->text() << ","   // Cognome
@@ -115,6 +137,7 @@ void CreateUserForm::createUser(){
            << ui->NB_height->value();         // Altezza
               ;
     info_user.close();
+    */
 
     QMessageBox::information(this,"Informazioni","Utente creato correttamente.\nPuoi chiudere questa scheda");
 }

@@ -8,6 +8,8 @@
 #include <QMessageBox>
 #include <QStandardPaths>
 
+#include <user_list.h>
+
 SelectUserForm::SelectUserForm(QWidget *parent) :
   QWidget(parent),
   ui(new Ui::SelectUserForm)
