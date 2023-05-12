@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>374</width>
     <height>300</height>
    </rect>
   </property>
@@ -20,22 +20,23 @@
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>100</y>
-     <width>160</width>
-     <height>89</height>
+     <x>80</x>
+     <y>70</y>
+     <width>201</width>
+     <height>161</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QPushButton" name="BT_demo">
-      <property name="text">
-       <string>Demo</string>
-      </property>
-     </widget>
-    </item>
+    <property name="sizeConstraint">
+     <enum>QLayout::SetDefaultConstraint</enum>
+    </property>
     <item>
      <widget class="QPushButton" name="BT_selectUser">
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Seleziona Utente</string>
       </property>
@@ -43,8 +44,34 @@
     </item>
     <item>
      <widget class="QPushButton" name="BT_createUser">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>0</width>
+        <height>1000</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Crea Utente</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="BT_demo">
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Demo</string>
       </property>
      </widget>
     </item>

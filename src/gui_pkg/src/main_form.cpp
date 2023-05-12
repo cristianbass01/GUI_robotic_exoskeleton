@@ -17,9 +17,13 @@ MainForm::~MainForm()
 
 void MainForm::on_BT_createUser_clicked()
 {
-  CreateUserForm *CreateUserF = new CreateUserForm();
+  //CreateUserForm *CreateUserF = new CreateUserForm();
 
-  CreateUserF->show();
+  //CreateUserF->show();
+
+
+  SelectUserForm *SelectUserF = new SelectUserForm(nullptr, true);
+  SelectUserF->show();
   this->hide();
   //this->deleteLater();
 }

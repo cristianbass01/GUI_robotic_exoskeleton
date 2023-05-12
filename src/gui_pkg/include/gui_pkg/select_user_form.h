@@ -20,7 +20,7 @@ class SelectUserForm : public QWidget
   Q_OBJECT
 
 public:
-  explicit SelectUserForm(QWidget *parent = nullptr);
+  explicit SelectUserForm(QWidget *parent = nullptr, bool create = false);
   ~SelectUserForm();
 
 signals:
@@ -28,11 +28,18 @@ signals:
 
 private slots:
     void on_CB_selectUser_currentIndexChanged(const QString &arg1);
+    void setReadOnly(bool status);
+    void on_BT_create_clicked();
+    void on_BT_selectUser_clicked();
+    void createComboBox(int start, QString id);
+
+public slots:
+  void rejected();
+  void createUser();
 
 private:
   Ui::SelectUserForm *ui;
-  //QString path = "../../Exoskeleton/Users/";
-  //QList<QString> users_list;
+  QString id_user;
 };
 
 #endif // SELECT_USER_FORM_H

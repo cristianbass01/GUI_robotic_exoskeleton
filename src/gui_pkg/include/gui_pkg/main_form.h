@@ -27,7 +27,6 @@ private slots:
 
 private:
   Ui::MainForm *ui;
-  UserList *userList;
 };
 
 #endif // MAIN_FORM_H
