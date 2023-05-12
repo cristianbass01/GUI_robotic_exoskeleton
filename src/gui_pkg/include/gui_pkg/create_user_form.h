@@ -41,7 +41,7 @@ private:
 
 
   //QString path = QStandardPaths::HomeLocation + "/Alice/Log/";
-  QString cf;
+  QString id_user;
   //UserList userList;
 
   //QString path(QStandardPaths::locate(QStandardPaths::DesktopLocation, "") "/");

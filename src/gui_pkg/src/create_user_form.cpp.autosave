@@ -111,46 +111,6 @@ void CreateUserForm::createUser(){
 
     userList.saveXml(path + "users.xml");
 
-    /*
-
-    QDir dir; // Initialize to the desired dir if 'path' is relative
-            // By default the program's working directory "." is used.
-
-    // We create the directory if needed
-    if (!dir.exists(path+ cf + "/"))
-        dir.mkpath(path + cf + "/"); // You can check the success if needed
-
-    //users_list.sort();
-    if(!users_list.contains(cf))
-        users_list.push_back(cf);
-
-    //users_list.removeDuplicates(); // nel caso dovessi reinserire lo stesso utente
-
-    QFile users(path + "users.csv");
-    users.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text);
-    QTextStream user_writer(&users);
-    while (users_list.size()>0) {
-       user_writer << users_list.front() << "\n";
-       users_list.pop_front();
-
-    }
-    users.close();
-
-    QFile info_user(path + ui->TB_cf->text() + "/info.csv");
-    info_user.open(QIODevice::WriteOnly); // Or QIODevice::ReadWrite
-
-    QTextStream stream(&info_user);
-
-
-    stream << ui->TB_name->text() << ","      // Nome
-           << ui->TB_surname->text() << ","   // Cognome
-           << cf << ","                       // Codice Fiscale
-           << ui->DE_birthday->text() << ","  // Data Nascita
-           << gender << ","                   // Genere
-           << ui->NB_height->value();         // Altezza
-              ;
-    info_user.close();
-    */
 
     QMessageBox::information(this,"Informazioni","Utente creato correttamente.\nPuoi chiudere questa scheda");
 }
