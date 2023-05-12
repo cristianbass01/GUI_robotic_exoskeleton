@@ -23,13 +23,6 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="11" column="0">
-     <widget class="QPushButton" name="BT_selectUser">
-      <property name="text">
-       <string>Select User</string>
-      </property>
-     </widget>
-    </item>
     <item row="4" column="1">
      <widget class="QDateEdit" name="DE_birthday">
       <property name="readOnly">
@@ -71,13 +64,6 @@
       </property>
       <property name="value">
        <number>50</number>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="1">
-     <widget class="QPushButton" name="BT_create">
-      <property name="text">
-       <string>Create User</string>
       </property>
      </widget>
     </item>
@@ -266,7 +252,27 @@
       </property>
      </spacer>
     </item>
+    <item row="11" column="0" colspan="2">
+     <widget class="QPushButton" name="BT_create">
+      <property name="text">
+       <string>Create User</string>
+      </property>
+     </widget>
+    </item>
    </layout>
+  </widget>
+  <widget class="QPushButton" name="BT_selectUser">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>470</y>
+     <width>136</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select User</string>
+   </property>
   </widget>
  </widget>
  <resources/>
