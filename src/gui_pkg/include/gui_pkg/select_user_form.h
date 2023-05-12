@@ -24,11 +24,11 @@ public:
   ~SelectUserForm();
 
 signals:
-    void on_BT_select_clicked();
+    //void on_BT_select_clicked();
 
 private slots:
     void on_CB_selectUser_currentIndexChanged(const QString &arg1);
-    void setReadOnly(bool status);
+    void setReadOnly(bool status, bool id);
     void on_BT_create_clicked();
     void on_BT_selectUser_clicked();
     void createComboBox(int start, QString id);

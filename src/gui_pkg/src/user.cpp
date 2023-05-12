@@ -1,7 +1,7 @@
 #include <user.h>
 
 User::User() :
-    dir_{""}, id_{""}, name_{""}, surname_{""}, birthday_{QDate(1900, 1, 1)}, sex_{""}, height_{0}, weight_{0}, femur_{0}, tibia_{0}
+    dir_{""}, id_{""}, name_{""}, surname_{""}, birthday_{QDate(2000, 1, 1)}, sex_{""}, height_{0}, weight_{0}, femur_{0}, tibia_{0}
 {}
 
 User::User(QString dir, QString id, QString name, QString surname, QDate birthday, QString sex, int height, double weight, int femur, int tibia) :

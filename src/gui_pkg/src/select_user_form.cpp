@@ -55,7 +55,8 @@ void SelectUserForm::createComboBox(int start, QString id){
 
 void SelectUserForm::on_CB_selectUser_currentIndexChanged(const QString &arg1)
 {
-    setReadOnly(ui->CB_selectUser->currentIndex()!=0);
+    setReadOnly(ui->CB_selectUser->currentIndex()!=0, ui->CB_selectUser->currentIndex()!=0);
+    ui->BT_selectUser->setVisible(ui->CB_selectUser->currentIndex()!=0);
 
     User* u = new User;
     if(ui->CB_selectUser->currentIndex()>0)
@@ -96,7 +97,15 @@ void SelectUserForm::on_CB_selectUser_currentIndexChanged(const QString &arg1)
 
 void SelectUserForm::on_BT_create_clicked()
 {
-  bool create = true;
+    bool create = true;
+    bool edit = false;
+
+  if(ui->BT_create->text()=="Edit"){
+      setReadOnly(false, true);
+      ui->BT_create->setText("Save");
+      edit = true;
+  }
+
   id_user = ui->TB_id->text();
   if(ui->TB_name->text().size() < 3 || ui->TB_surname->text().size() < 3 || id_user.length() != 16 || id_user.contains(" ")) // 16 caratteri è giusto?
   {
@@ -104,14 +113,14 @@ void SelectUserForm::on_BT_create_clicked()
     return;
   }
 
-  if(userList.findPos(id_user)>=0) // utente già presente
+  if(!edit && userList.findPos(id_user)>=0) // utente già presente
   {
-    DialogForm *dial = new DialogForm();
+    DialogForm *dial = new DialogForm(); // form per la sovrascrizione
     dial->show();
     QObject::connect(dial, SIGNAL(on_BT_dialog_accepted()), this, SLOT(createUser()));
     create = false;
   }
-  if(create)
+  if(!edit && create)
       createUser();
 }
 
@@ -162,11 +171,11 @@ void SelectUserForm::rejected()
 {
 }
 
-void SelectUserForm::setReadOnly(bool status)
+void SelectUserForm::setReadOnly(bool status, bool id)
 {
   ui->TB_name->setReadOnly(status);
   ui->TB_surname->setReadOnly(status);
-  ui->TB_id->setReadOnly(status);
+  ui->TB_id->setReadOnly(id);
   ui->DE_birthday->setReadOnly(status);
   ui->RB_male->setEnabled(!status);
   ui->RB_female->setEnabled(!status);
