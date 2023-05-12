@@ -27,11 +27,11 @@ signals:
     //void on_BT_select_clicked();
 
 private slots:
-    void on_CB_selectUser_currentIndexChanged(const QString &arg1);
     void setReadOnly(bool status, bool id);
     void on_BT_create_clicked();
     void on_BT_selectUser_clicked();
     void createComboBox(int start, QString id);
+    void on_CB_selectUser_currentIndexChanged(int index);
 
 public slots:
   void rejected();
@@ -40,6 +40,7 @@ public slots:
 private:
   Ui::SelectUserForm *ui;
   QString id_user;
+  QList<QPair<QString, int>> users;
 };
 
 #endif // SELECT_USER_FORM_H

@@ -27,43 +27,46 @@ SelectUserForm::~SelectUserForm()
 
 void SelectUserForm::createComboBox(int start, QString id){
   ui->CB_selectUser->clear();
+  users.clear();
 
   ui->CB_selectUser->addItem(QString("- - - Create User - - -"));
 
-  QList<QString> users;
-
+  User* u;
   for(int i = 0; i<userList.size(); i++) {
-    User* u = userList.getAt(i);
-    users.append(u->getSurname() + " " + u->getName() + " " +u->getId());
-  }
-  qSort(users);
-
-  QStringList tokens;
-  QString u_id;
-
-  for(int i = 0; i<users.size(); i++) {
-    tokens = users.at(i).split(" ");
-    u_id = tokens.at(tokens.size()-1);
-      if(!QString::compare(u_id,id))
-        start = i + 1;
+    u = userList.getAt(i);
+    users.append(QPair<QString, int>(u->getSurname() + " " + u->getName(), i)); // i è la posizione nel xml
   }
 
-  ui->CB_selectUser->addItems(users);
+  auto pairStringComparator = [](const QPair<QString, int>& pair1, const QPair<QString, int>& pair2) {
+      return pair1.first < pair2.first;
+  };
+
+  // usa il metodo qSort per ordinare la lista in base al comparatore personalizzato
+  qSort(users.begin(), users.end(), pairStringComparator);
+
+  int p = 1;
+  for(const auto& user : users) {
+      ui->CB_selectUser->addItem(user.first);
+      if(!QString::compare(userList.getAt(user.second)->getId(),id))
+        start = p;
+      p++;
+  }
+
+  //ui->CB_selectUser->addItems(users);
 
   ui->CB_selectUser->setCurrentIndex(start);
 }
 
-void SelectUserForm::on_CB_selectUser_currentIndexChanged(const QString &arg1)
+
+void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
 {
     setReadOnly(ui->CB_selectUser->currentIndex()!=0, ui->CB_selectUser->currentIndex()!=0);
     ui->BT_selectUser->setVisible(ui->CB_selectUser->currentIndex()!=0);
 
     User* u = new User;
-    if(ui->CB_selectUser->currentIndex()>0)
+    if(index>0)
     {
-        QStringList tokens = arg1.split(" ");
-        QString id = tokens.at(tokens.size()-1);
-        u = userList.find(id);
+        u = userList.getAt(users[index-1].second);
         ui->BT_create->setText("Edit");
     }
     else {
