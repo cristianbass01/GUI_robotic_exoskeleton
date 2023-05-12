@@ -1,9 +1,12 @@
 #include <QApplication>
 #include <qicon.h>
 #include "main_form.h"
-#include "global_user_list.h"
+#include "global_variable.h"
 
-QString path = "../../Alice/Log/";
+#include <QDir>
+
+const QString path = QDir::homePath() + "/Alice/Log/";
+//const QString path = "../../Alice/Log/";
 UserList userList;
 
 int main(int argc, char *argv[])
@@ -11,6 +14,9 @@ int main(int argc, char *argv[])
 
   ros::init(argc, argv, "start_gui_node");
   QApplication a(argc, argv);
+
+
+  //QString a2 = ;
 
   MainForm w;
   // set the window title as the node name

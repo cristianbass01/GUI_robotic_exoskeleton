@@ -9,7 +9,7 @@
 #include <QStandardPaths>
 
 #include <user_list.h>
-#include <global_user_list.h>
+#include <global_variable.h>
 
 SelectUserForm::SelectUserForm(QWidget *parent) :
   QWidget(parent),
@@ -17,22 +17,14 @@ SelectUserForm::SelectUserForm(QWidget *parent) :
 {
   ui->setupUi(this);
 
+  QList<QString> users;
 
-  QFile users(path + "users.csv");
-
-  //users_list.clear();
-  QString s;
-
-  if(users.open(QIODevice::ReadWrite)) { // Or QIODevice::ReadWrite
-     QTextStream in(&users);
-     while (!in.atEnd()) {
-        s = in.readLine();
-        //users_list.push_back(s);
-        ui->CB_selectUser->addItem(s);
-    }
+  for(int i = 0; i<userList.size(); i++) {
+    User* u = userList.getAt(i);
+    users.append(u->getSurname() + " " + u->getName() + " " +u->getId());
   }
-  users.close();
-
+  qSort(users);
+  ui->CB_selectUser->addItems(users);
 }
 
 SelectUserForm::~SelectUserForm()
@@ -42,25 +34,19 @@ SelectUserForm::~SelectUserForm()
 
 void SelectUserForm::on_CB_selectUser_currentIndexChanged(const QString &arg1)
 {
-    QString s;
-    QFile user(path + arg1 + "/info.csv");
-    if(user.open(QIODevice::ReadOnly)) { // Or QIODevice::ReadWrite
-       QTextStream in(&user);
-       while (!in.atEnd()) {
-          s = in.readLine(); //! da controllare se legge
-      }
-    }
-    else {
-      QMessageBox::warning(this,"Attenzione","L'utente selezionato non è presente"); //// come proseguo? elimino dal file, o chiedo di recrearlo?
-    }
-    user.close();
-    QList<QString> info = s.split(",");
+  QStringList tokens = arg1.split(" ");
+  QString id = tokens.at(tokens.size()-1);
+  User* u = userList.find(id);
 
-    ui->TB_name->setText(info[0]);
-    ui->TB_surname->setText(info[1]);
-    ui->TB_cf->setText(info[2]);
-    ui->DE_birthday->setDate(QDate::fromString(info[3],"dd/MM/yyyy"));
-    switch ((info[4].toStdString())[0]) {
+    if(u==nullptr) {
+      QMessageBox::warning(this,"Attenzione","L'utente selezionato non è presente");
+      return; //// come proseguo? elimino dal file, o chiedo di recrearlo?
+    }
+    ui->TB_name->setText(u->getName());
+    ui->TB_surname->setText(u->getSurname());
+    ui->TB_id->setText(u->getId());
+    ui->DE_birthday->setDate(u->getBirthday());
+    switch (u->getSex().toStdString()[0]) {
         case 'M':
             ui->RB_male->setChecked(true);
             break;
@@ -71,5 +57,8 @@ void SelectUserForm::on_CB_selectUser_currentIndexChanged(const QString &arg1)
             ui->RB_other->setChecked(true);
             break;
     }
-    ui->NB_height->setValue(info[5].toInt());
+    ui->NB_height->setValue(u->getHeight());
+    ui->NB_weight->setValue(u->getWeight());
+    ui->NB_femur->setValue(u->getFemur());
+    ui->NB_tibia->setValue(u->getTibia());
 }

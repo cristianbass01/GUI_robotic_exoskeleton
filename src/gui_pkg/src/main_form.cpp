@@ -9,9 +9,6 @@ MainForm::MainForm(QWidget *parent) :
   ui(new Ui::MainForm)
 {
   ui->setupUi(this);
-
-
-  //path = QStandardPaths::HomeLocation + "";// + "/Alice/Log/";
 }
 MainForm::~MainForm()
 {

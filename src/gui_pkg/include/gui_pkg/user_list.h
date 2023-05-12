@@ -12,10 +12,12 @@ private:
 
 public:
   UserList() {}
+  int size() { return userList.size();}
   void add(const User& user);
   void remove(const User& user);
   User* find(const QString& id);
   int findPos(const QString& id);
+  User* getAt(const int pos);
   User* getLast();
   void saveXml(const QString& fileName);
   void loadXml(const QString& fileName);

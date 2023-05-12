@@ -13,13 +13,13 @@ private:
     QDate birthday_;
     QString sex_;
     int height_;
-    int weight_;
+    double weight_;
     int femur_;
     int tibia_;
 
 public:
     User();
-    User(QString dir, QString id, QString name, QString surname, QDate birthday, QString sex, int height, int weight, int femur, int tibia);
+    User(QString dir, QString id, QString name, QString surname, QDate birthday, QString sex, int height, double weight, int femur, int tibia);
 
     // Getters
     QString getDir() const;
@@ -29,7 +29,7 @@ public:
     QDate getBirthday() const;
     QString getSex() const;
     int getHeight() const;
-    int getWeight() const;
+    double getWeight() const;
     int getFemur() const;
     int getTibia() const;
 
@@ -41,7 +41,7 @@ public:
     void setBirthday(QDate birthday);
     void setSex(QString sex);
     void setHeight(int height);
-    void setWeight(int weight);
+    double setWeight(double weight);
     void setFemur(int femur);
     void setTibia(int tibia);
 };

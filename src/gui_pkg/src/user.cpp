@@ -4,7 +4,7 @@ User::User() :
     dir_{""}, id_{""}, name_{""}, surname_{""}, birthday_{QDate(1900, 1, 1)}, sex_{""}, height_{0}, weight_{0}, femur_{0}, tibia_{0}
 {}
 
-User::User(QString dir, QString id, QString name, QString surname, QDate birthday, QString sex, int height, int weight, int femur, int tibia) :
+User::User(QString dir, QString id, QString name, QString surname, QDate birthday, QString sex, int height, double weight, int femur, int tibia) :
     dir_{dir}, id_{id}, name_{name}, surname_{surname}, birthday_{birthday}, sex_{sex}, height_{height}, weight_{weight}, femur_{femur}, tibia_{tibia}
 {}
 
@@ -16,7 +16,7 @@ QString User::getSurname() const { return surname_; }
 QDate User::getBirthday() const { return birthday_; }
 QString User::getSex() const { return sex_; }
 int User::getHeight() const { return height_; }
-int User::getWeight() const { return weight_; }
+double User::getWeight() const { return weight_; }
 int User::getFemur() const { return femur_; }
 int User::getTibia() const { return tibia_; }
 
@@ -28,7 +28,7 @@ void User::setSurname(QString surname) { surname_ = surname; }
 void User::setBirthday(QDate birthday) { birthday_ = birthday; }
 void User::setSex(QString sex) { sex_ = sex; }
 void User::setHeight(int height) { height_ = height; }
-void User::setWeight(int weight) { weight_ = weight; }
+double User::setWeight(double weight) { weight_ = weight; }
 void User::setFemur(int femur) { femur_ = femur; }
 void User::setTibia(int tibia) { tibia_ = tibia; }
 

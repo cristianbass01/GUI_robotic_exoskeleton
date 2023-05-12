@@ -62,7 +62,7 @@
      </widget>
     </item>
     <item row="1" column="0" colspan="2">
-     <widget class="QLineEdit" name="TB_cf">
+     <widget class="QLineEdit" name="TB_id">
       <property name="maxLength">
        <number>16</number>
       </property>
@@ -180,7 +180,11 @@
      </widget>
     </item>
     <item row="6" column="1">
-     <widget class="QDoubleSpinBox" name="NB_weight"/>
+     <widget class="QDoubleSpinBox" name="NB_weight">
+      <property name="maximum">
+       <double>500.000000000000000</double>
+      </property>
+     </widget>
     </item>
     <item row="7" column="1">
      <widget class="QSpinBox" name="NB_femur">
@@ -198,7 +202,7 @@
  <tabstops>
   <tabstop>TB_name</tabstop>
   <tabstop>TB_surname</tabstop>
-  <tabstop>TB_cf</tabstop>
+  <tabstop>TB_id</tabstop>
   <tabstop>DE_birthday</tabstop>
   <tabstop>RB_male</tabstop>
   <tabstop>RB_female</tabstop>

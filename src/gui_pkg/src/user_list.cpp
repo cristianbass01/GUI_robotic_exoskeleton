@@ -2,6 +2,19 @@
 #include "user.h"
 
 void UserList::add(const User& user) {
+  int p = findPos(user.getId());
+  if(p != -1)
+  {
+    userList[p].setName(user.getName());
+    userList[p].setSurname(user.getSurname());
+    userList[p].setBirthday(user.getBirthday());
+    userList[p].setSex(user.getSex());
+    userList[p].setHeight(user.getHeight());
+    userList[p].setWeight(user.getWeight());
+    userList[p].setFemur(user.getFemur());
+    userList[p].setTibia(user.getTibia());
+    return;
+  }
   userList.append(user);
 }
 
@@ -12,9 +25,9 @@ void UserList::remove(const User& user) {
 }
 
 User* UserList::find(const QString& id) {
-  foreach (User user, userList) {
+  foreach (const User& user, userList) {
     if (user.getId() == id) {
-      return &user;
+      return const_cast<User*>(&user);
     }
   }
   return nullptr;
@@ -29,6 +42,12 @@ int UserList::findPos(const QString& id) {
     pos++;
   }
   return -1;
+}
+
+User* UserList::getAt(const int pos){
+  if(pos >= 0 && pos < userList.size())
+    return &userList[pos];
+  return nullptr;
 }
 
 User* UserList::getLast() {
@@ -60,6 +79,7 @@ void UserList::saveXml(const QString& fileName) {
     xmlWriter.writeAttribute("name", user.getName());
     xmlWriter.writeAttribute("surname", user.getSurname());
     xmlWriter.writeAttribute("birthday", user.getBirthday().toString("yyyy-MM-dd"));
+    xmlWriter.writeAttribute("sex", user.getSex());
     xmlWriter.writeAttribute("height", QString::number(user.getHeight()));
     xmlWriter.writeAttribute("weight", QString::number(user.getWeight()));
     xmlWriter.writeAttribute("femur", QString::number(user.getFemur()));
@@ -96,6 +116,7 @@ void UserList::loadXml(const QString& fileName) {
         currentUser.setName(attributes.value("name").toString());
         currentUser.setSurname(attributes.value("surname").toString());
         currentUser.setBirthday(QDate::fromString(attributes.value("birthday").toString(), "yyyy-MM-dd"));
+        currentUser.setSex(attributes.value("sex").toString());
         currentUser.setHeight(attributes.value("height").toInt());
         currentUser.setWeight(attributes.value("weight").toInt());
         currentUser.setFemur(attributes.value("femur").toInt());
