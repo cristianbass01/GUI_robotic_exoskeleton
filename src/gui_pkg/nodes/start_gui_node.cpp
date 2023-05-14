@@ -2,11 +2,18 @@
 #include <qicon.h>
 #include "main_form.h"
 #include "global_variable.h"
+#include "log.h"
 
 #include <QDir>
 
 const QString path = QDir::homePath() + "/Alice/Log/";
 UserList userList;
+
+void logTest()
+{
+  Log log(userList.getAt(0)->getDir());
+  log.addWalkingEx(8,8,0, QTime(0,0,0,0));
+}
 
 
 int main(int argc, char *argv[])
@@ -26,6 +33,10 @@ int main(int argc, char *argv[])
   w.setWindowIcon(icon);
   userList.loadXml(path + "users.xml");
   w.show();
+
+
+  logTest(); // ------------------------------------
+
 
   return a.exec();
 }
