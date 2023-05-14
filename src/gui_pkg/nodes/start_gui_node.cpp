@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
   w.show();
 
 
-  logTest(); // ------------------------------------
+  //logTest(); // ------------------------------------
 
 
   return a.exec();
