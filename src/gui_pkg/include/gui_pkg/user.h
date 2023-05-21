@@ -41,7 +41,7 @@ public:
     void setBirthday(QDate birthday);
     void setSex(QString sex);
     void setHeight(int height);
-    double setWeight(double weight);
+    void setWeight(double weight);
     void setFemur(int femur);
     void setTibia(int tibia);
 };

@@ -28,7 +28,7 @@ void User::setSurname(QString surname) { surname_ = surname; }
 void User::setBirthday(QDate birthday) { birthday_ = birthday; }
 void User::setSex(QString sex) { sex_ = sex; }
 void User::setHeight(int height) { height_ = height; }
-double User::setWeight(double weight) { weight_ = weight; }
+void User::setWeight(double weight) { weight_ = weight; }
 void User::setFemur(int femur) { femur_ = femur; }
 void User::setTibia(int tibia) { tibia_ = tibia; }
 

@@ -18,15 +18,43 @@
     <rect>
      <x>50</x>
      <y>50</y>
-     <width>301</width>
-     <height>341</height>
+     <width>292</width>
+     <height>292</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="TB_surname">
+      <property name="placeholderText">
+       <string>Surname</string>
+      </property>
+     </widget>
+    </item>
     <item row="9" column="0">
      <widget class="QPushButton" name="BT_selectUser">
       <property name="text">
        <string>Select User</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="LB_femur">
+      <property name="text">
+       <string>Femur (cm)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0">
+     <widget class="QLabel" name="LB_tibia">
+      <property name="text">
+       <string>Tibia (cm)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLineEdit" name="TB_name">
+      <property name="placeholderText">
+       <string>Name</string>
       </property>
      </widget>
     </item>
@@ -37,6 +65,16 @@
       </property>
       <property name="value">
        <number>170</number>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="2">
+     <widget class="QLineEdit" name="TB_id">
+      <property name="maxLength">
+       <number>16</number>
+      </property>
+      <property name="placeholderText">
+       <string>ID</string>
       </property>
      </widget>
     </item>
@@ -61,27 +99,13 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="2">
-     <widget class="QLineEdit" name="TB_id">
-      <property name="maxLength">
-       <number>16</number>
+    <item row="8" column="1">
+     <widget class="QSpinBox" name="NB_tibia">
+      <property name="maximum">
+       <number>300</number>
       </property>
-      <property name="placeholderText">
-       <string>ID</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="LB_height">
-      <property name="text">
-       <string>Height (cm)</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="TB_surname">
-      <property name="placeholderText">
-       <string>Surname</string>
+      <property name="value">
+       <number>50</number>
       </property>
      </widget>
     </item>
@@ -92,10 +116,27 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QLineEdit" name="TB_name">
-      <property name="placeholderText">
-       <string>Name</string>
+    <item row="5" column="0">
+     <widget class="QLabel" name="LB_height">
+      <property name="text">
+       <string>Height (cm)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QDoubleSpinBox" name="NB_weight">
+      <property name="maximum">
+       <double>500.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QSpinBox" name="NB_femur">
+      <property name="maximum">
+       <number>300</number>
+      </property>
+      <property name="value">
+       <number>50</number>
       </property>
      </widget>
     </item>
@@ -153,47 +194,6 @@
         <bool>true</bool>
        </property>
       </widget>
-     </widget>
-    </item>
-    <item row="7" column="0">
-     <widget class="QLabel" name="LB_femur">
-      <property name="text">
-       <string>Femur (cm)</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="0">
-     <widget class="QLabel" name="LB_tibia">
-      <property name="text">
-       <string>Tibia (cm)</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="1">
-     <widget class="QSpinBox" name="NB_tibia">
-      <property name="maximum">
-       <number>300</number>
-      </property>
-      <property name="value">
-       <number>50</number>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
-     <widget class="QDoubleSpinBox" name="NB_weight">
-      <property name="maximum">
-       <double>500.000000000000000</double>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="1">
-     <widget class="QSpinBox" name="NB_femur">
-      <property name="maximum">
-       <number>300</number>
-      </property>
-      <property name="value">
-       <number>50</number>
-      </property>
      </widget>
     </item>
    </layout>

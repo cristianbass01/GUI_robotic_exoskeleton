@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8.3)
 #get_filename_component(PACKAGE_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 message("Creating Package: ${PACKAGE_NAME}")
 
-project(gui_pkg)  ## this package name is the name of the directory this cmake file is in
+project(fake_exo)  ## this package name is the name of the directory this cmake file is in
 
 
 ################################
@@ -80,10 +80,10 @@ find_package(catkin REQUIRED COMPONENTS ${ROS_DEPENDS} message_generation)
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-add_message_files(
-  FILES
-  my_msg.msg
-)
+#add_message_files(
+#  FILES
+#  my_msg.msg
+#)
 
 ## Generate services in the 'srv' folder
 add_service_files(
@@ -186,10 +186,10 @@ foreach(NODE_FILE ${NODES})
 
 endforeach(NODE_FILE)
 
-#install(TARGETS ${NODE_LIST}
- # RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+install(TARGETS ${NODE_LIST}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
-#install(DIRECTORY launch/
- # DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
-  #)
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+  )
 

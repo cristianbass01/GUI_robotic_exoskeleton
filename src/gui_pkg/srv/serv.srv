@@ -1,0 +1,6 @@
+string name
+string surname
+string date
+string placeOfBirth
+-------
+string result
