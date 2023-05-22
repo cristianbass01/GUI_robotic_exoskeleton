@@ -11,6 +11,7 @@
 #include <user_list.h>
 #include <global_variable.h>
 #include <dialog_form.h>
+#include <log_view.h>
 
 SelectUserForm::SelectUserForm(QWidget *parent, bool create) :
   QWidget(parent), ui(new Ui::SelectUserForm)
@@ -74,7 +75,7 @@ void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
     }
 
     if(u==nullptr) {
-      QMessageBox::warning(this,"Attenzione","L'utente selezionato non è presente");
+      QMessageBox::warning(this,"Warning", "The selected user is not present.");
       return; //// come proseguo? elimino dal file, o chiedo di recrearlo?
     }
     ui->TB_name->setText(u->getName());
@@ -112,7 +113,7 @@ void SelectUserForm::on_BT_create_clicked()
   id_user = ui->TB_id->text();
   if(ui->TB_name->text().size() < 3 || ui->TB_surname->text().size() < 3 || id_user.length() != 16 || id_user.contains(" ")) // 16 caratteri è giusto?
   {
-    QMessageBox::warning(this,"Attenzione","Uno o più campi potrebbero essere incompleti\n\nNome e Cognome devono avere almeno 3 lettre, e il CF composto da 16");
+    QMessageBox::warning(this,"Warning", "One or more fields may be incomplete\n\nFirst name and Last name must have at least 3 letters, and ID consisting of 16");
     return;
   }
 
@@ -192,4 +193,12 @@ void SelectUserForm::setReadOnly(bool status, bool id)
 void SelectUserForm::on_BT_selectUser_clicked()
 {
 
+}
+
+void SelectUserForm::on_BT_viewLog_clicked()
+{
+  LogView *lg = new LogView();
+  lg->show();
+
+  this->hide();
 }

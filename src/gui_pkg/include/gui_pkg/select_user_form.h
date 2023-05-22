@@ -33,6 +33,8 @@ private slots:
     void createComboBox(int start, QString id);
     void on_CB_selectUser_currentIndexChanged(int index);
 
+    void on_BT_viewLog_clicked();
+
 public slots:
   void rejected();
   void createUser();
