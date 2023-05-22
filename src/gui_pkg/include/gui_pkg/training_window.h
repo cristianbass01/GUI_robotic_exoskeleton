@@ -2,9 +2,7 @@
 #define TRAINING_WINDOW_H
 
 #include <QMainWindow>
-#include <ros/ros.h>
-#include <qtimer.h>
-#include <std_msgs/String.h>
+
 
 namespace Ui {
 class TrainingWindow;
@@ -18,11 +16,20 @@ public:
   explicit TrainingWindow(QWidget *parent = nullptr);
   ~TrainingWindow();
 
+private slots:
+    void on_standButton_clicked();
+
+    void on_stepButton_clicked();
+
+    void on_walkButton_clicked();
+
+    void on_controlButton_clicked();
+
+    void on_finishButton_clicked();
+
 private:
   Ui::TrainingWindow *ui;
 
-  ros::NodeHandlePtr nh_;
-  ros::ServiceClient client_;
 };
 
 #endif // TRAINING_WINDOW_H

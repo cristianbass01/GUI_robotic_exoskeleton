@@ -1,6 +1,3 @@
-string name
-string surname
-string date
-string placeOfBirth
+string code
 -------
-string result
+string error

@@ -2,4 +2,8 @@
     <qresource prefix="/icons">
         <file>exoskeleton_icon.png</file>
     </qresource>
+    <qresource prefix="/img">
+        <file>logo.png</file>
+        <file>steps.png</file>
+    </qresource>
 </RCC>
