@@ -28,7 +28,7 @@
     </property>
    </column>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="CB_user">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -38,7 +38,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QTreeWidget" name="treeWidget">
+  <widget class="QTreeWidget" name="treeW_log">
    <property name="geometry">
     <rect>
      <x>290</x>

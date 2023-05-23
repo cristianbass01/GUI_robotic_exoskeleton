@@ -9,7 +9,6 @@
 #include <fstream>
 #include <QList>
 #include <ros/ros.h>
-#include <global_variable.h>
 
 namespace Ui {
 class SelectUserForm;

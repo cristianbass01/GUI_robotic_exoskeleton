@@ -197,7 +197,7 @@ void SelectUserForm::on_BT_selectUser_clicked()
 
 void SelectUserForm::on_BT_viewLog_clicked()
 {
-  LogView *lg = new LogView();
+  LogView *lg = new LogView(nullptr, ui->TB_id->text());
   lg->show();
 
   this->hide();
