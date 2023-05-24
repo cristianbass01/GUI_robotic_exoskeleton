@@ -57,7 +57,7 @@
      </spacer>
     </item>
     <item row="10" column="1">
-     <widget class="QSpinBox" name="NB_tibia">
+     <widget class="QSpinBox" name="NB_lowerLeg">
       <property name="readOnly">
        <bool>false</bool>
       </property>
@@ -103,9 +103,9 @@
      </spacer>
     </item>
     <item row="10" column="0">
-     <widget class="QLabel" name="LB_tibia">
+     <widget class="QLabel" name="LB_lowerLeg">
       <property name="text">
-       <string>Tibia (cm)</string>
+       <string>Lower leg (cm)</string>
       </property>
      </widget>
     </item>
@@ -117,7 +117,7 @@
      </widget>
     </item>
     <item row="9" column="1">
-     <widget class="QSpinBox" name="NB_femur">
+     <widget class="QSpinBox" name="NB_upperLeg">
       <property name="readOnly">
        <bool>false</bool>
       </property>
@@ -178,9 +178,9 @@
      </widget>
     </item>
     <item row="9" column="0">
-     <widget class="QLabel" name="LB_femur">
+     <widget class="QLabel" name="LB_upperLeg">
       <property name="text">
-       <string>Femur (cm)</string>
+       <string>Upper leg (cm)</string>
       </property>
      </widget>
     </item>
@@ -364,8 +364,8 @@
   <tabstop>RB_other</tabstop>
   <tabstop>NB_height</tabstop>
   <tabstop>NB_weight</tabstop>
-  <tabstop>NB_femur</tabstop>
-  <tabstop>NB_tibia</tabstop>
+  <tabstop>NB_upperLeg</tabstop>
+  <tabstop>NB_lowerLeg</tabstop>
   <tabstop>BT_create</tabstop>
  </tabstops>
  <resources/>

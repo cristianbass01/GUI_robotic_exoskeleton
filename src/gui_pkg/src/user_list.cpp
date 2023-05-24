@@ -11,8 +11,8 @@ void UserList::add(const User& user) {
     userList[p].setSex(user.getSex());
     userList[p].setHeight(user.getHeight());
     userList[p].setWeight(user.getWeight());
-    userList[p].setFemur(user.getFemur());
-    userList[p].setTibia(user.getTibia());
+    userList[p].setUpperLeg(user.getUpperLeg());
+    userList[p].setLowerLeg(user.getLowerLeg());
     return;
   }
   userList.append(user);
@@ -82,8 +82,8 @@ void UserList::saveXml(const QString& fileName) {
     xmlWriter.writeAttribute("sex", user.getSex());
     xmlWriter.writeAttribute("height", QString::number(user.getHeight()));
     xmlWriter.writeAttribute("weight", QString::number(user.getWeight()));
-    xmlWriter.writeAttribute("femur", QString::number(user.getFemur()));
-    xmlWriter.writeAttribute("tibia", QString::number(user.getTibia()));
+    xmlWriter.writeAttribute("upperLeg", QString::number(user.getUpperLeg()));
+    xmlWriter.writeAttribute("LowerLeg", QString::number(user.getLowerLeg()));
     xmlWriter.writeEndElement();
     }
 
@@ -119,8 +119,8 @@ void UserList::loadXml(const QString& fileName) {
         currentUser.setSex(attributes.value("sex").toString());
         currentUser.setHeight(attributes.value("height").toInt());
         currentUser.setWeight(attributes.value("weight").toInt());
-        currentUser.setFemur(attributes.value("femur").toInt());
-        currentUser.setTibia(attributes.value("tibia").toInt());
+        currentUser.setUpperLeg(attributes.value("upperLeg").toInt());
+        currentUser.setLowerLeg(attributes.value("lowerLeg").toInt());
         userList.append(currentUser);
       }
     }

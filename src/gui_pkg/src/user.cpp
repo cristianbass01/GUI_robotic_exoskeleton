@@ -1,11 +1,11 @@
 #include <user.h>
 
 User::User() :
-    dir_{""}, id_{""}, name_{""}, surname_{""}, birthday_{QDate(2000, 1, 1)}, sex_{""}, height_{170}, weight_{70}, femur_{50}, tibia_{50}
+    dir_{""}, id_{""}, name_{""}, surname_{""}, birthday_{QDate(2000, 1, 1)}, sex_{""}, height_{170}, weight_{70}, upperLeg_{50}, lowerLeg_{50}
 {}
 
-User::User(QString dir, QString id, QString name, QString surname, QDate birthday, QString sex, int height, double weight, int femur, int tibia) :
-    dir_{dir}, id_{id}, name_{name}, surname_{surname}, birthday_{birthday}, sex_{sex}, height_{height}, weight_{weight}, femur_{femur}, tibia_{tibia}
+User::User(QString dir, QString id, QString name, QString surname, QDate birthday, QString sex, int height, double weight, int upperLeg, int lowerLeg) :
+    dir_{dir}, id_{id}, name_{name}, surname_{surname}, birthday_{birthday}, sex_{sex}, height_{height}, weight_{weight}, upperLeg_{upperLeg}, lowerLeg_{lowerLeg}
 {}
 
 //Getter
@@ -17,8 +17,8 @@ QDate User::getBirthday() const { return birthday_; }
 QString User::getSex() const { return sex_; }
 int User::getHeight() const { return height_; }
 double User::getWeight() const { return weight_; }
-int User::getFemur() const { return femur_; }
-int User::getTibia() const { return tibia_; }
+int User::getUpperLeg() const { return upperLeg_; }
+int User::getLowerLeg() const { return lowerLeg_; }
 
 //Setter
 void User::setId(QString id) { id_ = id; }
@@ -29,6 +29,6 @@ void User::setBirthday(QDate birthday) { birthday_ = birthday; }
 void User::setSex(QString sex) { sex_ = sex; }
 void User::setHeight(int height) { height_ = height; }
 void User::setWeight(double weight) { weight_ = weight; }
-void User::setFemur(int femur) { femur_ = femur; }
-void User::setTibia(int tibia) { tibia_ = tibia; }
+void User::setUpperLeg(int upperLeg) { upperLeg_ = upperLeg; }
+void User::setLowerLeg(int lowerLeg) { lowerLeg_ = lowerLeg; }
 

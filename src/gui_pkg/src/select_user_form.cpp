@@ -98,8 +98,8 @@ void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
     }
     ui->NB_height->setValue(u->getHeight());
     ui->NB_weight->setValue(u->getWeight());
-    ui->NB_femur->setValue(u->getFemur());
-    ui->NB_tibia->setValue(u->getTibia());
+    ui->NB_upperLeg->setValue(u->getUpperLeg());
+    ui->NB_lowerLeg->setValue(u->getLowerLeg());
 }
 
 void SelectUserForm::on_BT_create_clicked()
@@ -160,7 +160,7 @@ void SelectUserForm::createUser(){
     }
 
     User u(dir,id_user,ui->TB_name->text(),ui->TB_surname->text(),ui->DE_birthday->date(), sex,
-           ui->NB_height->value(), ui->NB_weight->value(), ui->NB_femur->value(), ui->NB_tibia->value());
+           ui->NB_height->value(), ui->NB_weight->value(), ui->NB_upperLeg->value(), ui->NB_lowerLeg->value());
 
     userList.add(u);
 
@@ -189,8 +189,8 @@ void SelectUserForm::setReadOnly(bool status, bool id)
   ui->RB_other->setEnabled(!status);
   ui->NB_height->setReadOnly(status);
   ui->NB_weight->setReadOnly(status);
-  ui->NB_femur->setReadOnly(status);
-  ui->NB_tibia->setReadOnly(status);
+  ui->NB_upperLeg->setReadOnly(status);
+  ui->NB_lowerLeg->setReadOnly(status);
 }
 
 void SelectUserForm::on_BT_selectUser_clicked()
