@@ -18,13 +18,16 @@ set(ROS_DEPENDS
 set(EXTERNAL_DEPENDS
   Qt5Widgets
   Qt5PrintSupport
+  Qt5Gui
   #OpenCV
+
   )
 
 set(EXTERNAL_DEPENDS_LIB
   Qt5::Widgets
   Qt5::PrintSupport
   Qt5::Core
+  Qt5::Gui
   #${OpenCV_LIBS}
   )
 
@@ -48,13 +51,14 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 ###
 
 foreach(DEPEND ${EXTERNAL_DEPENDS})
-  find_package(${DEPEND} REQUIRED)
+  find_package( ${DEPEND} REQUIRED)
 endforeach(DEPEND)
 
 ###
 ###  Add any required ros packages here
 ###
 find_package(catkin REQUIRED COMPONENTS ${ROS_DEPENDS} message_generation)
+find_package(Qt5 COMPONENTS Core)
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -114,11 +118,6 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${INCLUDE_DIRECTORIES}
 )
-
-
-
-
-
 
 ###########
 ## Build ##
