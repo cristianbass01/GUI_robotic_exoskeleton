@@ -4,6 +4,7 @@
 #include "global_variable.h"
 #include "log.h"
 #include "connected_component.h"
+#include "frame_window.h"
 
 #include <QDir>
 
@@ -27,15 +28,17 @@ int main(int argc, char *argv[])
 
   //QString a2 = ;
 
-  MainForm w;
+  FrameWindow* frame = new FrameWindow();
+  frame->customizeWindow(new MainForm(frame));
+
   // set the window title as the node name
   //w.setWindowTitle(QString::fromStdString(ros::this_node::getName()));
 
   // load the icon from our qrc file and set it as the application icon
   QIcon icon(":/icons/exoskeleton_icon.png");
-  w.setWindowIcon(icon);
+  frame->setWindowIcon(icon);
   userList.loadXml(path + "users.xml");
-  w.show();
+  frame->show();
 
 
   logTest(); // ------------------------------------

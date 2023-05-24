@@ -6,10 +6,11 @@
 #include "frame_window.h"
 #include "training_form.h"
 
-MainForm::MainForm(QWidget *parent) :
+MainForm::MainForm(FrameWindow *parent) :
   QWidget(parent),
   ui(new Ui::MainForm)
 {
+  frame_ = parent;
   ui->setupUi(this);
 }
 MainForm::~MainForm()
@@ -32,8 +33,10 @@ void MainForm::on_BT_createUser_clicked()
 
 void MainForm::on_BT_selectUser_clicked()
 {
-  SelectUserForm *SelectUserF = new SelectUserForm();
-  SelectUserF->show();
+  //SelectUserForm *SelectUserF = new SelectUserForm();
+  frame_->customizeWindow(new SelectUserForm(frame_));
+  frame_->show();
+  //SelectUserF->show();
 
   this->hide();
   //this->deleteLater();
@@ -41,9 +44,8 @@ void MainForm::on_BT_selectUser_clicked()
 
 void MainForm::on_BT_demo_clicked()
 {
-    FrameWindow *frame = new FrameWindow();
-    frame->customizeWindow(new TrainingForm(frame));
-    frame->show();
+    frame_->customizeWindow(new TrainingForm(frame_));
+    frame_->show();
 
     this->hide();
 }

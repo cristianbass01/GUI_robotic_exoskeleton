@@ -24,7 +24,7 @@ private:
   QList<QPair<QString, int>> users;
 
 public:
-  explicit LogView(QWidget *parent = nullptr, QString id = NULL);
+  explicit LogView(QWidget *parent = nullptr, QString id = nullptr);
   ~LogView();
 
 private:

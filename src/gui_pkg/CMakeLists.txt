@@ -58,7 +58,6 @@ endforeach(DEPEND)
 ###  Add any required ros packages here
 ###
 find_package(catkin REQUIRED COMPONENTS ${ROS_DEPENDS} message_generation)
-find_package(Qt5 COMPONENTS Core)
 
 ################################################
 ## Declare ROS messages, services and actions ##

@@ -17,6 +17,9 @@ public:
 
     void customizeWindow(QWidget *widget_to_insert);
 
+private slots:
+    void on_actionHome_triggered();
+
 private:
     Ui::FrameWindow *ui;
 };

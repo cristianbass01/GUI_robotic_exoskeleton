@@ -40,9 +40,8 @@ void SessionForm::on_walkWindowButton_clicked()
 
 void SessionForm::on_returnButton_clicked()
 {
-    FrameWindow *frame = new FrameWindow();
-    frame->customizeWindow(new TrainingForm(frame));
-    frame->show();
+    frame_->customizeWindow(new TrainingForm(frame_));
+    frame_->show();
 
     this->close();
 }
@@ -78,12 +77,12 @@ void SessionForm::on_connectButton_clicked()
 {
     if(! connectedComponent->isConnected()){
         connectedComponent->connect();
-
-        ui->connectButton->setText("Connected");
-        ui->connectButton->setStyleSheet("color: rgb(0, 255, 0);");
+        this->setConnected();
     }
 }
 
-//void SessionForm::startWaiting(){
-
-//}
+void SessionForm::setConnected(){
+    ui->connectButton->setText("Connected");
+    ui->connectButton->setStyleSheet("color: rgb(0, 255, 0);");
+    QCoreApplication::processEvents();
+}

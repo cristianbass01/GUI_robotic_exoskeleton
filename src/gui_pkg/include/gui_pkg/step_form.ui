@@ -193,7 +193,8 @@
    <item>
     <widget class="QLabel" name="loadingLabel">
      <property name="text">
-      <string/>
+      <string>&lt;img src=&quot;:/icons/update-left-rotation.png&quot; width=&quot;40&quot;/&gt;
+</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

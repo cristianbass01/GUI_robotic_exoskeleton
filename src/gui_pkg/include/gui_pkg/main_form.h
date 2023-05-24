@@ -6,6 +6,8 @@
 #include "select_user_form.h"
 #include "create_user_form.h"
 
+#include "frame_window.h"
+
 namespace Ui {
 class MainForm;
 }
@@ -15,7 +17,7 @@ class MainForm : public QWidget
   Q_OBJECT
 
 public:
-  explicit MainForm(QWidget *parent = nullptr);
+  explicit MainForm(FrameWindow *parent = nullptr);
   ~MainForm();
 
 private slots:
@@ -27,6 +29,7 @@ private slots:
 
 private:
   Ui::MainForm *ui;
+  FrameWindow* frame_;
 };
 
 #endif // MAIN_FORM_H

@@ -24,6 +24,7 @@ public:
 
     void connect();
     bool isConnected();
+    void errorMsg(std::string error);
 };
 
 #endif // CONNECTED_COMPONENT_H
