@@ -44,6 +44,7 @@ private:
     QString id_user;
     QList<QPair<QString, int>> users;
     FrameWindow* frame_;
+    int currentUser;
 };
 
 #endif // SELECT_USER_FORM_H

@@ -9,7 +9,7 @@
 #include "control_form.h"
 #include "walking_form.h"
 
-TrainingForm::TrainingForm(FrameWindow *parent) :
+TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
   QWidget(parent),
   ui(new Ui::TrainingForm)
 {

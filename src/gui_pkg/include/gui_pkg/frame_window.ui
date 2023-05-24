@@ -24,6 +24,24 @@ QPushButton{
 	border-radius: 15px;
 }
 
+QPushButton:hover {
+    border: 2px solid #576490;
+}
+
+QPushButton:pressed {
+    background-color: #99F7AB;     
+}
+
+QLineEdit {
+	border: 1px solid;
+	border-radius: 5px;
+}
+
+QLineEdit:Focus {
+	border: 2px solid #576490;
+	
+}
+
 QLabel#Alice, QFrame#home{
 	border: 1px solid #000000;
 	border-radius: 15px;

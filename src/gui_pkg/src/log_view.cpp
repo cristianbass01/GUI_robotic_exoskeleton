@@ -52,7 +52,7 @@ void LogView::createComboBox(QString id){
 void LogView::on_CB_user_currentIndexChanged(int index)
 {
   ui->treeW_log->clear();
-  User* u = userList.getAt(index);
+  User* u = userList.getAt(users[index].second);
 
   ui->TB_name->setText(u->getName());
   ui->TB_surname->setText(u->getSurname());
@@ -86,7 +86,7 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
     ui->TableW_log->setColumnCount(0);
     ui->TableW_log->clear();
 
-        QFile file(path + userList.getAt(users[column].second)->getDir() + "/" + item->text(0) + ".log");
+    QFile file(path + userList.getAt(users[column].second)->getDir() + "/" + item->text(0) + ".log");
     for(int j =0; j< 5; j++)
         ui ->TableW_log->insertColumn(j);
 

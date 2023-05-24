@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "frame_window.h"
+#include <user_list.h>
 
 
 namespace Ui {
@@ -14,7 +15,7 @@ class TrainingForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit TrainingForm(FrameWindow *parent = nullptr);
+    explicit TrainingForm(FrameWindow *parent = nullptr, User *user = nullptr);
     ~TrainingForm();
 
     FrameWindow* getFrame(){return this->frame_;}

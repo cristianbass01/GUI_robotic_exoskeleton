@@ -12,6 +12,7 @@
 #include <global_variable.h>
 #include <dialog_form.h>
 #include <log_view.h>
+#include <training_form.h>
 
 SelectUserForm::SelectUserForm(FrameWindow *parent, bool create) :
   QWidget(parent), ui(new Ui::SelectUserForm)
@@ -69,7 +70,8 @@ void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
     User* u = new User;
     if(index>0)
     {
-        u = userList.getAt(users[index-1].second);
+        currentUser = users[index-1].second;
+        u = userList.getAt(currentUser);
         ui->BT_create->setText("Edit");
 
     }
@@ -114,9 +116,9 @@ void SelectUserForm::on_BT_create_clicked()
   }
 
   id_user = ui->TB_id->text();
-  if(ui->TB_name->text().size() < 3 || ui->TB_surname->text().size() < 3 || id_user.length() != 16 || id_user.contains(" ")) // 16 caratteri è giusto?
+  if(ui->TB_name->text().size() < 3 || ui->TB_surname->text().size() < 3 || id_user.length() < 3 || id_user.contains(" ")) // 16 caratteri è giusto?
   {
-    QMessageBox::warning(this,"Warning", "One or more fields may be incomplete\n\nFirst name and Last name must have at least 3 letters, and ID consisting of 16");
+    QMessageBox::warning(this,"Warning", "One or more fields may be incomplete\n\nFirst name, Last name and ID must have at least 3 letters");
     return;
   }
 
@@ -195,6 +197,8 @@ void SelectUserForm::setReadOnly(bool status, bool id)
 
 void SelectUserForm::on_BT_selectUser_clicked()
 {
+  frame_->customizeWindow(new TrainingForm(frame_, userList.getAt(currentUser)));
+  frame_->show();
 
 }
 
