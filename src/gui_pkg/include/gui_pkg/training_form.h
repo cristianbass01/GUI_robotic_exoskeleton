@@ -2,19 +2,22 @@
 #define TRAINING_WINDOW_H
 
 #include <QMainWindow>
+#include "frame_window.h"
 
 
 namespace Ui {
-class TrainingWindow;
+class TrainingForm;
 }
 
-class TrainingWindow : public QMainWindow
+class TrainingForm : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
 public:
-  explicit TrainingWindow(QWidget *parent = nullptr);
-  ~TrainingWindow();
+    explicit TrainingForm(FrameWindow *parent = nullptr);
+    ~TrainingForm();
+
+    FrameWindow* getFrame(){return this->frame_;}
 
 private slots:
     void on_standButton_clicked();
@@ -28,7 +31,8 @@ private slots:
     void on_finishButton_clicked();
 
 private:
-  Ui::TrainingWindow *ui;
+    Ui::TrainingForm *ui;
+    FrameWindow *frame_;
 
 };
 

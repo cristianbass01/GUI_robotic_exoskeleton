@@ -5,14 +5,15 @@
 #include <qtimer.h>
 #include <std_msgs/String.h>
 
-
 class ConnectedComponent
 {
 public:
-    ConnectedComponent();
+    ConnectedComponent(int argc, char *argv[]);
     void step(const std::string &code);
 
 private:
+    int argc;
+    char **argv;
     ros::NodeHandlePtr nh_;
     ros::ServiceClient client_;
 
@@ -20,6 +21,9 @@ public:
     const std::string LEFTSTEP = "12";
     const std::string RIGHTSTEP = "34";
     const std::string PAIR = "51";
+
+    void connect();
+    bool isConnected();
 };
 
 #endif // CONNECTED_COMPONENT_H

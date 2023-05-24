@@ -1,9 +1,43 @@
 <RCC>
     <qresource prefix="/icons">
         <file>exoskeleton_icon.png</file>
+        <file>aiuto.png</file>
+        <file>barra-di-caricamento.gif</file>
+        <file>caricare.png</file>
+        <file>elimina.png</file>
+        <file>eliminare.png</file>
+        <file>errore.png</file>
+        <file>full-page-view.png</file>
+        <file>home-page.png</file>
+        <file>informazioni.png</file>
+        <file>nome-utente.png</file>
+        <file>password.png</file>
+        <file>posta-elettronica.png</file>
+        <file>priorità-alta.png</file>
+        <file>salva.png</file>
+        <file>salva-con-nome.png</file>
+        <file>scaricare.png</file>
+        <file>steps.png</file>
+        <file>update-left-rotation.png</file>
+        <file>utente-uomo-cerchiato.png</file>
+        <file>aggiungi.png</file>
+        <file>settings_update.png</file>
+        <file>settings_view.png</file>
+        <file>single-page-mode.png</file>
+        <file>utente-uomo-cerchiato (1).png</file>
+        <file>utente-uomo-cerchiato (2).png</file>
+        <file>utente-uomo-cerchiato (3).png</file>
+        <file>utente-uomo-cerchiato (4).png</file>
+        <file>utente-uomo-cerchiato(0).png</file>
+        <file>copia.png</file>
+        <file>incolla.png</file>
+        <file>taglia.png</file>
     </qresource>
     <qresource prefix="/img">
         <file>logo.png</file>
         <file>steps.png</file>
+    </qresource>
+    <qresource prefix="/gif">
+        <file>loading.gif</file>
     </qresource>
 </RCC>
