@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QTableWidget" name="tableWidget">
+  <widget class="QTableWidget" name="TableW_log">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -68,7 +68,7 @@
     </rect>
    </property>
    <property name="readOnly">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="placeholderText">
     <string>Name</string>
@@ -84,7 +84,7 @@
     </rect>
    </property>
    <property name="readOnly">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="placeholderText">
     <string>Surname</string>
@@ -103,7 +103,7 @@
     <number>16</number>
    </property>
    <property name="readOnly">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="placeholderText">
     <string>ID</string>

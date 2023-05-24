@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <global_variable.h>
 #include <user_list.h>
+#include <QTreeWidgetItem>
 
 namespace Ui {
 class LogView;
@@ -16,6 +17,8 @@ private slots:
   void createComboBox(QString id);
 
   void on_CB_user_currentIndexChanged(int index);
+
+  void on_treeW_log_itemClicked(QTreeWidgetItem *item, int column);
 
 private:
   QList<QPair<QString, int>> users;

@@ -1,6 +1,9 @@
 #include "log_view.h"
 #include "ui_log_view.h"
 #include <QDir>
+#include <QString>
+#include <QDate>
+#include <QTextStream>
 
 LogView::LogView(QWidget *parent, QString id) :
   QWidget(parent),
@@ -54,7 +57,7 @@ void LogView::on_CB_user_currentIndexChanged(int index)
   ui->TB_surname->setText(u->getSurname());
   ui->TB_id->setText(u->getId());
 
-  QDir logsDir(u->getDir());
+  QDir logsDir(path + u->getDir());
   QStringList logFiles = logsDir.entryList(QDir::Files);
 
   QTreeWidgetItem* walkingItem = new QTreeWidgetItem(QStringList() << "Walking Ex");
@@ -63,13 +66,42 @@ void LogView::on_CB_user_currentIndexChanged(int index)
   ui->treeW_log->addTopLevelItem(stepItem);
 
   foreach (QString logFile, logFiles) {
-      if (logFile.endsWith("WalkingEx.log")) {
-          QTreeWidgetItem* item = new QTreeWidgetItem(QStringList() << logFile);
-          walkingItem->addChild(item);
-      } else if (logFile.startsWith("StepEx.log")) {
-          QTreeWidgetItem* item = new QTreeWidgetItem(QStringList() << logFile);
-          stepItem->addChild(item);
-      }
+    QTreeWidgetItem* item = new QTreeWidgetItem(QStringList() << logFile);
+    item->setText(0, logFile.mid(0,logFile.length() - 4)); // tolgo .log
+    QDate date = QDate::fromString(logFile.mid(3, 8),"yyyyMMdd");
+    item->setText(1, date.toString("dd/MM/yyyy"));  // mostro la data
+    if (logFile.endsWith("WalkingEx.log"))
+        walkingItem->addChild(item);
+    else if (logFile.endsWith("StepEx.log"))
+        stepItem->addChild(item);
   }
+  //ui->treeW_log->resizeColumnToContents(0);
+  //ui->treeW_log->resizeColumnToContents(1);
+}
 
+void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
+{
+    QFile file(item->text(0) + ".");
+
+    // Apre il file in modalità di lettura
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        // Crea un oggetto QTextStream per leggere il file
+        QTextStream in(&file);
+
+        // Legge il contenuto del file riga per riga
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            // Fai qualcosa con la riga letta, ad esempio stampala
+            // qDebug() << line;
+
+            ui->TableW_log->setItem(0, 0, new QTableWidgetItem(line));
+
+        }
+
+        // Chiude il file dopo aver finito di leggere
+        file.close();
+    } else {
+        // Se non è possibile aprire il file, gestisci l'errore
+        //qDebug() << "Impossibile aprire il file" << fileName;
+    }
 }
