@@ -13,9 +13,10 @@
 #include <dialog_form.h>
 #include <log_view.h>
 
-SelectUserForm::SelectUserForm(QWidget *parent, bool create) :
+SelectUserForm::SelectUserForm(FrameWindow *parent, bool create) :
   QWidget(parent), ui(new Ui::SelectUserForm)
 {
+    frame_ = parent;
     ui->setupUi(this);
 
     createComboBox(!create, NULL);
@@ -62,13 +63,15 @@ void SelectUserForm::createComboBox(int start, QString id){
 void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
 {
     setReadOnly(ui->CB_selectUser->currentIndex()!=0, ui->CB_selectUser->currentIndex()!=0);
-    ui->BT_selectUser->setVisible(ui->CB_selectUser->currentIndex()!=0);
+    ui->BT_selectUser->setVisible(ui->CB_selectUser->currentIndex()>0);
+    ui->BT_viewLog->setVisible(ui->CB_selectUser->currentIndex()>0);
 
     User* u = new User;
     if(index>0)
     {
         u = userList.getAt(users[index-1].second);
         ui->BT_create->setText("Edit");
+
     }
     else {
         ui->BT_create->setText("Save");
@@ -197,8 +200,8 @@ void SelectUserForm::on_BT_selectUser_clicked()
 
 void SelectUserForm::on_BT_viewLog_clicked()
 {
-  LogView *lg = new LogView(nullptr, ui->TB_id->text());
-  lg->show();
+  frame_->customizeWindow(new LogView(frame_, ui->TB_id->text()));
+  frame_->show();
 
   this->hide();
 }

@@ -9,6 +9,7 @@
 #include <fstream>
 #include <QList>
 #include <ros/ros.h>
+#include <frame_window.h>
 
 namespace Ui {
 class SelectUserForm;
@@ -16,11 +17,11 @@ class SelectUserForm;
 
 class SelectUserForm : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
 public:
-  explicit SelectUserForm(QWidget *parent = nullptr, bool create = false);
-  ~SelectUserForm();
+    explicit SelectUserForm(FrameWindow *parent = nullptr, bool create = false);
+    ~SelectUserForm();
 
 signals:
     //void on_BT_select_clicked();
@@ -39,9 +40,10 @@ public slots:
   void createUser();
 
 private:
-  Ui::SelectUserForm *ui;
-  QString id_user;
-  QList<QPair<QString, int>> users;
+    Ui::SelectUserForm *ui;
+    QString id_user;
+    QList<QPair<QString, int>> users;
+    FrameWindow* frame_;
 };
 
 #endif // SELECT_USER_FORM_H

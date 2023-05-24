@@ -5,10 +5,11 @@
 #include <QDate>
 #include <QTextStream>
 
-LogView::LogView(QWidget *parent, QString id) :
+LogView::LogView(FrameWindow *parent, QString id) :
   QWidget(parent),
   ui(new Ui::LogView)
 {
+  frame_ = parent;
   ui->setupUi(this);
   createComboBox(id);
 }
@@ -81,7 +82,13 @@ void LogView::on_CB_user_currentIndexChanged(int index)
 
 void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
 {
-    QFile file(item->text(0) + ".");
+    ui->TableW_log->setRowCount(0);
+    ui->TableW_log->setColumnCount(0);
+    ui->TableW_log->clear();
+
+        QFile file(path + userList.getAt(users[column].second)->getDir() + "/" + item->text(0) + ".log");
+    for(int j =0; j< 5; j++)
+        ui ->TableW_log->insertColumn(j);
 
     // Apre il file in modalità di lettura
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -89,12 +96,16 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
         QTextStream in(&file);
 
         // Legge il contenuto del file riga per riga
+        int i = 0;
         while (!in.atEnd()) {
             QString line = in.readLine();
             // Fai qualcosa con la riga letta, ad esempio stampala
             // qDebug() << line;
-
-            ui->TableW_log->setItem(0, 0, new QTableWidgetItem(line));
+            ui->TableW_log->insertRow(i);
+            QStringList log_line = line.split(";");
+            for(int j = 0; j < log_line.size(); j++)
+              ui->TableW_log->setItem(i, j, new QTableWidgetItem(log_line.at(j)));
+            i++;
 
         }
 

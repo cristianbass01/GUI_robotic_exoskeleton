@@ -5,6 +5,7 @@
 #include <global_variable.h>
 #include <user_list.h>
 #include <QTreeWidgetItem>
+#include <frame_window.h>
 
 namespace Ui {
 class LogView;
@@ -24,11 +25,12 @@ private:
   QList<QPair<QString, int>> users;
 
 public:
-  explicit LogView(QWidget *parent = nullptr, QString id = nullptr);
+  explicit LogView(FrameWindow *parent = nullptr, QString id = nullptr);
   ~LogView();
 
 private:
   Ui::LogView *ui;
+  FrameWindow* frame_;
 };
 
 #endif // LOG_VIEW_H

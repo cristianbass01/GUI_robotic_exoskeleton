@@ -15,31 +15,32 @@ MainForm::MainForm(FrameWindow *parent) :
 }
 MainForm::~MainForm()
 {
-  delete ui;
+   delete ui;
 }
 
 void MainForm::on_BT_createUser_clicked()
 {
-  //CreateUserForm *CreateUserF = new CreateUserForm();
+    //CreateUserForm *CreateUserF = new CreateUserForm();
 
-  //CreateUserF->show();
+    //CreateUserF->show();
 
 
-  SelectUserForm *SelectUserF = new SelectUserForm(nullptr, true);
-  SelectUserF->show();
-  this->hide();
-  //this->deleteLater();
+    frame_->customizeWindow(new SelectUserForm(frame_, true));
+    frame_->show();
+
+    this->hide();
+    //this->deleteLater();
 }
 
 void MainForm::on_BT_selectUser_clicked()
 {
-  //SelectUserForm *SelectUserF = new SelectUserForm();
-  frame_->customizeWindow(new SelectUserForm(frame_));
-  frame_->show();
-  //SelectUserF->show();
+    //SelectUserForm *SelectUserF = new SelectUserForm();
+    frame_->customizeWindow(new SelectUserForm(frame_));
+    frame_->show();
+    //SelectUserF->show();
 
-  this->hide();
-  //this->deleteLater();
+    this->hide();
+    //this->deleteLater();
 }
 
 void MainForm::on_BT_demo_clicked()

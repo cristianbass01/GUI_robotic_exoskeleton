@@ -41,7 +41,7 @@ void Log::addToFile(QString fileName, QString log) // restituisce l'ultimo inter
   int n = 0;
   if(nLine>0)
     n = line.split(";")[0].toInt();  // non us nLine, perchè nel caso venisse eliminata una riga dal file allora l'ultima verrebeb sovrascritta
-  stream << QString::number(n) << ";" << log;
+  stream << QString::number(n) << ";" << log << "\n";
   file.close();
   //return nLine;
 }
