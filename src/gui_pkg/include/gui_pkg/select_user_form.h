@@ -9,7 +9,6 @@
 #include <fstream>
 #include <QList>
 #include <ros/ros.h>
-#include <global_variable.h>
 
 namespace Ui {
 class SelectUserForm;
@@ -32,6 +31,8 @@ private slots:
     void on_BT_selectUser_clicked();
     void createComboBox(int start, QString id);
     void on_CB_selectUser_currentIndexChanged(int index);
+
+    void on_BT_viewLog_clicked();
 
 public slots:
   void rejected();

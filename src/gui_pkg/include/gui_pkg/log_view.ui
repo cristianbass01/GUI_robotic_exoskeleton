@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LogView</class>
+ <widget class="QWidget" name="LogView">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>686</width>
+    <height>476</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>200</y>
+     <width>601</width>
+     <height>251</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>#</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QComboBox" name="CB_user">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>40</y>
+     <width>251</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTreeWidget" name="treeW_log">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>40</y>
+     <width>341</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>Log</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Date</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QLineEdit" name="TB_name">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>79</y>
+     <width>121</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="placeholderText">
+    <string>Name</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="TB_surname">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>80</y>
+     <width>121</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="placeholderText">
+    <string>Surname</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="TB_id">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>110</y>
+     <width>251</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maxLength">
+    <number>16</number>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="placeholderText">
+    <string>ID</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

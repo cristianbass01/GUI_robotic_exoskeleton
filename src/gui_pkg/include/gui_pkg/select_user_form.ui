@@ -339,6 +339,19 @@
     </item>
    </layout>
   </widget>
+  <widget class="QPushButton" name="BT_viewLog">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>450</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>View Log</string>
+   </property>
+  </widget>
  </widget>
  <tabstops>
   <tabstop>CB_selectUser</tabstop>

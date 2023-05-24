@@ -38,7 +38,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Seleziona Utente</string>
+       <string>Select User</string>
       </property>
      </widget>
     </item>
@@ -59,7 +59,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Crea Utente</string>
+       <string>Create User</string>
       </property>
      </widget>
     </item>
