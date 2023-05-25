@@ -24,15 +24,8 @@ void ConnectedComponent::step(const std::string &code){
     }
 }
 
-void ConnectedComponent::connect(){
-
-    try {
-        ros::init(this->argc, this->argv, "gui_connection");
-    } catch (std::exception& e) {
-        std::string error = "Failed to initialize ROS: " + std::string(e.what());
-        ROS_ERROR_STREAM(error);
-        errorMsg(error);
-    }
+bool ConnectedComponent::connect(){
+    ros::init(this->argc, this->argv, "gui_connection");
 
     try{
         // Reset the NodeHandle
@@ -44,17 +37,14 @@ void ConnectedComponent::connect(){
         errorMsg(error);
     }
 
+    //Trying to connect to the server
+    client_ = nh_->serviceClient<gui_pkg::serv>("/exo");
 
-    try{
-        //Trying to connect to the server
-        client_ = nh_->serviceClient<gui_pkg::serv>("/exo");
+    if(!isConnected()){
+        errorMsg("Error occurred during\n connection to the device.");
+        return false;
     }
-    catch (const std::exception& e)
-    {
-        std::string error = "Exception occurred during service call: " + std::string(e.what());
-        ROS_ERROR_STREAM(error);
-        errorMsg(error);
-    }
+    return true;
 }
 
 bool ConnectedComponent::isConnected(){
@@ -70,6 +60,7 @@ void ConnectedComponent::errorMsg(std::string error){
     msgBox.setIcon(QMessageBox::Critical);
     msgBox.setWindowTitle("Error");
     msgBox.setText(QString::fromStdString(error));
+    msgBox.setInformativeText("Do you want to retry?");
     msgBox.setStandardButtons(QMessageBox::Retry | QMessageBox::Cancel);
     msgBox.setDefaultButton(QMessageBox::Retry);
 

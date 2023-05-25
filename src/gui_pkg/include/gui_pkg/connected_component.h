@@ -22,7 +22,7 @@ public:
     const std::string RIGHTSTEP = "34";
     const std::string PAIR = "51";
 
-    void connect();
+    bool connect();
     bool isConnected();
     void errorMsg(std::string error);
 };

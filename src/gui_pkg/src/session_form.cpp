@@ -76,8 +76,8 @@ void SessionForm::customizeForm(QWidget *widget_to_insert){
 void SessionForm::on_connectButton_clicked()
 {
     if(! connectedComponent->isConnected()){
-        connectedComponent->connect();
-        this->setConnected();
+        if(connectedComponent->connect())
+            this->setConnected();
     }
 }
 

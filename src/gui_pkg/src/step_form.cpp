@@ -36,8 +36,8 @@ void StepForm::on_leftFirstStepButton_clicked()
     QCoreApplication::processEvents();
 
     if (!connectedComponent->isConnected()){
-        connectedComponent->connect();
-        session_->setConnected();
+        if(connectedComponent->connect())
+            session_->setConnected();
     }
 
     connectedComponent->step(connectedComponent->LEFTSTEP);
@@ -65,8 +65,8 @@ void StepForm::on_rightFirstStepButton_clicked()
     QCoreApplication::processEvents();
 
     if (!connectedComponent->isConnected()){
-        connectedComponent->connect();
-        session_->setConnected();
+        if(connectedComponent->connect())
+            session_->setConnected();
     }
 
     connectedComponent->step(connectedComponent->RIGHTSTEP);
@@ -94,16 +94,22 @@ void StepForm::on_feetTogetherButton_clicked()
     QCoreApplication::processEvents();
 
     if (!connectedComponent->isConnected()){
-        connectedComponent->connect();
-        session_->setConnected();
+        if(connectedComponent->connect()){
+            session_->setConnected();
+
+            connectedComponent->step(connectedComponent->PAIR);
+
+            ui->feetTogetherButton->setEnabled(false);
+            ui->leftFirstStepButton->setEnabled(true);
+            ui->rightFirstStepButton->setEnabled(true);
+
+            ui->loadingLabel->setText("");
+            ui->loadingLabel->setMargin(11);
+        }
+        else {
+            connectedComponent->errorMsg("Error while calling the service" );
+        }
     }
 
-    connectedComponent->step(connectedComponent->PAIR);
 
-    ui->feetTogetherButton->setEnabled(false);
-    ui->leftFirstStepButton->setEnabled(true);
-    ui->rightFirstStepButton->setEnabled(true);
-
-    ui->loadingLabel->setText("");
-    ui->loadingLabel->setMargin(11);
 }
