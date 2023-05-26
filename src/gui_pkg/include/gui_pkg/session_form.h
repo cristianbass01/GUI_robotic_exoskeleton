@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "connected_component.h"
 #include "frame_window.h"
+#include "user.h"
 
 namespace Ui {
 class SessionForm;
@@ -14,7 +15,7 @@ class SessionForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit SessionForm(FrameWindow *parent = nullptr);
+    explicit SessionForm(FrameWindow *parent = nullptr, User *user = nullptr);
     ~SessionForm();
 
     void customizeForm(QWidget *widget_to_insert);
@@ -36,6 +37,7 @@ private slots:
 private:
     Ui::SessionForm *ui;
     FrameWindow *frame_;
+    User *user_;
 };
 
 #endif // WALKING_WINDOW_H

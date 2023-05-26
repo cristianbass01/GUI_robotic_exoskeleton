@@ -33,7 +33,7 @@
        <item>
         <widget class="QPushButton" name="connectButton">
          <property name="text">
-          <string>Not Connected
+          <string>Not connected
 Press to connect...</string>
          </property>
         </widget>

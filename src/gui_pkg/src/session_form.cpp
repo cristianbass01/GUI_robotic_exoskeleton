@@ -9,11 +9,12 @@
 
 #include <global_variable.h>
 
-SessionForm::SessionForm(FrameWindow *parent) :
+SessionForm::SessionForm(FrameWindow *parent, User *user) :
     QWidget(parent),
     ui(new Ui::SessionForm)
 {
     frame_ = parent;
+    user_ = user;
     ui->setupUi(this);
 }
 
@@ -80,7 +81,7 @@ void SessionForm::on_connectButton_clicked()
 
 void SessionForm::setConnected(){
     ui->connectButton->setText("Connected");
-    ui->connectButton->setStyleSheet("color: rgb(0, 255, 0);");
+    ui->connectButton->setStyleSheet("color: rgb(0, 255, 0); backgroud-color: rgb(192, 250, 147)");
     QCoreApplication::processEvents();
 }
 

@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "frame_window.h"
-#include <user_list.h>
+#include "user.h"
 
 
 namespace Ui {
@@ -20,6 +20,8 @@ public:
 
     FrameWindow* getFrame(){return this->frame_;}
     void setConnected();
+
+    void displayUser();
 
 
 private slots:
@@ -38,7 +40,7 @@ private slots:
 private:
     Ui::TrainingForm *ui;
     FrameWindow *frame_;
-
+    User * user_;
 };
 
 #endif // TRAINING_WINDOW_H

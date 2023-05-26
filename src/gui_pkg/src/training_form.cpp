@@ -14,6 +14,7 @@ TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
   ui(new Ui::TrainingForm)
 {
   frame_ = parent;
+  user_ = user;
   ui->setupUi(this);
 }
 
@@ -69,6 +70,10 @@ void TrainingForm::on_connectButton_clicked()
 
 void TrainingForm::setConnected(){
     ui->connectButton->setText("Connected");
-    ui->connectButton->setStyleSheet("color: rgb(0, 255, 0);");
+    ui->connectButton->setStyleSheet("color: rgb(0, 255, 0); backgroud-color: rgb(192, 250, 147)");
     QCoreApplication::processEvents();
+}
+
+void TrainingForm::displayUser(){
+
 }

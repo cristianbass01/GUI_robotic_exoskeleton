@@ -62,7 +62,7 @@ void StepForm::movement(const std::string code){
             } else if(code.compare(connectedComponent->RIGHTSTEP)){
                 ui->feetTogetherButton->setEnabled(true);
                 ui->leftFirstStepButton->setEnabled(true);
-            } else{}
+            }
 
             ui->loadingLabel->setText("");
             ui->loadingLabel->setMargin(9);

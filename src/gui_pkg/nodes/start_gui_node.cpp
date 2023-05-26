@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
   //w.setWindowTitle(QString::fromStdString(ros::this_node::getName()));
 
   // load the icon from our qrc file and set it as the application icon
-  QIcon icon(":/icons/exoskeleton_icon.png");
+  QIcon icon(":/icons/Icons/exoskeleton_icon.png");
   frame->setWindowIcon(icon);
   userList.loadXml(path + "users.xml");
   frame->show();
