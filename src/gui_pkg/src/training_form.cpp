@@ -16,6 +16,10 @@ TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
   frame_ = parent;
   user_ = user;
   ui->setupUi(this);
+  if(user == nullptr)
+      log = nullptr;
+  else
+      log = new Log(user->getDir());
 }
 
 TrainingForm::~TrainingForm()
@@ -34,7 +38,7 @@ void TrainingForm::on_stepButton_clicked()
     frame_->customizeWindow(session);
 
     //session->setWindowState(Qt::WindowMaximized);
-    session->customizeForm(new StepForm(session));
+    session->customizeForm(new StepForm(session, log));
 }
 
 void TrainingForm::on_walkButton_clicked()

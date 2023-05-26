@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "frame_window.h"
+#include <log.h>
 #include "user.h"
 
 
@@ -40,6 +41,9 @@ private slots:
 private:
     Ui::TrainingForm *ui;
     FrameWindow *frame_;
+
+    Log *log;
+
     User * user_;
 };
 

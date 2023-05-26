@@ -6,6 +6,7 @@
 #include <user_list.h>
 #include <QTreeWidgetItem>
 #include <frame_window.h>
+#include <QVector>
 
 namespace Ui {
 class LogView;
@@ -31,6 +32,20 @@ public:
 private:
   Ui::LogView *ui;
   FrameWindow* frame_;
+
+  User* user;
+
+  const QVector< QVector< QString > > columnName = {
+    {"#", "Set", "Executed", "Pause", "Time"},  // walkingLog
+    {"#", "Leg", "Correct", "Closed", "Time"},  // StepLog
+    {"#", "Leg", "Correct", "Time"}             // ControlLog
+  };
+
+  /*
+  const QString walkingLog[5] = {"#", "Set", "Executed", "Pause", "Time"};
+  const QString StepLog[5] = {"#", "Leg", "Correct", "Closed", "Time"};
+  const QString ControlLog[5] = {"#", "Leg", "Correct", "Time"};
+  */
 };
 
 #endif // LOG_VIEW_H

@@ -102,6 +102,24 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>337</width>
+           <height>192</height>
+          </size>
+         </property>
+         <property name="headerHidden">
+          <bool>false</bool>
+         </property>
+         <attribute name="headerVisible">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="headerMinimumSectionSize">
+          <number>220</number>
+         </attribute>
+         <attribute name="headerDefaultSectionSize">
+          <number>250</number>
+         </attribute>
          <column>
           <property name="text">
            <string>Log</string>
