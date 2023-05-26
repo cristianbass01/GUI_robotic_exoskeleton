@@ -1,7 +1,7 @@
 #include "control_form.h"
 #include "ui_control_form.h"
 
-ControlForm::ControlForm(SessionForm *parent) :
+ControlForm::ControlForm(SessionForm *parent,  Log *log) :
     QWidget(parent),
     ui(new Ui::ControlForm)
 {
@@ -13,4 +13,14 @@ ControlForm::ControlForm(SessionForm *parent) :
 ControlForm::~ControlForm()
 {
     delete ui;
+}
+
+
+
+
+void ControlForm::addLog(QString leg, bool correct, bool close, QTime time){
+  if(log_ != nullptr) // sono in demo
+  {
+
+  }
 }

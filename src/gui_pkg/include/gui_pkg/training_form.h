@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "frame_window.h"
 #include <user_list.h>
+#include <log.h>
 
 
 namespace Ui {
@@ -38,6 +39,8 @@ private slots:
 private:
     Ui::TrainingForm *ui;
     FrameWindow *frame_;
+
+    Log *log;
 
 };
 
