@@ -14,6 +14,7 @@ StepForm::StepForm(SessionForm *parent) :
     session_ = parent;
     frame_ = parent->getFrame();
     ui->setupUi(this);
+
 }
 
 StepForm::~StepForm()
@@ -23,73 +24,26 @@ StepForm::~StepForm()
 
 void StepForm::on_leftFirstStepButton_clicked()
 {
-    ui->feetTogetherButton->setEnabled(false);
-    ui->leftFirstStepButton->setEnabled(false);
-    ui->rightFirstStepButton->setEnabled(false);
-
-    ui->loadingLabel->setMargin(0);
-    ui->loadingLabel->setText("<img src=\":/icons/update-left-rotation.png\" width=\"40\"/>");
-    //QMovie* loading_gif = new QMovie(":/gif/loading.gif");
-    //ui->loadingLabel->setMovie(loading_gif);
-    //loading_gif->start();
-
-    QCoreApplication::processEvents();
-
-    if (!connectedComponent->isConnected()){
-        if(connectedComponent->connect())
-            session_->setConnected();
-    }
-
-    connectedComponent->step(connectedComponent->LEFTSTEP);
-
-    ui->feetTogetherButton->setEnabled(true);
-    ui->leftFirstStepButton->setEnabled(false);
-    ui->rightFirstStepButton->setEnabled(true);
-
-    ui->loadingLabel->setText("");
-    ui->loadingLabel->setMargin(9);
+    this->movement(connectedComponent->LEFTSTEP);
 }
 
 void StepForm::on_rightFirstStepButton_clicked()
 {
-    ui->feetTogetherButton->setEnabled(false);
-    ui->leftFirstStepButton->setEnabled(false);
-    ui->rightFirstStepButton->setEnabled(false);
-
-    ui->loadingLabel->setMargin(0);
-    ui->loadingLabel->setText("<img src=\":/icons/update-left-rotation.png\" width=\"40\"/>");
-    //QMovie* loading_gif = new QMovie(":/gif/loading.gif");
-    //ui->loadingLabel->setMovie(loading_gif);
-    //loading_gif->start();
-
-    QCoreApplication::processEvents();
-
-    if (!connectedComponent->isConnected()){
-        if(connectedComponent->connect())
-            session_->setConnected();
-    }
-
-    connectedComponent->step(connectedComponent->RIGHTSTEP);
-
-    ui->feetTogetherButton->setEnabled(true);
-    ui->leftFirstStepButton->setEnabled(true);
-    ui->rightFirstStepButton->setEnabled(false);
-
-    ui->loadingLabel->setText("");
-    ui->loadingLabel->setMargin(9);
+    this->movement(connectedComponent->RIGHTSTEP);
 }
 
 void StepForm::on_feetTogetherButton_clicked()
 {
+    this->movement(connectedComponent->LEFTCLOSE);
+}
+
+void StepForm::movement(const std::string code){
     ui->feetTogetherButton->setEnabled(false);
     ui->leftFirstStepButton->setEnabled(false);
     ui->rightFirstStepButton->setEnabled(false);
 
     ui->loadingLabel->setMargin(0);
     ui->loadingLabel->setText("<img src=\":/icons/update-left-rotation.png\" width=\"40\"/>");
-    //QMovie* loading_gif = new QMovie(":/gif/loading.gif");
-    //ui->loadingLabel->setMovie(loading_gif);
-    //loading_gif->start();
 
     QCoreApplication::processEvents();
 
@@ -97,19 +51,24 @@ void StepForm::on_feetTogetherButton_clicked()
         if(connectedComponent->connect()){
             session_->setConnected();
 
-            connectedComponent->step(connectedComponent->PAIR);
+            connectedComponent->step(code);
 
-            ui->feetTogetherButton->setEnabled(false);
-            ui->leftFirstStepButton->setEnabled(true);
-            ui->rightFirstStepButton->setEnabled(true);
+            if(code.compare(connectedComponent->LEFTCLOSE)){
+                ui->leftFirstStepButton->setEnabled(true);
+                ui->rightFirstStepButton->setEnabled(true);
+            } else if(code.compare(connectedComponent->LEFTSTEP)){
+                ui->feetTogetherButton->setEnabled(true);
+                ui->rightFirstStepButton->setEnabled(true);
+            } else if(code.compare(connectedComponent->RIGHTSTEP)){
+                ui->feetTogetherButton->setEnabled(true);
+                ui->leftFirstStepButton->setEnabled(true);
+            } else{}
 
             ui->loadingLabel->setText("");
-            ui->loadingLabel->setMargin(11);
+            ui->loadingLabel->setMargin(9);
         }
         else {
-            connectedComponent->errorMsg("Error while calling the service" );
+            connectedComponent->errorMsg("Error while calling the service");
         }
     }
-
-
 }

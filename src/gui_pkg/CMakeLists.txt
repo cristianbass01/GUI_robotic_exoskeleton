@@ -19,6 +19,7 @@ set(EXTERNAL_DEPENDS
   Qt5Widgets
   Qt5PrintSupport
   Qt5Gui
+  Qt5Core
   #OpenCV
 
   )

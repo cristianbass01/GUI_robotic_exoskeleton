@@ -19,6 +19,7 @@ public:
 
     void customizeForm(QWidget *widget_to_insert);
     FrameWindow* getFrame(){return this->frame_;}
+
     void setConnected();
 
 private slots:

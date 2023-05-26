@@ -56,17 +56,14 @@ void SessionForm::customizeForm(QWidget *widget_to_insert){
     ui->parentLayout->addWidget(widget_to_insert);
 
     if (widget_to_insert->objectName().compare("WalkingForm")==0){
-        frame_->setWindowTitle("Session - Walking");
         ui->walkWindowButton->hide();
         ui->stepWindowButton->show();
         ui->controlWindowButton->show();
     }else if (widget_to_insert->objectName().compare("StepForm")==0) {
-        frame_->setWindowTitle("Session - Steps");
         ui->walkWindowButton->show();
         ui->stepWindowButton->hide();
         ui->controlWindowButton->show();
     } else if (widget_to_insert->objectName().compare("ControlForm")==0) {
-        frame_->setWindowTitle("Session - Control Walking");
         ui->walkWindowButton->show();
         ui->stepWindowButton->show();
         ui->controlWindowButton->hide();
@@ -86,3 +83,4 @@ void SessionForm::setConnected(){
     ui->connectButton->setStyleSheet("color: rgb(0, 255, 0);");
     QCoreApplication::processEvents();
 }
+

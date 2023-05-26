@@ -19,6 +19,8 @@ public:
     ~TrainingForm();
 
     FrameWindow* getFrame(){return this->frame_;}
+    void setConnected();
+
 
 private slots:
     void on_standButton_clicked();
@@ -30,6 +32,8 @@ private slots:
     void on_controlButton_clicked();
 
     void on_finishButton_clicked();
+
+    void on_connectButton_clicked();
 
 private:
     Ui::TrainingForm *ui;

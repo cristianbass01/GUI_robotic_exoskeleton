@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "session_form.h"
 #include "frame_window.h"
+#include "connect_thread.h"
 
 namespace Ui {
 class StepForm;
@@ -28,6 +29,8 @@ private:
     Ui::StepForm *ui;
     SessionForm *session_;
     FrameWindow *frame_;
+
+    void movement(const std::string code);
 };
 
 #endif // STEP_FORM_H

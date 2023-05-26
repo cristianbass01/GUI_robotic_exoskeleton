@@ -58,3 +58,17 @@ void TrainingForm::on_finishButton_clicked()
 {
 
 }
+
+void TrainingForm::on_connectButton_clicked()
+{
+    if(! connectedComponent->isConnected()){
+        if(connectedComponent->connect())
+            this->setConnected();
+    }
+}
+
+void TrainingForm::setConnected(){
+    ui->connectButton->setText("Connected");
+    ui->connectButton->setStyleSheet("color: rgb(0, 255, 0);");
+    QCoreApplication::processEvents();
+}

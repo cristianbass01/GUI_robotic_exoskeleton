@@ -1,43 +1,71 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>exoskeleton_icon.png</file>
-        <file>aiuto.png</file>
-        <file>barra-di-caricamento.gif</file>
-        <file>caricare.png</file>
-        <file>elimina.png</file>
-        <file>eliminare.png</file>
-        <file>errore.png</file>
-        <file>full-page-view.png</file>
-        <file>home-page.png</file>
-        <file>informazioni.png</file>
-        <file>nome-utente.png</file>
-        <file>password.png</file>
-        <file>posta-elettronica.png</file>
-        <file>priorità-alta.png</file>
-        <file>salva.png</file>
-        <file>salva-con-nome.png</file>
-        <file>scaricare.png</file>
-        <file>steps.png</file>
-        <file>update-left-rotation.png</file>
-        <file>utente-uomo-cerchiato.png</file>
-        <file>aggiungi.png</file>
-        <file>settings_update.png</file>
-        <file>settings_view.png</file>
-        <file>single-page-mode.png</file>
-        <file>utente-uomo-cerchiato (1).png</file>
-        <file>utente-uomo-cerchiato (2).png</file>
-        <file>utente-uomo-cerchiato (3).png</file>
-        <file>utente-uomo-cerchiato (4).png</file>
-        <file>utente-uomo-cerchiato(0).png</file>
-        <file>copia.png</file>
-        <file>incolla.png</file>
-        <file>taglia.png</file>
+        <file>Icons/aggiungi.png</file>
+        <file>Icons/aiuto.png</file>
+        <file>Icons/barra-di-caricamento.gif</file>
+        <file>Icons/caricare.png</file>
+        <file>Icons/copia.png</file>
+        <file>Icons/elimina.png</file>
+        <file>Icons/eliminare.png</file>
+        <file>Icons/errore.png</file>
+        <file>Icons/exoskeleton_icon.png</file>
+        <file>Icons/full-page-view.png</file>
+        <file>Icons/home-page.png</file>
+        <file>Icons/incolla.png</file>
+        <file>Icons/informazioni.png</file>
+        <file>Icons/loading.gif</file>
+        <file>Icons/minus.png</file>
+        <file>Icons/nome-utente.png</file>
+        <file>Icons/password.png</file>
+        <file>Icons/plus.png</file>
+        <file>Icons/posta-elettronica.png</file>
+        <file>Icons/priorità-alta.png</file>
+        <file>Icons/salva.png</file>
+        <file>Icons/salva-con-nome.png</file>
+        <file>Icons/scaricare.png</file>
+        <file>Icons/settings_update.png</file>
+        <file>Icons/settings_view.png</file>
+        <file>Icons/single-page-mode.png</file>
+        <file>Icons/taglia.png</file>
+        <file>Icons/update-left-rotation.png</file>
+        <file>Icons/utente-uomo-cerchiato.png</file>
+        <file>Icons/utente-uomo-cerchiato (1).png</file>
+        <file>Icons/utente-uomo-cerchiato (2).png</file>
+        <file>Icons/utente-uomo-cerchiato (3).png</file>
+        <file>Icons/utente-uomo-cerchiato (4).png</file>
+        <file>Icons/utente-uomo-cerchiato(0).png</file>
     </qresource>
-    <qresource prefix="/img">
-        <file>logo.png</file>
-        <file>steps.png</file>
+    <qresource prefix="/Alice">
+        <file>Alice/ALICE_2019.JPG</file>
+        <file>Alice/Alice_both_extend.png</file>
+        <file>Alice/Alice_gait_training.png</file>
+        <file>Alice/Alice_left_backwards.png</file>
+        <file>Alice/Alice_left_bend.png</file>
+        <file>Alice/Alice_left_extend.png</file>
+        <file>Alice/Alice_left_forwards.png</file>
+        <file>Alice/Alice_left_step.png</file>
+        <file>Alice/Alice_not_connected.png</file>
+        <file>Alice/Alice_right_backwards.png</file>
+        <file>Alice/Alice_right_bend.png</file>
+        <file>Alice/Alice_right_extend.png</file>
+        <file>Alice/Alice_right_forwards.png</file>
+        <file>Alice/Alice_right_step.png</file>
+        <file>Alice/Alice_sit_straight.png</file>
+        <file>Alice/Alice_sitting_exercises.png</file>
+        <file>Alice/Alice_sit_waiting.png</file>
+        <file>Alice/Alice_standing_exercises.png</file>
+        <file>Alice/Alice_stand_straight.png</file>
+        <file>Alice/Alice_stand_waiting.png</file>
+        <file>Alice/Alice_step_five.png</file>
+        <file>Alice/Alice_step_four.png</file>
+        <file>Alice/Alice_step_one.png</file>
+        <file>Alice/Alice_step_three.png</file>
+        <file>Alice/Alice_step_two.png</file>
+        <file>Alice/Standing_ALICE.png</file>
     </qresource>
-    <qresource prefix="/gif">
-        <file>loading.gif</file>
+    <qresource prefix="/INDI">
+        <file>INDI/INDI Logo (Negro con fondo blanco)-100.jpg</file>
+        <file>INDI/Logo.ico</file>
+        <file>INDI/Logo.png</file>
     </qresource>
 </RCC>

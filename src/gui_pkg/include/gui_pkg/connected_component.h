@@ -18,10 +18,15 @@ private:
     ros::ServiceClient client_;
 
 public:
-    const std::string LEFTSTEP = "12";
-    const std::string RIGHTSTEP = "34";
-    const std::string PAIR = "51";
+    const std::string RIGHTSTEP = "12";
+    const std::string LEFTSTEP = "34";
+    const std::string LEFTCLOSE = "35";
+    const std::string STAND = "s";
+    const std::string STORAGE = "n";
+    const std::string SIT = "y";
 
+
+    void startConnection();
     bool connect();
     bool isConnected();
     void errorMsg(std::string error);
