@@ -19,7 +19,14 @@ void Log::addWalkingEx(int set, int executed, int pause, QTime time)
   //addToFile("log_" + date + "_WalkingEx", set + ";" + executed + ";" + pause + ";" + time);
 }
 
-void Log::addStepEx(QString leg, bool correct, QTime time)
+void Log::addStepEx(QString leg, bool correct, bool close, QTime time)
+{
+  QString logMessage = QString("%1;%2;%3;%4").arg(leg).arg(correct).arg(close).arg(time.toString("hh:mm:ss:ms"));
+
+  addToFile(QString("log%1_StepEx.log").arg(date), logMessage);
+}
+
+void Log::addControlEx(QString leg, bool correct, QTime time)
 {
   QString logMessage = QString("%1;%2;%3").arg(leg).arg(correct).arg(time.toString("hh:mm:ss:ms"));
 

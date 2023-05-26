@@ -98,9 +98,8 @@ void StepForm::addLog(QString leg, bool correct, bool close, QTime time)
     if(log_ != nullptr) // sono in demo
     {
         stepCount++;
-        log_->addStepEx(leg, correct, time);
+        log_->addStepEx(leg, correct, close, time);
         if(close)
             stepCount = 0;
     }
-
 }

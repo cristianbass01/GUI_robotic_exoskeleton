@@ -52,32 +52,41 @@ void LogView::createComboBox(QString id){
 void LogView::on_CB_user_currentIndexChanged(int index)
 {
   ui->treeW_log->clear();
-  User* u = userList.getAt(users[index].second);
+  user = userList.getAt(users[index].second);
 
-  ui->TB_name->setText(u->getName());
-  ui->TB_surname->setText(u->getSurname());
-  ui->TB_id->setText(u->getId());
+  ui->TB_name->setText(user->getName());
+  ui->TB_surname->setText(user->getSurname());
+  ui->TB_id->setText(user->getId());
 
-  QDir logsDir(path + u->getDir());
+  QDir logsDir(path + user->getDir());
   QStringList logFiles = logsDir.entryList(QDir::Files);
 
-  QTreeWidgetItem* walkingItem = new QTreeWidgetItem(QStringList() << "Walking Ex");
+  QTreeWidgetItem* controlItem = new QTreeWidgetItem(QStringList() << "Control Ex");
   QTreeWidgetItem* stepItem = new QTreeWidgetItem(QStringList() << "Step Ex");
-  ui->treeW_log->addTopLevelItem(walkingItem);
+  QTreeWidgetItem* walkingItem = new QTreeWidgetItem(QStringList() << "Walking Ex");
+
+  ui->treeW_log->addTopLevelItem(controlItem);
   ui->treeW_log->addTopLevelItem(stepItem);
+  ui->treeW_log->addTopLevelItem(walkingItem);
 
   foreach (QString logFile, logFiles) {
     QTreeWidgetItem* item = new QTreeWidgetItem(QStringList() << logFile);
     item->setText(0, logFile.mid(0,logFile.length() - 4)); // tolgo .log
     QDate date = QDate::fromString(logFile.mid(3, 8),"yyyyMMdd");
     item->setText(1, date.toString("dd/MM/yyyy"));  // mostro la data
-    if (logFile.endsWith("WalkingEx.log"))
-        walkingItem->addChild(item);
+    if (logFile.endsWith("ControlEx.log"))
+            controlItem->addChild(item);
     else if (logFile.endsWith("StepEx.log"))
         stepItem->addChild(item);
+    else if (logFile.endsWith("WalkingEx.log"))
+        walkingItem->addChild(item);
+    // per evitarte altri log l'ultimo caso non è un else
   }
-  //ui->treeW_log->resizeColumnToContents(0);
-  //ui->treeW_log->resizeColumnToContents(1);
+  //ui->treeW_log->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+  controlItem->sortChildren(0, Qt::DescendingOrder);
+  stepItem->sortChildren(0, Qt::DescendingOrder);
+  walkingItem->sortChildren(0, Qt::DescendingOrder);
 }
 
 void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
@@ -86,9 +95,30 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
     ui->TableW_log->setColumnCount(0);
     ui->TableW_log->clear();
 
-    QFile file(path + userList.getAt(users[column].second)->getDir() + "/" + item->text(0) + ".log");
-    for(int j =0; j< 5; j++)
+    int logType;
+    QString parentText;
+    if (item->parent() == nullptr)
+        parentText = item->text(0);
+    else
+        parentText = item->parent()->text(0);
+
+    if (parentText.compare("Walking Ex") == 0)
+        logType = 0;
+    else if (parentText.compare("Step Ex") == 0)
+        logType = 1;
+    else
+        logType = 2;
+
+    QFile file(path + user->getDir() + "/" + item->text(0) + ".log");
+
+    for(int j =0; j< columnName[logType].size(); j++)
+    {
         ui ->TableW_log->insertColumn(j);
+
+        QTableWidgetItem* headerItem = new QTableWidgetItem(columnName[logType][j]);
+        ui->TableW_log->setHorizontalHeaderItem(j, headerItem);
+    }
+
 
     // Apre il file in modalità di lettura
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
