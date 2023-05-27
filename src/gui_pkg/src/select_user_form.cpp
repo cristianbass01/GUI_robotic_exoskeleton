@@ -117,23 +117,30 @@ void SelectUserForm::on_BT_create_clicked()
   id_user = ui->TB_id->text();
   if(ui->TB_name->text().size() < 3 || ui->TB_surname->text().size() < 3 || id_user.length() < 3 || id_user.contains(" ")) // 16 caratteri è giusto?
   {
-    QMessageBox::warning(this,"Warning", "One or more fields may be incomplete\n\nFirst name, Last name and ID must have at least 3 letters");
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setWindowTitle("Warning");
+    msgBox.setText("One or more fields may be incomplete");
+    msgBox.setInformativeText("First name, Last name and ID must have at least 3 letters");
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
     return;
   }
 
   if(!edit && userList.findPos(id_user)>=0) // utente già presente
   {
     if(ui->TB_id->isReadOnly()) // sto modificando
-        overWriteMsg("You will overwrite a user", "Are you sure?");
+        create = overWriteMsg("You will overwrite a user", "Are you sure?");
     else
-        overWriteMsg("The user already exists", "Do you want overwrite?");
-    create = false;
+        create = overWriteMsg("The user already exists", "Do you want overwrite?");
     //DialogForm *dial = new DialogForm(); // form per la sovrascrizione
     //dial->show();
     //QObject::connect(dial, SIGNAL(on_BT_dialog_accepted()), this, SLOT(createUser()));
     //
+    if(create)
+        createUser(true);
   }
-  if(!edit && create)
+  if(!edit)
       createUser(false);
 }
 
@@ -186,10 +193,6 @@ void SelectUserForm::createUser(bool overwrite){
     createComboBox(0,id_user);
 }
 
-void SelectUserForm::rejected()
-{
-}
-
 void SelectUserForm::setReadOnly(bool status, bool id)
 {
   ui->TB_name->setReadOnly(status);
@@ -220,7 +223,7 @@ void SelectUserForm::on_BT_viewLog_clicked()
   this->hide();
 }
 
-void SelectUserForm::overWriteMsg(QString text, QString InformativeText){
+bool SelectUserForm::overWriteMsg(QString text, QString InformativeText){
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Warning);
     msgBox.setWindowTitle("Warning");
@@ -230,8 +233,8 @@ void SelectUserForm::overWriteMsg(QString text, QString InformativeText){
     msgBox.setDefaultButton(QMessageBox::No);
 
     int ret = msgBox.exec();
-    if(ret == QMessageBox::Yes)
-      createUser(true);
+    //if(ret == QMessageBox::Yes)
+      //createUser(true);
     msgBox.close();
-    //return (ret == QMessageBox::Yes);
+    return (ret == QMessageBox::Yes);
 }

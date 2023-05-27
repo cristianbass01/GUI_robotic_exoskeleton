@@ -34,10 +34,7 @@ private slots:
     void on_CB_selectUser_currentIndexChanged(int index);
 
     void on_BT_viewLog_clicked();
-
-public slots:
-  void rejected();
-  void createUser(bool overwrite);
+    void createUser(bool overwrite);
 
 private:
     Ui::SelectUserForm *ui;
@@ -45,7 +42,7 @@ private:
     QList<QPair<QString, int>> users;
     FrameWindow* frame_;
     int currentUser;
-    void overWriteMsg(QString text, QString InformativeText);
+    bool overWriteMsg(QString text, QString InformativeText);
 };
 
 #endif // SELECT_USER_FORM_H

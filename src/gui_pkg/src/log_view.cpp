@@ -36,7 +36,7 @@ void LogView::createComboBox(QString id){
   // usa il metodo qSort per ordinare la lista in base al comparatore personalizzato
   qSort(users.begin(), users.end(), pairStringComparator);
 
-  int p = 0, start;
+  int p = 0, start = 0;
   for(const auto& user : users) {
       ui->CB_user->addItem(user.first);
       if(!QString::compare(userList.getAt(user.second)->getId(),id))
@@ -83,6 +83,13 @@ void LogView::on_CB_user_currentIndexChanged(int index)
     // per evitarte altri log l'ultimo caso non è un else
   }
   //ui->treeW_log->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
+  //ui->treeW_log->setHorizontalScrollBarPolicy(ScrollBarAlwaysOff)
+  //ui ->treeW_log->header()->setSectionResizeMode(QHeaderView::Stretch);
+  //ui ->treeW_log->setVerticalScrollBar(QScrollBar::Disabled(true))
+
+  ui->treeW_log->header()->setSectionResizeMode(QHeaderView::Stretch);
+
+  ui->treeW_log->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
   controlItem->sortChildren(0, Qt::DescendingOrder);
   stepItem->sortChildren(0, Qt::DescendingOrder);
@@ -102,7 +109,7 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
     else
         parentText = item->parent()->text(0);
 
-    if (parentText.compare("Walking Ex") == 0)
+    if (parentText.compare("Control Ex") == 0)
         logType = 0;
     else if (parentText.compare("Step Ex") == 0)
         logType = 1;
@@ -118,6 +125,7 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
         QTableWidgetItem* headerItem = new QTableWidgetItem(columnName[logType][j]);
         ui->TableW_log->setHorizontalHeaderItem(j, headerItem);
     }
+    ui ->TableW_log->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
 
     // Apre il file in modalità di lettura
@@ -133,8 +141,18 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
             // qDebug() << line;
             ui->TableW_log->insertRow(i);
             QStringList log_line = line.split(";");
-            for(int j = 0; j < log_line.size(); j++)
-              ui->TableW_log->setItem(i, j, new QTableWidgetItem(log_line.at(j)));
+            QString item;
+            for(int j = 0; j < log_line.size(); j++){
+              item = log_line.at(j);
+
+              if(logType < 2 && j > 0)
+                if(item == "0")
+                    item = "False";
+                else if(item== "1")
+                    item = "True";
+
+              ui->TableW_log->setItem(i, j, new QTableWidgetItem(item));
+            }
             i++;
 
         }

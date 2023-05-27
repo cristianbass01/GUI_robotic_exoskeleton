@@ -36,9 +36,10 @@ private:
   User* user;
 
   const QVector< QVector< QString > > columnName = {
-    {"#", "Set", "Executed", "Pause", "Time"},  // walkingLog
-    {"#", "Leg", "Correct", "Closed", "Time"},  // StepLog
-    {"#", "Leg", "Correct", "Time"}             // ControlLog
+    {"#", "Leg", "Correct", "Time"},           // ControlLog
+    {"#", "Leg", "Correct", "Closed", "Time"}, // StepLog
+    {"#", "Set", "Executed", "Pause", "Time"}  // walkingLog
+
   };
 
   /*

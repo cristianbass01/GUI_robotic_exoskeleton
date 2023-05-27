@@ -18,7 +18,7 @@ StepForm::StepForm(SessionForm *parent, Log *log) :
     ui->setupUi(this);
 
     log_ = log;
-    stepCount = 0;
+    stepCount = 1;
 }
 
 StepForm::~StepForm()
@@ -108,6 +108,6 @@ void StepForm::addLog(QString leg, bool correct, bool close, QTime time)
         stepCount++;
         log_->addStepEx(leg, correct, close, time);
         if(close)
-            stepCount = 0;
+            stepCount = 1;
     }
 }
