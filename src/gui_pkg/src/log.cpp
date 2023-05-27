@@ -11,12 +11,11 @@ Log::Log(QString userDir){
     date= (QDateTime::currentDateTime()).toString("yyyyMMdd");
 }
 
-void Log::addWalkingEx(int set, int executed, int pause, QTime time)
+void Log::addControlEx(QString leg, bool correct, QTime time)
 {
-  QString logMessage = QString("%1;%2;%3;%4").arg(set).arg(executed).arg(pause).arg(time.toString("hh:mm:ss:ms"));
+  QString logMessage = QString("%1;%2;%3").arg(leg).arg(correct).arg(time.toString("hh:mm:ss:ms"));
 
-  addToFile(QString("log%1_WalkingEx.log").arg(date), logMessage);
-  //addToFile("log_" + date + "_WalkingEx", set + ";" + executed + ";" + pause + ";" + time);
+  addToFile(QString("log%1_ControlEx.log").arg(date), logMessage);
 }
 
 void Log::addStepEx(QString leg, bool correct, bool close, QTime time)
@@ -26,11 +25,12 @@ void Log::addStepEx(QString leg, bool correct, bool close, QTime time)
   addToFile(QString("log%1_StepEx.log").arg(date), logMessage);
 }
 
-void Log::addControlEx(QString leg, bool correct, QTime time)
+void Log::addWalkingEx(int set, int executed, int pause, QTime time)
 {
-  QString logMessage = QString("%1;%2;%3").arg(leg).arg(correct).arg(time.toString("hh:mm:ss:ms"));
+  QString logMessage = QString("%1;%2;%3;%4").arg(set).arg(executed).arg(pause).arg(time.toString("hh:mm:ss:ms"));
 
-  addToFile(QString("log%1_StepEx.log").arg(date), logMessage);
+  addToFile(QString("log%1_WalkingEx.log").arg(date), logMessage);
+  //addToFile("log_" + date + "_WalkingEx", set + ";" + executed + ";" + pause + ";" + time);
 }
 
 void Log::addToFile(QString fileName, QString log) // restituisce l'ultimo interno della prima colonna

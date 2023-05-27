@@ -12,13 +12,6 @@ const QString path = QDir::homePath() + "/Alice/Log/";
 UserList userList;
 ConnectedComponent *connectedComponent;
 
-void logTest()
-{
-  Log log(userList.getAt(0)->getDir());
-  log.addWalkingEx(8,8,0, QTime(0,0,0,0));
-}
-
-
 int main(int argc, char *argv[])
 {
 
@@ -39,10 +32,6 @@ int main(int argc, char *argv[])
   frame->setWindowIcon(icon);
   userList.loadXml(path + "users.xml");
   frame->show();
-
-
-  logTest(); // ------------------------------------
-
 
   return a.exec();
 }

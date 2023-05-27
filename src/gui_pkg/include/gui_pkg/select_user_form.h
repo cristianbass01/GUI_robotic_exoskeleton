@@ -37,7 +37,7 @@ private slots:
 
 public slots:
   void rejected();
-  void createUser();
+  void createUser(bool overwrite);
 
 private:
     Ui::SelectUserForm *ui;
@@ -45,6 +45,7 @@ private:
     QList<QPair<QString, int>> users;
     FrameWindow* frame_;
     int currentUser;
+    void overWriteMsg(QString text, QString InformativeText);
 };
 
 #endif // SELECT_USER_FORM_H

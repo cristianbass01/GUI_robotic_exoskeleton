@@ -10,7 +10,6 @@
 
 #include <user_list.h>
 #include <global_variable.h>
-#include <dialog_form.h>
 #include <log_view.h>
 #include <training_form.h>
 
@@ -124,16 +123,21 @@ void SelectUserForm::on_BT_create_clicked()
 
   if(!edit && userList.findPos(id_user)>=0) // utente già presente
   {
-    DialogForm *dial = new DialogForm(); // form per la sovrascrizione
-    dial->show();
-    QObject::connect(dial, SIGNAL(on_BT_dialog_accepted()), this, SLOT(createUser()));
+    if(ui->TB_id->isReadOnly()) // sto modificando
+        overWriteMsg("You will overwrite a user", "Are you sure?");
+    else
+        overWriteMsg("The user already exists", "Do you want overwrite?");
     create = false;
+    //DialogForm *dial = new DialogForm(); // form per la sovrascrizione
+    //dial->show();
+    //QObject::connect(dial, SIGNAL(on_BT_dialog_accepted()), this, SLOT(createUser()));
+    //
   }
   if(!edit && create)
-      createUser();
+      createUser(false);
 }
 
-void SelectUserForm::createUser(){
+void SelectUserForm::createUser(bool overwrite){
 
     QString sex;
     if(ui->RB_male->isChecked())
@@ -143,22 +147,28 @@ void SelectUserForm::createUser(){
     else
       sex="Other";
 
-    QString dir = "a000";
-    User *tmp = userList.getLast();
-    if(tmp != nullptr)
-    {
-      QString lastDir = userList.getLast()->getDir();
-      QChar chr = lastDir[0];
-      int ch = chr.unicode();
-      int num = lastDir.mid(1,3).toInt();
-      num++;
-      if(num == 1000)
-      {
-        num = 0;
-        chr = QChar(++ch);
-      }
-      QString n = QString::number(num);
-      dir = chr + n.rightJustified(3, '0', true);
+    QString dir;
+    if(!overwrite){
+        dir = "a000";
+        User *tmp = userList.getLast();
+        if(tmp != nullptr)
+        {
+          QString lastDir = userList.getLast()->getDir();
+          QChar chr = lastDir[0];
+          int ch = chr.unicode();
+          int num = lastDir.mid(1,3).toInt();
+          num++;
+          if(num == 1000)
+          {
+            num = 0;
+            chr = QChar(++ch);
+          }
+          QString n = QString::number(num);
+          dir = chr + n.rightJustified(3, '0', true);
+        }
+    }
+    else {
+      dir = userList.find(ui->TB_id->text())->getDir();
     }
 
     User u(dir,id_user,ui->TB_name->text(),ui->TB_surname->text(),ui->DE_birthday->date(), sex,
@@ -208,4 +218,20 @@ void SelectUserForm::on_BT_viewLog_clicked()
   frame_->show();
 
   this->hide();
+}
+
+void SelectUserForm::overWriteMsg(QString text, QString InformativeText){
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setWindowTitle("Warning");
+    msgBox.setText(text);
+    msgBox.setInformativeText(InformativeText);
+    msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+    msgBox.setDefaultButton(QMessageBox::No);
+
+    int ret = msgBox.exec();
+    if(ret == QMessageBox::Yes)
+      createUser(true);
+    msgBox.close();
+    //return (ret == QMessageBox::Yes);
 }

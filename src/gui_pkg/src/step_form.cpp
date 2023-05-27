@@ -7,6 +7,7 @@
 #include <global_variable.h>
 #include <QMovie>
 #include <QTimer>
+#include <QElapsedTimer>
 
 StepForm::StepForm(SessionForm *parent, Log *log) :
     QWidget(parent),
@@ -53,16 +54,18 @@ void StepForm::movement(const std::string code){
     // LOG
     QString leg;
     bool correct = true, close = false;
-    QTimer timer;
+    QTime t = QTime(0,0,0);
+    int ms = 0;
     //--
 
     if (!connectedComponent->isConnected()){
         if(connectedComponent->connect()){
             session_->setConnected();
 
-            connectedComponent->step(code);
-
+            QElapsedTimer timer;
             timer.start();
+
+            connectedComponent->step(code);
 
             if(code.compare(connectedComponent->LEFTCLOSE)){
                 ui->leftFirstStepButton->setEnabled(true);
@@ -78,8 +81,13 @@ void StepForm::movement(const std::string code){
                 ui->leftFirstStepButton->setEnabled(true);
                 leg = "RIGHT";
             }
+            ms = static_cast<int>(timer.elapsed());
+            //timer.stop();
+            //Qint milliseconds = 1500;  // Esempio di tempo in millisecondi
 
-            timer.stop();
+
+
+            addLog(leg, correct, close, t.addMSecs(ms));
 
             ui->loadingLabel->setText("");
             ui->loadingLabel->setMargin(9);
@@ -88,8 +96,8 @@ void StepForm::movement(const std::string code){
             connectedComponent->errorMsg("Error while calling the service");
             correct = false;
         }
+        addLog(leg, correct, close, t.addMSecs(ms));
 
-        addLog(leg, correct, close, QTime());
     }
 }
 
