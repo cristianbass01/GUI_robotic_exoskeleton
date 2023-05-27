@@ -52,7 +52,7 @@ Press to connect...</string>
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="userLabel">
          <property name="text">
           <string>User</string>
          </property>

@@ -23,6 +23,8 @@ public:
 
     void setConnected();
 
+    void displayUser();
+
 private slots:
     void on_controlWindowButton_clicked();
 

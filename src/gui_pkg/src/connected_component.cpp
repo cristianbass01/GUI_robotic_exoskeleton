@@ -54,7 +54,7 @@ bool ConnectedComponent::connect(){
 
 bool ConnectedComponent::isConnected(){
 
-    if(nh_ && nh_->ok() && client_ && client_.isPersistent() && client_.isValid()){
+    if(nh_ && nh_->ok() && client_ && client_.isValid()){
         return true;
     }
     return false;

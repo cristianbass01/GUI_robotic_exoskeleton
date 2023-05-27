@@ -54,6 +54,12 @@ QPushButton#connectButton{
 	color: rgb(239, 41, 41);
 	text-align: left;
 	padding: 10px;
+}
+
+QLabel#userLabel{
+	border: 1px solid;
+	padding: 10px;
+	border-radius: 5px;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">

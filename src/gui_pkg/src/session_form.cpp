@@ -16,6 +16,7 @@ SessionForm::SessionForm(FrameWindow *parent, User *user) :
     frame_ = parent;
     user_ = user;
     ui->setupUi(this);
+    this->displayUser();
 }
 
 SessionForm::~SessionForm()
@@ -60,7 +61,7 @@ void SessionForm::customizeForm(QWidget *widget_to_insert){
         ui->walkWindowButton->hide();
         ui->stepWindowButton->show();
         ui->controlWindowButton->show();
-    }else if (widget_to_insert->objectName().compare("StepForm")==0) {
+    } else if (widget_to_insert->objectName().compare("StepForm")==0) {
         ui->walkWindowButton->show();
         ui->stepWindowButton->hide();
         ui->controlWindowButton->show();
@@ -81,7 +82,15 @@ void SessionForm::on_connectButton_clicked()
 
 void SessionForm::setConnected(){
     ui->connectButton->setText("Connected");
-    ui->connectButton->setStyleSheet("color: rgb(0, 255, 0); backgroud-color: rgb(192, 250, 147)");
+    ui->connectButton->setStyleSheet("color: rgb(78, 154, 6); background-color: rgb(194, 251, 192)");
     QCoreApplication::processEvents();
 }
 
+void SessionForm::displayUser(){
+    if(user_){
+        ui->userLabel->setText(user_->getName()+" "+user_->getSurname());
+    }
+    else {
+        ui->userLabel->setText("Demo");
+    }
+}

@@ -77,7 +77,7 @@ void StepForm::movement(const std::string code){
                 ui->feetTogetherButton->setEnabled(true);
                 ui->leftFirstStepButton->setEnabled(true);
                 leg = "RIGHT";
-            } else{}
+            }
 
             timer.stop();
 

@@ -16,6 +16,9 @@ TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
   frame_ = parent;
   user_ = user;
   ui->setupUi(this);
+
+  this->displayUser();
+
   if(user == nullptr)
       log = nullptr;
   else
@@ -74,10 +77,15 @@ void TrainingForm::on_connectButton_clicked()
 
 void TrainingForm::setConnected(){
     ui->connectButton->setText("Connected");
-    ui->connectButton->setStyleSheet("color: rgb(0, 255, 0); backgroud-color: rgb(192, 250, 147)");
+    ui->connectButton->setStyleSheet("color: rgb(78, 154, 6); background-color: rgb(194, 251, 192)");
     QCoreApplication::processEvents();
 }
 
 void TrainingForm::displayUser(){
-
+    if(user_){
+        ui->userLabel->setText(user_->getName()+" "+user_->getSurname());
+    }
+    else {
+        ui->userLabel->setText("Demo");
+    }
 }
