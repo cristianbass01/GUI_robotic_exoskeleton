@@ -39,27 +39,38 @@ bool ConnectedComponent::connect(){
     if(!this->isConnected() ){
         // launch rosserial and master using command line
         // std::system("roslaunch rosserial_python rosserial.launch");
-        //std::system("gnome-terminal --command='rosrun fake_exo exoskeleton_node'");
-        FILE * pipe = popen("rosrun fake_exo exoskeleton_node", "r");
-        if(!pipe)
-            return this->connect();
+        // std::system("gnome-terminal --command='rosrun fake_exo exoskeleton_node'");
 
         // initialize ROS
         ros::init(this->argc, this->argv, "gui_connection");
 
-        if(ros::master::check()){
-            // Reset the NodeHandle
-            nh_.reset(new ros::NodeHandle("~"));
+        if(! ros::master::check()){
+            std::system("gnome-terminal --command='roscore'");
+            sleep(1);
+        }
+
+        // Reset the NodeHandle
+        nh_.reset(new ros::NodeHandle("~"));
+
+        //Trying to connect to the server
+        client_ = nh_->serviceClient<gui_pkg::serv>("/exo");
+
+        if(!(client_ && client_.isValid() && client_.waitForExistence(ros::Duration(.1)))){
+            /*
+            FILE * pipe = popen("rosrun fake_exo exoskeleton_node", "r");
+            if(!pipe)
+                return this->connect();
+            pclose(pipe);
+            */
+            std::system("gnome-terminal --command='rosrun fake_exo exoskeleton_node'");
+            sleep(1);
 
             //Trying to connect to the server
             client_ = nh_->serviceClient<gui_pkg::serv>("/exo");
-
-            if(!isConnected()){
-                errorMsg("Error occurred during\nconnection to the device.");
-            }
         }
-        else {
-            errorMsg("Error occurred during\nconnection to the master");
+
+        if(!isConnected()){
+            errorMsg("Error occurred during\nconnection to the device.");
         }
     }
 
