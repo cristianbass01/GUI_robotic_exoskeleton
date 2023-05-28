@@ -66,16 +66,15 @@ void StepForm::movement(const std::string code){
         timer.start();
 
         connectedComponent->step(code);
-        if(code.compare(connectedComponent->LEFTCLOSE)){
+        if(code.compare(connectedComponent->LEFTCLOSE) == 0){
             ui->leftFirstStepButton->setEnabled(true);
             ui->rightFirstStepButton->setEnabled(true);
             leg = "LEFT";
             close = true;
-        } else if(code.compare(connectedComponent->LEFTSTEP)){
-            ui->feetTogetherButton->setEnabled(true);
+        } else if(code.compare(connectedComponent->LEFTSTEP)== 0){
             ui->rightFirstStepButton->setEnabled(true);
             leg = "LEFT";
-        } else if(code.compare(connectedComponent->RIGHTSTEP)){
+        } else if(code.compare(connectedComponent->RIGHTSTEP)== 0){
             ui->feetTogetherButton->setEnabled(true);
             ui->leftFirstStepButton->setEnabled(true);
             leg = "RIGHT";
