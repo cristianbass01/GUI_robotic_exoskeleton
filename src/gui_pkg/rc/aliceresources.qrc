@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/Alice">
+        <file>Alice/Alice_gait_training.png</file>
+        <file>Alice/Alice_left_backwards.png</file>
+        <file>Alice/Alice_left_forwards.png</file>
+        <file>Alice/Alice_left_step.png</file>
+        <file>Alice/Alice_not_connected.png</file>
+        <file>Alice/Alice_right_backwards.png</file>
+        <file>Alice/Alice_right_forwards.png</file>
+        <file>Alice/Alice_right_step.png</file>
+        <file>Alice/Alice_sit_straight.png</file>
+        <file>Alice/Alice_standing_exercises.png</file>
+        <file>Alice/Alice_stand_straight.png</file>
+        <file>Alice/Alice_stand_waiting.png</file>
+        <file>Alice/Alice_step_five.png</file>
+        <file>Alice/Alice_step_four.png</file>
+        <file>Alice/Alice_step_one.png</file>
+        <file>Alice/Alice_step_three.png</file>
+        <file>Alice/Alice_step_two.png</file>
+    </qresource>
+</RCC>

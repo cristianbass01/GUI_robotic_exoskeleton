@@ -1,15 +1,18 @@
+#ifndef GLOBAL_VARIABLE_H
+#define GLOBAL_VARIABLE_H
+
 #include <user_list.h>
 #include <QStandardPaths>
 #include <QWidget>
 
 #include "connected_component.h"
-
-#ifndef GLOBAL_VARIABLE_H
-#define GLOBAL_VARIABLE_H
+#include "connect_thread.h"
 
 extern UserList userList;
 extern const QString path;
 
-extern ConnectedComponent *connectedComponent;
+extern std::shared_ptr<ConnectedComponent> connectedComponent;
 
-#endif // GLOBALUSERLIST_H
+extern std::shared_ptr<ConnectThread> connectThread;
+
+#endif // GLOBAL_VARIABLE_H

@@ -31,9 +31,9 @@ public:
 
 private:
   Ui::LogView *ui;
-  FrameWindow* frame_;
+  std::shared_ptr<FrameWindow> frame_;
 
-  User* user;
+  std::shared_ptr<User> user;
 
   const QVector< QVector< QString > > columnName = {
     {"#", "Leg", "Correct", "Time"},           // ControlLog

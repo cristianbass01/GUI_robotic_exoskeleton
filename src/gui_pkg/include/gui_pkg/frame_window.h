@@ -2,6 +2,7 @@
 #define FRAME_WINDOW_H
 
 #include <QMainWindow>
+#include <QWidget>
 
 namespace Ui {
 class FrameWindow;
@@ -17,11 +18,15 @@ public:
 
     void customizeWindow(QWidget *widget_to_insert);
 
+    void setConnected(bool state);
+
 private slots:
     void on_actionHome_triggered();
 
 private:
     Ui::FrameWindow *ui;
+    QString currentForm;
+
 };
 
 #endif // FRAME_WINDOW_H

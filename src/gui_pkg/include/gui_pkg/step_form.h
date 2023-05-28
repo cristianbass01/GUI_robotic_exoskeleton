@@ -28,10 +28,10 @@ private slots:
 
 private:
     Ui::StepForm *ui;
-    SessionForm *session_;
-    FrameWindow *frame_;
+    std::shared_ptr<SessionForm> session_;
+    std::shared_ptr<FrameWindow> frame_;
 
-    Log *log_;
+    std::shared_ptr<Log> log_;
     int stepCount;
 
     void movement(const std::string code);

@@ -13,11 +13,11 @@ StepForm::StepForm(SessionForm *parent, Log *log) :
     QWidget(parent),
     ui(new Ui::StepForm)
 {
-    session_ = parent;
-    frame_ = parent->getFrame();
+    session_.reset(parent);
+    frame_.reset(parent->getFrame());
     ui->setupUi(this);
 
-    log_ = log;
+    log_.reset(log);
     stepCount = 1;
 }
 
@@ -47,7 +47,7 @@ void StepForm::movement(const std::string code){
     ui->rightFirstStepButton->setEnabled(false);
 
     ui->loadingLabel->setMargin(0);
-    ui->loadingLabel->setText("<img src=\":/icons/update-left-rotation.png\" width=\"40\"/>");
+    ui->loadingLabel->setText("<img src=\":/icons//icons/update-left-rotation.png\" width=\"40\"/>");
 
     QCoreApplication::processEvents();
 
@@ -60,7 +60,7 @@ void StepForm::movement(const std::string code){
 
     if (!connectedComponent->isConnected()){
         if(connectedComponent->connect()){
-            session_->setConnected();
+            session_->setConnected(true);
 
             QElapsedTimer timer;
             timer.start();
@@ -94,6 +94,7 @@ void StepForm::movement(const std::string code){
         }
         else {
             connectedComponent->errorMsg("Error while calling the service");
+            session_->setConnected(false);
             correct = false;
         }
         addLog(leg, correct, close, t.addMSecs(ms));

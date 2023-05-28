@@ -9,7 +9,7 @@ LogView::LogView(FrameWindow *parent, QString id) :
   QWidget(parent),
   ui(new Ui::LogView)
 {
-  frame_ = parent;
+  frame_.reset(parent);
   ui->setupUi(this);
   createComboBox(id);
 }
@@ -52,7 +52,7 @@ void LogView::createComboBox(QString id){
 void LogView::on_CB_user_currentIndexChanged(int index)
 {
   ui->treeW_log->clear();
-  user = userList.getAt(users[index].second);
+  user.reset(userList.getAt(users[index].second));
 
   ui->TB_name->setText(user->getName());
   ui->TB_surname->setText(user->getSurname());
@@ -145,12 +145,12 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
             for(int j = 0; j < log_line.size(); j++){
               item = log_line.at(j);
 
-              if(logType < 2 && j > 0)
+              if(logType < 2 && j > 0){
                 if(item == "0")
                     item = "False";
                 else if(item== "1")
                     item = "True";
-
+              }
               ui->TableW_log->setItem(i, j, new QTableWidgetItem(item));
             }
             i++;

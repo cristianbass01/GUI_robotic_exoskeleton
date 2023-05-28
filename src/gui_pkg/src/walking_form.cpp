@@ -6,21 +6,17 @@ WalkingForm::WalkingForm(SessionForm *parent, Log *log) :
     QWidget(parent),
     ui(new Ui::WalkingForm)
 {
-    session_ = parent;
-    frame_ = parent->getFrame();
+    session_.reset(parent);
+    frame_.reset(parent->getFrame());
     ui->setupUi(this);
 
-    log_ = log;
+    log_.reset(log);
 }
 
 WalkingForm::~WalkingForm()
 {
     delete ui;
 }
-
-
-
-
 
 void WalkingForm::addLog(int set, int executed, int pause, QTime time){
     if(log_ != nullptr) // sono in demo

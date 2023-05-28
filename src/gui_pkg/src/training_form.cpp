@@ -9,12 +9,21 @@
 #include "control_form.h"
 #include "walking_form.h"
 
+#include "global_variable.h"
+
+#include <QObject>
+#include <QCoreApplication>
+#include <QTimer>
+
 TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
   QWidget(parent),
   ui(new Ui::TrainingForm)
 {
+  //frame_.reset(parent);
+  //user_.reset(user);
   frame_ = parent;
   user_ = user;
+
   ui->setupUi(this);
 
   this->displayUser();
@@ -23,11 +32,21 @@ TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
       log = nullptr;
   else
       log = new Log(user->getDir());
+
+  // se è già attivo il timer vuol dire che la connessione è già in corso
+  if(connectedComponent->timer_->isActive()){
+      this->on_connectButton_clicked();
+      QObject::connect(connectedComponent->timer_.get(), SIGNAL(timeout()), this, SLOT(on_connectButton_clicked()));
+      connectedComponent->timer_->start(connectedComponent->CONTROL_TIME_OUT);
+  }
 }
 
 TrainingForm::~TrainingForm()
 {
   delete ui;
+  delete frame_;
+  delete log;
+  delete user_;
 }
 
 void TrainingForm::on_standButton_clicked()
@@ -69,15 +88,29 @@ void TrainingForm::on_finishButton_clicked()
 
 void TrainingForm::on_connectButton_clicked()
 {
-    if(! connectedComponent->isConnected()){
-        if(connectedComponent->connect())
-            this->setConnected();
+    if(connectedComponent->connect()){
+        this->setConnected(true);
+        if(! connectedComponent->timer_->isActive()){
+            QObject::connect(connectedComponent->timer_.get(), SIGNAL(timeout()), this, SLOT(on_connectButton_clicked()));
+            connectedComponent->timer_->start(connectedComponent->CONTROL_TIME_OUT);
+        }
+    }
+    else {
+        this->setConnected(false);
+        if(connectedComponent->timer_->isActive())
+            connectedComponent->timer_->stop();
     }
 }
 
-void TrainingForm::setConnected(){
-    ui->connectButton->setText("Connected");
-    ui->connectButton->setStyleSheet("color: rgb(78, 154, 6); background-color: rgb(194, 251, 192)");
+void TrainingForm::setConnected(bool state){
+    if(state){
+        ui->connectButton->setText("Connected");
+        ui->connectButton->setStyleSheet("color: rgb(78, 154, 6); background-color: rgb(194, 251, 192);");
+    }
+    else {
+        ui->connectButton->setText("Not connected\nPress to connect...");
+        ui->connectButton->setStyleSheet("background-color: rgb(255, 213, 213); color: rgb(239, 41, 41);");
+    }
     QCoreApplication::processEvents();
 }
 

@@ -13,10 +13,18 @@ SessionForm::SessionForm(FrameWindow *parent, User *user) :
     QWidget(parent),
     ui(new Ui::SessionForm)
 {
-    frame_ = parent;
-    user_ = user;
+    frame_.reset(parent);
+    user_.reset(user);
     ui->setupUi(this);
     this->displayUser();
+
+    // se è già attivo il timer vuol dire che la connessione è già in corso
+    if(connectedComponent->timer_->isActive()){
+        this->on_connectButton_clicked();
+        QObject::connect(connectedComponent->timer_.get(), SIGNAL(timeout()), this, SLOT(on_connectButton_clicked()));
+        connectedComponent->timer_->start(connectedComponent->CONTROL_TIME_OUT);
+    }
+
 }
 
 SessionForm::~SessionForm()
@@ -42,7 +50,7 @@ void SessionForm::on_walkWindowButton_clicked()
 
 void SessionForm::on_returnButton_clicked()
 {
-    frame_->customizeWindow(new TrainingForm(frame_));
+    frame_->customizeWindow(new TrainingForm(frame_.get()));
     frame_->show();
 
     this->close();
@@ -74,16 +82,31 @@ void SessionForm::customizeForm(QWidget *widget_to_insert){
 
 void SessionForm::on_connectButton_clicked()
 {
-    if(! connectedComponent->isConnected()){
-        if(connectedComponent->connect())
-            this->setConnected();
+    if(connectedComponent->connect()){
+        this->setConnected(true);
+        if(! connectedComponent->timer_->isActive()){
+            QObject::connect(connectedComponent->timer_.get(), SIGNAL(timeout()), this, SLOT(on_connectButton_clicked()));
+            connectedComponent->timer_->start(connectedComponent->CONTROL_TIME_OUT);
+        }
+    }
+    else {
+        this->setConnected(false);
+        if(connectedComponent->timer_->isActive())
+            connectedComponent->timer_->stop();
     }
 }
 
-void SessionForm::setConnected(){
-    ui->connectButton->setText("Connected");
-    ui->connectButton->setStyleSheet("color: rgb(78, 154, 6); background-color: rgb(194, 251, 192)");
+void SessionForm::setConnected(bool state){
+    if(state){
+        ui->connectButton->setText("Connected");
+        ui->connectButton->setStyleSheet("color: rgb(78, 154, 6); background-color: rgb(194, 251, 192);");
+    }
+    else {
+        ui->connectButton->setText("Not connected\nPress to connect...");
+        ui->connectButton->setStyleSheet("background-color: rgb(255, 213, 213); color: rgb(239, 41, 41);");
+    }
     QCoreApplication::processEvents();
+
 }
 
 void SessionForm::displayUser(){

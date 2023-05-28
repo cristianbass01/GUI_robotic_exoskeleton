@@ -16,10 +16,10 @@
 SelectUserForm::SelectUserForm(FrameWindow *parent, bool create) :
   QWidget(parent), ui(new Ui::SelectUserForm)
 {
-    frame_ = parent;
+    frame_.reset(parent);
     ui->setupUi(this);
 
-    createComboBox(!create, NULL);
+    createComboBox(!create, nullptr);
 }
 
 SelectUserForm::~SelectUserForm()
@@ -210,14 +210,14 @@ void SelectUserForm::setReadOnly(bool status, bool id)
 
 void SelectUserForm::on_BT_selectUser_clicked()
 {
-  frame_->customizeWindow(new TrainingForm(frame_, userList.getAt(currentUser)));
+  frame_->customizeWindow(new TrainingForm(frame_.get(), userList.getAt(currentUser)));
   frame_->show();
 
 }
 
 void SelectUserForm::on_BT_viewLog_clicked()
 {
-  frame_->customizeWindow(new LogView(frame_, ui->TB_id->text()));
+  frame_->customizeWindow(new LogView(frame_.get(), ui->TB_id->text()));
   frame_->show();
 
   this->hide();

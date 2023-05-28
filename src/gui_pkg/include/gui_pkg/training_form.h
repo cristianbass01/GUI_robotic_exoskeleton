@@ -1,8 +1,9 @@
 #ifndef TRAINING_WINDOW_H
 #define TRAINING_WINDOW_H
 
-#include <QMainWindow>
+#include <QWidget>
 #include "frame_window.h"
+
 #include <log.h>
 #include "user.h"
 
@@ -20,7 +21,7 @@ public:
     ~TrainingForm();
 
     FrameWindow* getFrame(){return this->frame_;}
-    void setConnected();
+    void setConnected(bool state);
 
     void displayUser();
 
@@ -40,11 +41,17 @@ private slots:
 
 private:
     Ui::TrainingForm *ui;
+    //std::shared_ptr<FrameWindow> frame_;
+
+    //std::shared_ptr<Log> log;
+
+    //std::shared_ptr<User> user_;
+
     FrameWindow *frame_;
 
     Log *log;
 
-    User * user_;
+    User *user_;
 };
 
 #endif // TRAINING_WINDOW_H

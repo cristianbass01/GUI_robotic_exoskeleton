@@ -21,10 +21,10 @@ public:
 
 private:
     Ui::WalkingForm *ui;
-    SessionForm *session_;
-    FrameWindow *frame_;
+    std::shared_ptr<SessionForm> session_;
+    std::shared_ptr<FrameWindow> frame_;
 
-    Log *log_;
+    std::shared_ptr<Log> log_;
 
     void addLog(int set, int executed, int pause, QTime time);
 };

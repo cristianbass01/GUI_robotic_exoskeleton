@@ -5,17 +5,21 @@
 #include <qtimer.h>
 #include <std_msgs/String.h>
 
-class ConnectedComponent
+class ConnectedComponent : public QObject
 {
+    Q_OBJECT
+
 public:
     ConnectedComponent(int argc, char *argv[]);
     void step(const std::string &code);
+    ~ConnectedComponent();
 
 private:
     int argc;
     char **argv;
     ros::NodeHandlePtr nh_;
     ros::ServiceClient client_;
+
 
 public:
     const std::string RIGHTSTEP = "12";
@@ -25,8 +29,10 @@ public:
     const std::string STORAGE = "n";
     const std::string SIT = "y";
 
+    const int CONTROL_TIME_OUT = 5000;
+    std::shared_ptr<QTimer> timer_;
 
-    void startConnection();
+public slots:
     bool connect();
     bool isConnected();
     void errorMsg(std::string error);

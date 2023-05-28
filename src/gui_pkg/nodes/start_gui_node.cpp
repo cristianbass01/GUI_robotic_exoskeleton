@@ -5,17 +5,19 @@
 #include "log.h"
 #include "connected_component.h"
 #include "frame_window.h"
+#include "connect_thread.h"
 
 #include <QDir>
 
 const QString path = QDir::homePath() + "/Alice/Log/";
 UserList userList;
-ConnectedComponent *connectedComponent;
+std::shared_ptr<ConnectedComponent> connectedComponent;
+std::shared_ptr<ConnectThread> connectThread;
 
 int main(int argc, char *argv[])
 {
 
-  connectedComponent = new ConnectedComponent(argc, argv);
+  connectedComponent.reset(new ConnectedComponent(argc, argv));
   //ros::init(argc, argv, "start_gui_node");
   QApplication a(argc, argv);
 
@@ -23,6 +25,8 @@ int main(int argc, char *argv[])
 
   FrameWindow* frame = new FrameWindow();
   frame->customizeWindow(new MainForm(frame));
+
+  connectThread.reset(new ConnectThread(nullptr, frame));
 
   // set the window title as the node name
   //w.setWindowTitle(QString::fromStdString(ros::this_node::getName()));

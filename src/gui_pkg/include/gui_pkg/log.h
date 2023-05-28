@@ -4,7 +4,6 @@
 #include <QString>
 #include <QDir>
 
-
 class Log
 {
 private:

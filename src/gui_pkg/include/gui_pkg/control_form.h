@@ -22,10 +22,10 @@ public:
 
 private:
     Ui::ControlForm *ui;
-    SessionForm *session_;
-    FrameWindow *frame_;
+    std::shared_ptr<SessionForm> session_;
+    std::shared_ptr<FrameWindow> frame_;
 
-    Log *log_;
+    std::shared_ptr<Log> log_;
     int stepCount;
     void addLog(QString leg, bool correct, bool close, QTime time);
 };

@@ -2,11 +2,19 @@
 #include "gui_pkg/serv.h"
 #include <QMessageBox>
 #include <QString>
+#include <QCoreApplication>
+#include <QTimer>
+#include <QObject>
 
 ConnectedComponent::ConnectedComponent(int argc, char *argv[])
 {
     this->argc = argc;
     this->argv = argv;
+    this->timer_.reset(new QTimer());
+}
+
+ConnectedComponent::~ConnectedComponent(){
+    delete argv;
 }
 
 void ConnectedComponent::step(const std::string &code){
@@ -24,38 +32,39 @@ void ConnectedComponent::step(const std::string &code){
     }
 }
 
-void ConnectedComponent::startConnection(){
-
-}
-
 bool ConnectedComponent::connect(){
-    try{
+    bool active = this->timer_->isActive();
+    if(active) this->timer_->stop();
+
+    if(!this->isConnected() ){
         // initialize ROS
         ros::init(this->argc, this->argv, "gui_connection");
 
-        // Reset the NodeHandle
-        nh_.reset(new ros::NodeHandle("~"));
-    }
-    catch (const std::exception& e){
-        std::string error = "Failed connection:  " + std::string(e.what());
-        ROS_ERROR_STREAM(error);
-        errorMsg(error);
+        if(ros::master::check()){
+            // Reset the NodeHandle
+            nh_.reset(new ros::NodeHandle("~"));
+
+            //Trying to connect to the server
+            client_ = nh_->serviceClient<gui_pkg::serv>("/exo");
+
+            if(!isConnected()){
+                errorMsg("Error occurred during\nconnection to the device.");
+            }
+        }
+        else {
+            errorMsg("Error occurred during\nconnection to the master");
+        }
     }
 
-    //Trying to connect to the server
-    client_ = nh_->serviceClient<gui_pkg::serv>("/exo");
-
-    if(!isConnected()){
-        errorMsg("Error occurred during\nconnection to the device.");
-        return false;
-    }
-    return true;
+    if(active) this->timer_->start(this->CONTROL_TIME_OUT);
+    return this->isConnected();
 }
 
 bool ConnectedComponent::isConnected(){
 
     if(nh_ && nh_->ok() && client_ && client_.isValid()){
-        return true;
+        bool serviceAvailable = client_.waitForExistence(ros::Duration(.1));
+        return serviceAvailable;
     }
     return false;
 }

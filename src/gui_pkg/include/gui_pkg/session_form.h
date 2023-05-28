@@ -15,13 +15,13 @@ class SessionForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit SessionForm(FrameWindow *parent = nullptr, User *user = nullptr);
+    explicit SessionForm(FrameWindow * parent = nullptr, User *user = nullptr);
     ~SessionForm();
 
     void customizeForm(QWidget *widget_to_insert);
-    FrameWindow* getFrame(){return this->frame_;}
+    FrameWindow *getFrame(){return this->frame_.get();}
 
-    void setConnected();
+    void setConnected(bool state);
 
     void displayUser();
 
@@ -38,8 +38,8 @@ private slots:
 
 private:
     Ui::SessionForm *ui;
-    FrameWindow *frame_;
-    User *user_;
+    std::shared_ptr<FrameWindow> frame_;
+    std::shared_ptr<User> user_;
 };
 
 #endif // WALKING_WINDOW_H

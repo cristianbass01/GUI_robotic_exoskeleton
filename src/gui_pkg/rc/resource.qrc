@@ -35,34 +35,6 @@
         <file>Icons/utente-uomo-cerchiato (4).png</file>
         <file>Icons/utente-uomo-cerchiato(0).png</file>
     </qresource>
-    <qresource prefix="/Alice">
-        <file>Alice/ALICE_2019.JPG</file>
-        <file>Alice/Alice_both_extend.png</file>
-        <file>Alice/Alice_gait_training.png</file>
-        <file>Alice/Alice_left_backwards.png</file>
-        <file>Alice/Alice_left_bend.png</file>
-        <file>Alice/Alice_left_extend.png</file>
-        <file>Alice/Alice_left_forwards.png</file>
-        <file>Alice/Alice_left_step.png</file>
-        <file>Alice/Alice_not_connected.png</file>
-        <file>Alice/Alice_right_backwards.png</file>
-        <file>Alice/Alice_right_bend.png</file>
-        <file>Alice/Alice_right_extend.png</file>
-        <file>Alice/Alice_right_forwards.png</file>
-        <file>Alice/Alice_right_step.png</file>
-        <file>Alice/Alice_sit_straight.png</file>
-        <file>Alice/Alice_sitting_exercises.png</file>
-        <file>Alice/Alice_sit_waiting.png</file>
-        <file>Alice/Alice_standing_exercises.png</file>
-        <file>Alice/Alice_stand_straight.png</file>
-        <file>Alice/Alice_stand_waiting.png</file>
-        <file>Alice/Alice_step_five.png</file>
-        <file>Alice/Alice_step_four.png</file>
-        <file>Alice/Alice_step_one.png</file>
-        <file>Alice/Alice_step_three.png</file>
-        <file>Alice/Alice_step_two.png</file>
-        <file>Alice/Standing_ALICE.png</file>
-    </qresource>
     <qresource prefix="/INDI">
         <file>INDI/INDI Logo (Negro con fondo blanco)-100.jpg</file>
         <file>INDI/Logo.ico</file>

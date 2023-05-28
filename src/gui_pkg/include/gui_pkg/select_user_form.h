@@ -20,7 +20,7 @@ class SelectUserForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit SelectUserForm(FrameWindow *parent = nullptr, bool create = false);
+    explicit SelectUserForm(FrameWindow  *parent = nullptr, bool create = false);
     ~SelectUserForm();
 
 signals:
@@ -40,7 +40,7 @@ private:
     Ui::SelectUserForm *ui;
     QString id_user;
     QList<QPair<QString, int>> users;
-    FrameWindow* frame_;
+    std::shared_ptr<FrameWindow> frame_;
     int currentUser;
     bool overWriteMsg(QString text, QString InformativeText);
 };

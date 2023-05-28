@@ -28,7 +28,7 @@ private slots:
 
 private:
   Ui::MainForm *ui;
-  FrameWindow* frame_;
+  std::shared_ptr<FrameWindow> frame_;
 };
 
 #endif // MAIN_FORM_H

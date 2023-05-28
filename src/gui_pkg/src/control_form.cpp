@@ -5,8 +5,9 @@ ControlForm::ControlForm(SessionForm *parent,  Log *log) :
     QWidget(parent),
     ui(new Ui::ControlForm)
 {
-    session_ = parent;
-    frame_ = parent->getFrame();
+    session_.reset(parent);
+    frame_.reset(parent->getFrame());
+    log_.reset(log);
     ui->setupUi(this);
 }
 
