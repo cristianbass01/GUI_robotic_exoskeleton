@@ -5,14 +5,12 @@
 #include "log.h"
 #include "connected_component.h"
 #include "frame_window.h"
-#include "connect_thread.h"
 
 #include <QDir>
 
 const QString path = QDir::homePath() + "/Alice/Log/";
 UserList userList;
 std::shared_ptr<ConnectedComponent> connectedComponent;
-std::shared_ptr<ConnectThread> connectThread;
 
 int main(int argc, char *argv[])
 {
@@ -25,8 +23,6 @@ int main(int argc, char *argv[])
 
   FrameWindow* frame = new FrameWindow();
   frame->customizeWindow(new MainForm(frame));
-
-  connectThread.reset(new ConnectThread(nullptr, frame));
 
   // set the window title as the node name
   //w.setWindowTitle(QString::fromStdString(ros::this_node::getName()));

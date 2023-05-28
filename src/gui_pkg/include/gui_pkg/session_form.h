@@ -25,7 +25,7 @@ public:
 
     void displayUser();
 
-private slots:
+public slots:
     void on_controlWindowButton_clicked();
 
     void on_stepWindowButton_clicked();

@@ -31,6 +31,7 @@
   <depend>libqt5-widgets</depend>
   <depend>libqt5-multimedia5</depend>
   <exec_depend>message_runtime</exec_depend>
+  <build_depend>roslaunch</build_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

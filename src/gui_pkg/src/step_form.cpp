@@ -47,7 +47,7 @@ void StepForm::movement(const std::string code){
     ui->rightFirstStepButton->setEnabled(false);
 
     ui->loadingLabel->setMargin(0);
-    ui->loadingLabel->setText("<img src=\":/icons//icons/update-left-rotation.png\" width=\"40\"/>");
+    ui->loadingLabel->setText("<img src=\":/icons/Icons/update-left-rotation.png\" width=\"40\"/>");
 
     QCoreApplication::processEvents();
 
@@ -58,48 +58,56 @@ void StepForm::movement(const std::string code){
     int ms = 0;
     //--
 
-    if (!connectedComponent->isConnected()){
-        if(connectedComponent->connect()){
-            session_->setConnected(true);
+    if (!connectedComponent->isConnected())
+        session_->on_connectButton_clicked();
 
-            QElapsedTimer timer;
-            timer.start();
+    if (connectedComponent->isConnected()){
+        QElapsedTimer timer;
+        timer.start();
 
-            connectedComponent->step(code);
-
-            if(code.compare(connectedComponent->LEFTCLOSE)){
-                ui->leftFirstStepButton->setEnabled(true);
-                ui->rightFirstStepButton->setEnabled(true);
-                leg = "LEFT";
-                close = true;
-            } else if(code.compare(connectedComponent->LEFTSTEP)){
-                ui->feetTogetherButton->setEnabled(true);
-                ui->rightFirstStepButton->setEnabled(true);
-                leg = "LEFT";
-            } else if(code.compare(connectedComponent->RIGHTSTEP)){
-                ui->feetTogetherButton->setEnabled(true);
-                ui->leftFirstStepButton->setEnabled(true);
-                leg = "RIGHT";
-            }
-            ms = static_cast<int>(timer.elapsed());
-            //timer.stop();
-            //Qint milliseconds = 1500;  // Esempio di tempo in millisecondi
-
-
-
-            addLog(leg, correct, close, t.addMSecs(ms));
-
-            ui->loadingLabel->setText("");
-            ui->loadingLabel->setMargin(9);
+        connectedComponent->step(code);
+        if(code.compare(connectedComponent->LEFTCLOSE)){
+            ui->leftFirstStepButton->setEnabled(true);
+            ui->rightFirstStepButton->setEnabled(true);
+            leg = "LEFT";
+            close = true;
+        } else if(code.compare(connectedComponent->LEFTSTEP)){
+            ui->feetTogetherButton->setEnabled(true);
+            ui->rightFirstStepButton->setEnabled(true);
+            leg = "LEFT";
+        } else if(code.compare(connectedComponent->RIGHTSTEP)){
+            ui->feetTogetherButton->setEnabled(true);
+            ui->leftFirstStepButton->setEnabled(true);
+            leg = "RIGHT";
         }
-        else {
-            connectedComponent->errorMsg("Error while calling the service");
-            session_->setConnected(false);
-            correct = false;
-        }
-        addLog(leg, correct, close, t.addMSecs(ms));
+        ms = static_cast<int>(timer.elapsed());
+        //timer.stop();
+        //Qint milliseconds = 1500;  // Esempio di tempo in millisecondi
 
+        ui->loadingLabel->setText("");
+        ui->loadingLabel->setMargin(9);
+
+        lastStep = code;
     }
+    else {
+        connectedComponent->errorMsg("Error while calling the service");
+        session_->setConnected(false);
+        correct = false;
+
+        if(lastStep.compare("") != 0){
+            if(lastStep.compare(connectedComponent->LEFTCLOSE)){
+                ui->leftFirstStepButton->setEnabled(true);
+                ui->rightFirstStepButton->setEnabled(true);
+            } else if(lastStep.compare(connectedComponent->LEFTSTEP)){
+                ui->feetTogetherButton->setEnabled(true);
+                ui->rightFirstStepButton->setEnabled(true);
+            } else if(lastStep.compare(connectedComponent->RIGHTSTEP)){
+                ui->feetTogetherButton->setEnabled(true);
+                ui->leftFirstStepButton->setEnabled(true);
+            }
+        }
+    }
+    addLog(leg, correct, close, t.addMSecs(ms));
 }
 
 void StepForm::addLog(QString leg, bool correct, bool close, QTime time)

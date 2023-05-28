@@ -37,6 +37,13 @@ bool ConnectedComponent::connect(){
     if(active) this->timer_->stop();
 
     if(!this->isConnected() ){
+        // launch rosserial and master using command line
+        // std::system("roslaunch rosserial_python rosserial.launch");
+        //std::system("gnome-terminal --command='rosrun fake_exo exoskeleton_node'");
+        FILE * pipe = popen("rosrun fake_exo exoskeleton_node", "r");
+        if(!pipe)
+            return this->connect();
+
         // initialize ROS
         ros::init(this->argc, this->argv, "gui_connection");
 

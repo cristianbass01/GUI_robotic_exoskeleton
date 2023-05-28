@@ -58,7 +58,7 @@ endforeach(DEPEND)
 ###
 ###  Add any required ros packages here
 ###
-find_package(catkin REQUIRED COMPONENTS ${ROS_DEPENDS} message_generation)
+find_package(catkin REQUIRED COMPONENTS ${ROS_DEPENDS} message_generation roslaunch)
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -191,4 +191,6 @@ endforeach(NODE_FILE)
 #install(DIRECTORY launch/
  # DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
   #)
+
+
 

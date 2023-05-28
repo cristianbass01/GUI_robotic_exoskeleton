@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>
+  	<!-- gui_pkg node -->
+	<node name="fake_exo" pkg="fake_exo" type="exoskeleton_node" output="screen"/>
+  
+</launch>

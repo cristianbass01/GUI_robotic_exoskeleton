@@ -4,7 +4,6 @@
 #include <QWidget>
 #include "session_form.h"
 #include "frame_window.h"
-#include "connect_thread.h"
 #include <log.h>
 
 namespace Ui {
@@ -33,6 +32,8 @@ private:
 
     std::shared_ptr<Log> log_;
     int stepCount;
+
+    std::string lastStep = "";
 
     void movement(const std::string code);
     void addLog(QString leg, bool correct, bool close, QTime time);
