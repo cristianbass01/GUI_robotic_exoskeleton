@@ -17,20 +17,14 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_6">
      <item>
-      <spacer name="verticalSpacer_5">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
+      <layout class="QHBoxLayout" name="horizontalLayout_3"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="lb_logo">
+       <property name="text">
+        <string>TextLabel</string>
        </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
+      </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -661,7 +655,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="finishButton_2">
+        <widget class="QPushButton" name="finishButton">
          <property name="minimumSize">
           <size>
            <width>150</width>

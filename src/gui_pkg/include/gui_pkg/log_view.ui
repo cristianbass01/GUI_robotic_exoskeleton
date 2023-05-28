@@ -87,7 +87,7 @@
               <bool>false</bool>
              </property>
              <attribute name="headerVisible">
-              <bool>true</bool>
+              <bool>false</bool>
              </attribute>
              <attribute name="headerCascadingSectionResizes">
               <bool>true</bool>
@@ -96,7 +96,7 @@
               <number>220</number>
              </attribute>
              <attribute name="headerDefaultSectionSize">
-              <number>210</number>
+              <number>220</number>
              </attribute>
              <column>
               <property name="text">
@@ -235,7 +235,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="finishButton_2">
+        <widget class="QPushButton" name="finishButton">
          <property name="minimumSize">
           <size>
            <width>150</width>

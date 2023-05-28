@@ -55,6 +55,10 @@ QPushButton#connectButton{
 	text-align: left;
 }
 
+QPushButton#finishButton{
+	background-color: #FF0000
+}
+
 QLabel#userLabel{
 	border: 1px;
 	padding: 10px;
