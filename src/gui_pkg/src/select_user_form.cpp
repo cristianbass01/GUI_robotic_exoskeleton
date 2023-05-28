@@ -13,13 +13,15 @@
 #include <log_view.h>
 #include <training_form.h>
 
-SelectUserForm::SelectUserForm(FrameWindow *parent, bool create) :
+SelectUserForm::SelectUserForm(FrameWindow *parent, bool create, User* u) :
   QWidget(parent), ui(new Ui::SelectUserForm)
 {
     frame_.reset(parent);
     ui->setupUi(this);
-
-    createComboBox(!create, nullptr);
+    if(u!=nullptr)
+        createComboBox(!create, u->getId());
+    else
+        createComboBox(!create, nullptr);
 }
 
 SelectUserForm::~SelectUserForm()
@@ -69,8 +71,8 @@ void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
     User* u = new User;
     if(index>0)
     {
-        currentUser = users[index-1].second;
-        u = userList.getAt(currentUser);
+        selectUser = users[index-1].second;
+        u = userList.getAt(selectUser);
         ui->BT_create->setText("Edit");
 
     }
@@ -78,7 +80,7 @@ void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
         ui->BT_create->setText("Save");
     }
 
-    if(u==nullptr) {
+    if(u == nullptr) {
       QMessageBox::warning(this,"Warning", "The selected user is not present.");
       return; //// come proseguo? elimino dal file, o chiedo di recrearlo?
     }
@@ -210,9 +212,9 @@ void SelectUserForm::setReadOnly(bool status, bool id)
 
 void SelectUserForm::on_BT_selectUser_clicked()
 {
-  frame_->customizeWindow(new TrainingForm(frame_.get(), userList.getAt(currentUser)));
+  currentUser = userList.getAt(selectUser);
+  frame_->customizeWindow(new TrainingForm(frame_.get(), userList.getAt(selectUser)));
   frame_->show();
-
 }
 
 void SelectUserForm::on_BT_viewLog_clicked()
@@ -237,4 +239,9 @@ bool SelectUserForm::overWriteMsg(QString text, QString InformativeText){
       //createUser(true);
     msgBox.close();
     return (ret == QMessageBox::Yes);
+}
+
+void SelectUserForm::on_finishButton_clicked()
+{
+  frame_->close();
 }

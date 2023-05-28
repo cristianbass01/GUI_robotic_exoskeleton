@@ -2,9 +2,10 @@
 #include "ui_frame_window.h"
 
 #include "main_form.h"
-
 #include "session_form.h"
 #include "training_form.h"
+#include <global_variable.h>
+#include <QMessageBox>
 
 FrameWindow::FrameWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -42,3 +43,34 @@ void FrameWindow::on_actionHome_triggered()
     this->customizeWindow(new MainForm(this));
 }
 
+void FrameWindow::on_actionClose_triggered()
+{
+    this->close();
+}
+
+void FrameWindow::on_actionDemo_triggered()
+{
+    this->customizeWindow(new TrainingForm(this));
+}
+
+void FrameWindow::on_actionNew_User_triggered()
+{
+    this->customizeWindow(new SelectUserForm(this, true));
+}
+
+void FrameWindow::on_actionView_User_triggered()
+{
+    if(currentUser == nullptr)
+    {
+      QMessageBox msgBox;
+      msgBox.setIcon(QMessageBox::Warning);
+      msgBox.setWindowTitle("Warning");
+      msgBox.setText("No user select");
+      msgBox.setInformativeText("Please select a user first");
+      msgBox.setStandardButtons(QMessageBox::Ok);
+      msgBox.exec();
+    }
+
+    else
+        this->customizeWindow(new SelectUserForm(this, false, currentUser));
+}

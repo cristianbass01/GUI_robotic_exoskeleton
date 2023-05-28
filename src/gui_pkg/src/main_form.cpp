@@ -4,6 +4,7 @@
 
 #include "frame_window.h"
 #include "training_form.h"
+#include "global_variable.h"
 
 MainForm::MainForm(FrameWindow *parent) :
   QWidget(parent),
@@ -48,4 +49,9 @@ void MainForm::on_BT_demo_clicked()
     frame_->show();
 
     this->close();
+}
+
+void MainForm::on_finishButton_clicked()
+{
+    frame_->close();
 }

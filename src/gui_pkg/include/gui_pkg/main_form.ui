@@ -247,6 +247,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../rc/resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

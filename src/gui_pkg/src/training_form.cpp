@@ -27,7 +27,7 @@ TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
   ui->setupUi(this);
 
   this->displayUser();
-
+  currentUser = user;
   if(user == nullptr)
       log = nullptr;
   else

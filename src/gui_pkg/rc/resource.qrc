@@ -37,6 +37,8 @@
     </qresource>
     <qresource prefix="/INDI">
         <file>INDI/INDI Logo (Negro con fondo blanco)-100.jpg</file>
+        <file>INDI/INDI Logo-100.png</file>
+        <file>INDI/INDI Logo-50.png</file>
         <file>INDI/Logo.ico</file>
         <file>INDI/Logo.png</file>
     </qresource>

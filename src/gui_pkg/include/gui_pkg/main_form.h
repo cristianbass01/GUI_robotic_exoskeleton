@@ -26,6 +26,8 @@ private slots:
 
   void on_BT_demo_clicked();
 
+  void on_finishButton_clicked();
+
 private:
   Ui::MainForm *ui;
   std::shared_ptr<FrameWindow> frame_;

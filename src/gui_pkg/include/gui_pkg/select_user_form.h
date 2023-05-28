@@ -10,6 +10,7 @@
 #include <QList>
 #include <ros/ros.h>
 #include <frame_window.h>
+#include <user.h>
 
 namespace Ui {
 class SelectUserForm;
@@ -20,7 +21,7 @@ class SelectUserForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit SelectUserForm(FrameWindow  *parent = nullptr, bool create = false);
+    explicit SelectUserForm(FrameWindow  *parent = nullptr, bool create = false, User *u = nullptr);
     ~SelectUserForm();
 
 signals:
@@ -36,12 +37,14 @@ private slots:
     void on_BT_viewLog_clicked();
     void createUser(bool overwrite);
 
+    void on_finishButton_clicked();
+
 private:
     Ui::SelectUserForm *ui;
     QString id_user;
     QList<QPair<QString, int>> users;
     std::shared_ptr<FrameWindow> frame_;
-    int currentUser;
+    int selectUser;
     bool overWriteMsg(QString text, QString InformativeText);
 };
 

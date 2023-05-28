@@ -22,6 +22,8 @@ private slots:
 
   void on_treeW_log_itemClicked(QTreeWidgetItem *item, int column);
 
+  void on_finishButton_clicked();
+
 private:
   QList<QPair<QString, int>> users;
 
@@ -33,7 +35,7 @@ private:
   Ui::LogView *ui;
   std::shared_ptr<FrameWindow> frame_;
 
-  std::shared_ptr<User> user;
+  User* user;
 
   const QVector< QVector< QString > > columnName = {
     {"#", "Leg", "Correct", "Time"},           // ControlLog

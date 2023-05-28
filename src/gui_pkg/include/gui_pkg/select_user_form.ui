@@ -17,12 +17,21 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_6">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_3"/>
-     </item>
-     <item>
       <widget class="QLabel" name="lb_logo">
+       <property name="maximumSize">
+        <size>
+         <width>50</width>
+         <height>50</height>
+        </size>
+       </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::AutoText</enum>
+       </property>
+       <property name="pixmap">
+        <pixmap>:/INDI/INDI/INDI Logo-50.png</pixmap>
        </property>
       </widget>
      </item>
@@ -418,7 +427,7 @@
            </property>
            <property name="maximumSize">
             <size>
-             <width>300</width>
+             <width>610</width>
              <height>16777215</height>
             </size>
            </property>
@@ -516,7 +525,7 @@
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>500</width>
+                 <width>400</width>
                  <height>16777215</height>
                 </size>
                </property>
@@ -556,7 +565,7 @@
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>500</width>
+                 <width>400</width>
                  <height>16777215</height>
                 </size>
                </property>
@@ -580,9 +589,14 @@
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>500</width>
+                 <width>400</width>
                  <height>16777215</height>
                 </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
                </property>
                <property name="text">
                 <string>View Log</string>

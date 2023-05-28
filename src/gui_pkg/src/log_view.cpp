@@ -52,7 +52,7 @@ void LogView::createComboBox(QString id){
 void LogView::on_CB_user_currentIndexChanged(int index)
 {
   ui->treeW_log->clear();
-  user.reset(userList.getAt(users[index].second));
+  user = userList.getAt(users[index].second);
 
   ui->TB_name->setText(user->getName());
   ui->TB_surname->setText(user->getSurname());
@@ -163,4 +163,9 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
         // Se non è possibile aprire il file, gestisci l'errore
         //qDebug() << "Impossibile aprire il file" << fileName;
     }
+}
+
+void LogView::on_finishButton_clicked()
+{
+    frame_->close();
 }

@@ -10,6 +10,7 @@
 
 const QString path = QDir::homePath() + "/Alice/Log/";
 UserList userList;
+User *currentUser;
 std::shared_ptr<ConnectedComponent> connectedComponent;
 
 int main(int argc, char *argv[])
@@ -31,6 +32,7 @@ int main(int argc, char *argv[])
   QIcon icon(":/icons/Icons/exoskeleton_icon.png");
   frame->setWindowIcon(icon);
   userList.loadXml(path + "users.xml");
+  currentUser = nullptr;
   frame->show();
 
   return a.exec();

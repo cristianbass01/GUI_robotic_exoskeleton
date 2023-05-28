@@ -17,20 +17,14 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <spacer name="verticalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string/>
        </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
+       <property name="pixmap">
+        <pixmap resource="../../rc/resource.qrc">:/INDI/INDI/INDI Logo-50.png</pixmap>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
+      </widget>
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -84,7 +78,7 @@
               <enum>QAbstractItemView::ScrollPerItem</enum>
              </property>
              <property name="headerHidden">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
              <attribute name="headerVisible">
               <bool>false</bool>
@@ -253,6 +247,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../rc/resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

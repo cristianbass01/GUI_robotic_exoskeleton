@@ -8,6 +8,7 @@
 #include "connected_component.h"
 
 extern UserList userList;
+extern User* currentUser;
 extern const QString path;
 
 extern std::shared_ptr<ConnectedComponent> connectedComponent;

@@ -15,30 +15,27 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow{
-	background-color: rgb(255, 255, 255);
+	background-color:#F4F4F6
 }
 
 QPushButton{
 	border: 1px solid #000000;
-	background-color: rgb(75, 199, 238);
+	background-color: #68ACE4;
 	border-radius: 15px;
 }
 
 QPushButton:hover {
-    border: 2px solid #576490;
+    border: 2px solid #3993DD;
 }
 
 QPushButton:pressed {
-    background-color: #99F7AB;     
+    background-color: #2176AE;     
 }
 
-QLineEdit {
-	border: 1px solid;
-	border-radius: 5px;
-}
+
 
 QLineEdit:Focus {
-	border: 2px solid #576490;
+	border: 2px solid #2176AE;
 	
 }
 
@@ -56,7 +53,8 @@ QPushButton#connectButton{
 }
 
 QPushButton#finishButton{
-	background-color: #FF0000
+	background-color:#D72638;
+	color:#F4F4F6
 }
 
 QLabel#userLabel{
@@ -110,13 +108,13 @@ QLabel#userLabel{
       <string>Change User...</string>
      </property>
      <addaction name="actionNew_User"/>
-     <addaction name="actionLoad_User_2"/>
+     <addaction name="actionLoad_User"/>
     </widget>
     <addaction name="actionCopy"/>
     <addaction name="actionPaste"/>
     <addaction name="actionCut"/>
     <addaction name="separator"/>
-    <addaction name="actionDemo_2"/>
+    <addaction name="actionDemo"/>
     <addaction name="menuUser"/>
     <addaction name="actionEdit_User"/>
     <addaction name="actionView_User"/>
@@ -148,7 +146,7 @@ QLabel#userLabel{
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>false</bool>
+    <bool>true</bool>
    </attribute>
    <addaction name="actionHome"/>
    <addaction name="separator"/>
@@ -162,7 +160,7 @@ QLabel#userLabel{
    <addaction name="actionSave"/>
    <addaction name="actionSave_As"/>
    <addaction name="separator"/>
-   <addaction name="actionDemo_2"/>
+   <addaction name="actionDemo"/>
    <addaction name="actionNew_User"/>
    <addaction name="actionEdit_User"/>
    <addaction name="actionView_User"/>
@@ -242,7 +240,7 @@ QLabel#userLabel{
     <string>Create User</string>
    </property>
   </action>
-  <action name="actionDemo_2">
+  <action name="actionDemo">
    <property name="icon">
     <iconset>
      <normaloff>:/icons/Icons/utente-uomo-cerchiato (2).png</normaloff>:/icons/Icons/utente-uomo-cerchiato (2).png</iconset>
@@ -251,7 +249,7 @@ QLabel#userLabel{
     <string>Demo</string>
    </property>
   </action>
-  <action name="actionLoad_User_2">
+  <action name="actionLoad_User">
    <property name="icon">
     <iconset>
      <normaloff>:/icons/Icons/utente-uomo-cerchiato (1).png</normaloff>:/icons/Icons/utente-uomo-cerchiato (1).png</iconset>
@@ -315,6 +313,9 @@ QLabel#userLabel{
    </property>
    <property name="text">
     <string>Close Training</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
    </property>
   </action>
   <action name="actionHome">

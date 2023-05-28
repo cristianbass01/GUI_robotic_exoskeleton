@@ -22,6 +22,13 @@ public:
 
 private slots:
     void on_actionHome_triggered();
+    void on_actionClose_triggered();
+
+    void on_actionDemo_triggered();
+
+    void on_actionNew_User_triggered();
+
+    void on_actionView_User_triggered();
 
 private:
     Ui::FrameWindow *ui;
