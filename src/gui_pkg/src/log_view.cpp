@@ -17,6 +17,10 @@ LogView::LogView(FrameWindow *parent, QString id) :
 LogView::~LogView()
 {
   delete ui;
+
+  delete controlItem;
+  delete stepItem;
+  delete walkingItem;
 }
 
 void LogView::createComboBox(QString id){
@@ -52,7 +56,7 @@ void LogView::createComboBox(QString id){
 void LogView::on_CB_user_currentIndexChanged(int index)
 {
   ui->treeW_log->clear();
-  user = std::make_shared<User>(*(userList.getAt(users[index].second));
+  user = userList.getAt(users[index].second);
 
   ui->TB_name->setText(user->getName());
   ui->TB_surname->setText(user->getSurname());
@@ -61,9 +65,9 @@ void LogView::on_CB_user_currentIndexChanged(int index)
   QDir logsDir(path + user->getDir());
   QStringList logFiles = logsDir.entryList(QDir::Files);
 
-  QTreeWidgetItem* controlItem = new QTreeWidgetItem(QStringList() << "Control Ex");
-  QTreeWidgetItem* stepItem = new QTreeWidgetItem(QStringList() << "Step Ex");
-  QTreeWidgetItem* walkingItem = new QTreeWidgetItem(QStringList() << "Walking Ex");
+  controlItem = new QTreeWidgetItem(QStringList() << "Control Ex");
+  stepItem = new QTreeWidgetItem(QStringList() << "Step Ex");
+  walkingItem = new QTreeWidgetItem(QStringList() << "Walking Ex");
 
   ui->treeW_log->addTopLevelItem(controlItem);
   ui->treeW_log->addTopLevelItem(stepItem);
@@ -121,9 +125,7 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
     for(int j =0; j< columnName[logType].size(); j++)
     {
         ui ->TableW_log->insertColumn(j);
-
-        QTableWidgetItem* headerItem = new QTableWidgetItem(columnName[logType][j]);
-        ui->TableW_log->setHorizontalHeaderItem(j, headerItem);
+        ui->TableW_log->setHorizontalHeaderItem(j, new QTableWidgetItem(columnName[logType][j]));
     }
     ui ->TableW_log->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 

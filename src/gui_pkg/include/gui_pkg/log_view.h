@@ -7,6 +7,7 @@
 #include <QTreeWidgetItem>
 #include <frame_window.h>
 #include <QVector>
+#include <QTreeWidgetItem>
 
 namespace Ui {
 class LogView;
@@ -35,7 +36,7 @@ private:
   Ui::LogView *ui;
   std::shared_ptr<FrameWindow> frame_;
 
-  std::shared_ptr<User> user;
+  User* user;
 
   const QVector< QVector< QString > > columnName = {
     {"#", "Leg", "Correct", "Time"},           // ControlLog
@@ -43,6 +44,10 @@ private:
     {"#", "Set", "Executed", "Pause", "Time"}  // walkingLog
 
   };
+
+  QTreeWidgetItem* controlItem;
+  QTreeWidgetItem* stepItem;
+  QTreeWidgetItem* walkingItem;
 
   /*
   const QString walkingLog[5] = {"#", "Set", "Executed", "Pause", "Time"};

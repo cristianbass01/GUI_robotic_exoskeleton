@@ -21,7 +21,7 @@ class SelectUserForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit SelectUserForm(FrameWindow  *parent = nullptr, bool create = false, User *u = nullptr);
+    explicit SelectUserForm(FrameWindow  *parent = nullptr, bool create = false, QString id = nullptr);
     ~SelectUserForm();
 
 signals:

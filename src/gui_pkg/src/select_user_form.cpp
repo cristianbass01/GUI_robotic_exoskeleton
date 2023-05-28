@@ -13,15 +13,12 @@
 #include <log_view.h>
 #include <training_form.h>
 
-SelectUserForm::SelectUserForm(FrameWindow *parent, bool create, User* u) :
+SelectUserForm::SelectUserForm(FrameWindow *parent, bool create, QString id) :
   QWidget(parent), ui(new Ui::SelectUserForm)
 {
     frame_.reset(parent);
     ui->setupUi(this);
-    if(u!=nullptr)
-        createComboBox(!create, u->getId());
-    else
-        createComboBox(!create, nullptr);
+    createComboBox(!create, id);
 }
 
 SelectUserForm::~SelectUserForm()
@@ -30,35 +27,35 @@ SelectUserForm::~SelectUserForm()
 }
 
 void SelectUserForm::createComboBox(int start, QString id){
-  ui->CB_selectUser->clear();
-  users.clear();
+    ui->CB_selectUser->clear();
+    users.clear();
 
-  ui->CB_selectUser->addItem(QString("- - - Create User - - -"));
+    ui->CB_selectUser->addItem(QString("- - - Create User - - -"));
 
-  User* u;
-  for(int i = 0; i<userList.size(); i++) {
-    u = userList.getAt(i);
-    users.append(QPair<QString, int>(u->getSurname() + " " + u->getName(), i)); // i è la posizione nel xml
-  }
+    User* u;
+    for(int i = 0; i<userList.size(); i++) {
+      u = userList.getAt(i);
+      users.append(QPair<QString, int>(u->getSurname() + " " + u->getName(), i)); // i è la posizione nel xml
+    }
 
-  auto pairStringComparator = [](const QPair<QString, int>& pair1, const QPair<QString, int>& pair2) {
-      return pair1.first < pair2.first;
-  };
+    auto pairStringComparator = [](const QPair<QString, int>& pair1, const QPair<QString, int>& pair2) {
+        return pair1.first < pair2.first;
+    };
 
-  // usa il metodo qSort per ordinare la lista in base al comparatore personalizzato
-  qSort(users.begin(), users.end(), pairStringComparator);
+    // usa il metodo qSort per ordinare la lista in base al comparatore personalizzato
+    qSort(users.begin(), users.end(), pairStringComparator);
 
-  int p = 1;
-  for(const auto& user : users) {
-      ui->CB_selectUser->addItem(user.first);
-      if(!QString::compare(userList.getAt(user.second)->getId(),id))
-        start = p;
-      p++;
-  }
+    int p = 1;
+    for(const auto& user : users) {
+        ui->CB_selectUser->addItem(user.first);
+        if(!QString::compare(userList.getAt(user.second)->getId(),id))
+          start = p;
+        p++;
+    }
 
-  //ui->CB_selectUser->addItems(users);
+    //ui->CB_selectUser->addItems(users);
 
-  ui->CB_selectUser->setCurrentIndex(start);
+    ui->CB_selectUser->setCurrentIndex(start);
 }
 
 
@@ -135,10 +132,7 @@ void SelectUserForm::on_BT_create_clicked()
         create = overWriteMsg("You will overwrite a user", "Are you sure?");
     else
         create = overWriteMsg("The user already exists", "Do you want overwrite?");
-    //DialogForm *dial = new DialogForm(); // form per la sovrascrizione
-    //dial->show();
-    //QObject::connect(dial, SIGNAL(on_BT_dialog_accepted()), this, SLOT(createUser()));
-    //
+
     if(create)
         createUser(true);
   }

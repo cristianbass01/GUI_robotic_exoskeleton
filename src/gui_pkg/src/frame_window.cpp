@@ -72,5 +72,5 @@ void FrameWindow::on_actionView_User_triggered()
     }
 
     else
-        this->customizeWindow(new SelectUserForm(this, false, currentUser));
+        this->customizeWindow(new SelectUserForm(this, false, currentUser->getId()));
 }
