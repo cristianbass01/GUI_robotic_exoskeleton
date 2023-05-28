@@ -23,9 +23,9 @@ void LogView::createComboBox(QString id){
   ui->CB_user->clear();
   users.clear();
 
-  User* u;
+  std::shared_ptr<User> u;
   for(int i = 0; i<userList.size(); i++) {
-    u = userList.getAt(i);
+    u = std::make_shared<User>(*userList.getAt(i));
     users.append(QPair<QString, int>(u->getSurname() + " " + u->getName(), i)); // i è la posizione nel xml
   }
 
@@ -52,7 +52,7 @@ void LogView::createComboBox(QString id){
 void LogView::on_CB_user_currentIndexChanged(int index)
 {
   ui->treeW_log->clear();
-  user = userList.getAt(users[index].second);
+  user = std::make_shared<User>(*(userList.getAt(users[index].second));
 
   ui->TB_name->setText(user->getName());
   ui->TB_surname->setText(user->getSurname());
