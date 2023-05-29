@@ -19,6 +19,7 @@ SelectUserForm::SelectUserForm(FrameWindow *parent, bool create, QString id) :
     frame_.reset(parent);
     ui->setupUi(this);
     createComboBox(!create, id);
+    editMode(false);
 }
 
 SelectUserForm::~SelectUserForm()
@@ -66,6 +67,7 @@ void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
     ui->BT_viewLog->setVisible(ui->CB_selectUser->currentIndex()>0);
 
     User* u = new User;
+
     if(index>0)
     {
         selectUser = users[index-1].second;
@@ -104,14 +106,21 @@ void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
 
 void SelectUserForm::on_BT_create_clicked()
 {
-    bool create = true;
-    bool edit = false;
+    if(ui->BT_create->text()=="Edit"){
+        setReadOnly(false, true);
+        editMode(true);
+        //ui->BT_create->setText("Save");
+    }
+    else {
+      int status = checkCorrect(false);
+      if (status < 0)
+          return;
+      createUser(status);
+    }
+}
 
-  if(ui->BT_create->text()=="Edit"){
-      setReadOnly(false, true);
-      ui->BT_create->setText("Save");
-      edit = true;
-  }
+int SelectUserForm::checkCorrect(bool edit){
+  bool create = true;
 
   id_user = ui->TB_id->text();
   if(ui->TB_name->text().size() < 3 || ui->TB_surname->text().size() < 3 || id_user.length() < 3 || id_user.contains(" ")) // 16 caratteri è giusto?
@@ -123,21 +132,19 @@ void SelectUserForm::on_BT_create_clicked()
     msgBox.setInformativeText("First name, Last name and ID must have at least 3 letters");
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.exec();
-    return;
-  }
+    return -1;
+    }
 
-  if(!edit && userList.findPos(id_user)>=0) // utente già presente
-  {
-    if(ui->TB_id->isReadOnly()) // sto modificando
-        create = overWriteMsg("You will overwrite a user", "Are you sure?");
-    else
-        create = overWriteMsg("The user already exists", "Do you want overwrite?");
+    if(!edit && userList.findPos(id_user)>=0) // utente già presente
+    {
+      if(ui->TB_id->isReadOnly()) // sto modificando
+          create = overWriteMsg("You will overwrite a user", "Are you sure?");
+      else
+          create = overWriteMsg("The user already exists", "Do you want overwrite?");
 
-    if(create)
-        createUser(true);
-  }
-  if(!edit)
-      createUser(false);
+      return create * 2 -1; // -1 -> no save, 1 overwrite
+    }
+    return 0; // save
 }
 
 void SelectUserForm::createUser(bool overwrite){
@@ -191,32 +198,44 @@ void SelectUserForm::createUser(bool overwrite){
 
 void SelectUserForm::setReadOnly(bool status, bool id)
 {
-  ui->TB_name->setReadOnly(status);
-  ui->TB_surname->setReadOnly(status);
-  ui->TB_id->setReadOnly(id);
-  ui->DE_birthday->setReadOnly(status);
-  ui->RB_male->setEnabled(!status);
-  ui->RB_female->setEnabled(!status);
-  ui->RB_other->setEnabled(!status);
-  ui->NB_height->setReadOnly(status);
-  ui->NB_weight->setReadOnly(status);
-  ui->NB_upperLeg->setReadOnly(status);
-  ui->NB_lowerLeg->setReadOnly(status);
+    ui->TB_name->setReadOnly(status);
+    ui->TB_surname->setReadOnly(status);
+    ui->TB_id->setReadOnly(id);
+    ui->DE_birthday->setReadOnly(status);
+    ui->RB_male->setEnabled(!status);
+    ui->RB_female->setEnabled(!status);
+    ui->RB_other->setEnabled(!status);
+    ui->NB_height->setReadOnly(status);
+    ui->NB_weight->setReadOnly(status);
+    ui->NB_upperLeg->setReadOnly(status);
+    ui->NB_lowerLeg->setReadOnly(status);
+}
+
+void SelectUserForm::editMode(bool edit)
+{
+    int size = 30 * edit; // true -> 1, fasle -> 0
+    ui->BT_save->setMaximumHeight(size);
+    ui->BT_cancel->setMaximumHeight(size);
+    ui->BT_create->setMaximumHeight(30 - size);
+
+    ui->BT_save->setMinimumHeight(size);
+    ui->BT_cancel->setMinimumHeight(size);
+    ui->BT_create->setMinimumHeight(30 - size);
 }
 
 void SelectUserForm::on_BT_selectUser_clicked()
 {
-  currentUser = userList.getAt(selectUser);
-  frame_->customizeWindow(new TrainingForm(frame_.get(), userList.getAt(selectUser)));
-  frame_->show();
+    currentUser = userList.getAt(selectUser);
+    frame_->customizeWindow(new TrainingForm(frame_.get(), userList.getAt(selectUser)));
+    frame_->show();
 }
 
 void SelectUserForm::on_BT_viewLog_clicked()
 {
-  frame_->customizeWindow(new LogView(frame_.get(), ui->TB_id->text()));
-  frame_->show();
+    frame_->customizeWindow(new LogView(frame_.get(), ui->TB_id->text()));
+    frame_->show();
 
-  this->hide();
+    this->hide();
 }
 
 bool SelectUserForm::overWriteMsg(QString text, QString InformativeText){
@@ -238,4 +257,10 @@ bool SelectUserForm::overWriteMsg(QString text, QString InformativeText){
 void SelectUserForm::on_finishButton_clicked()
 {
   frame_->close();
+}
+
+void SelectUserForm::on_BT_save_clicked()
+{
+    if(checkCorrect(true) == 1)
+        createUser(true);
 }

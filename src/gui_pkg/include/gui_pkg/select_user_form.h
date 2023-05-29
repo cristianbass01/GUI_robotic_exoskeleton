@@ -38,6 +38,10 @@ private slots:
     void createUser(bool overwrite);
 
     void on_finishButton_clicked();
+    void editMode(bool edit);
+
+    void on_BT_save_clicked();
+    int checkCorrect(bool edit);
 
 private:
     Ui::SelectUserForm *ui;
