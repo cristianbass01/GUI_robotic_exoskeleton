@@ -4,15 +4,22 @@
 #include <iostream>
 #include "connected_component.h"
 #include <QMutex>
+#include <QTime>
+#include <QElapsedTimer>
 
-WalkThread::WalkThread(int numSteps)
+WalkThread::WalkThread(int numSteps, Log *log)
 {
     this->numSteps_ = numSteps;
+    log_ = log;
 }
 
 void WalkThread::run()
 {
-    for (int step = 1; step <= numSteps_; ++step)
+    QTime t = QTime(0,0,0);
+    QElapsedTimer timer;
+    timer.start();
+    int step;
+    for (step = 1; step <= numSteps_; ++step)
     {
         QMutex mutex;
 
@@ -44,8 +51,18 @@ void WalkThread::run()
         sleep(1);
     }
     emit stopped();
+
+    int ms = static_cast<int>(timer.elapsed());
+    addLog(numSteps_,step -1, numSteps_ - (step - 1), t.addMSecs(ms));
+
 }
 
 void WalkThread::stop(){
     stopped_ = true;
+}
+
+
+void WalkThread::addLog(int set, int executed, int pause, QTime time){
+    if(log_ != nullptr) // sono se non è in demo
+        log_->addWalkingEx(set, executed, pause, time);
 }

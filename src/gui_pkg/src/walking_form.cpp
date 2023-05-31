@@ -15,19 +15,12 @@ WalkingForm::WalkingForm(SessionForm *parent, Log *log) :
     ui->stopButton->setEnabled(false);
     ui->progressBar->hide();
 
-    log_.reset(log);
+    log_ = log;
 }
 
 WalkingForm::~WalkingForm()
 {
-}
-
-
-void WalkingForm::addLog(int set, int executed, int pause, QTime time){
-    if(log_ != nullptr) // sono in demo
-    {
-        log_->addWalkingEx(set, executed, pause, time);
-    }
+  delete log_;
 }
 
 void WalkingForm::on_startButton_clicked()
@@ -47,7 +40,7 @@ void WalkingForm::on_startButton_clicked()
         ui->progressBar->setValue(0);
         ui->progressBar->show();
 
-        thread_.reset(new WalkThread(numSteps));
+        thread_.reset(new WalkThread(numSteps, log_));
         thread_->start();
 
         QObject::connect(thread_.get(), &WalkThread::progressUpdated, this, &WalkingForm::updateProgressBar);

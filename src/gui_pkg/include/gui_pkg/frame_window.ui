@@ -54,7 +54,8 @@ QPushButton#connectButton{
 
 QPushButton#finishButton{
 	background-color:#D72638;
-	color:#F4F4F6
+	color:#F4F4F6;
+	font-weight:600
 }
 
 QLabel#userLabel{
@@ -146,7 +147,7 @@ QLabel#userLabel{
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
    <addaction name="actionHome"/>
    <addaction name="separator"/>
@@ -342,7 +343,7 @@ QLabel#userLabel{
      <normaloff>:/icons/Icons/utente-uomo-cerchiato (4).png</normaloff>:/icons/Icons/utente-uomo-cerchiato (4).png</iconset>
    </property>
    <property name="text">
-    <string>View User</string>
+    <string>View Users</string>
    </property>
   </action>
  </widget>

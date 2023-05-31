@@ -34,10 +34,10 @@ private:
     SessionForm *session_;
     FrameWindow *frame_;
 
-    QSharedPointer<Log> log_;
+    Log* log_;
     QSharedPointer<WalkThread> thread_;
 
-    void addLog(int set, int executed, int pause, QTime time);
+
 };
 
 #endif // WALKING_FORM_H

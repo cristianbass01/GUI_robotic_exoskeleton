@@ -35,13 +35,19 @@ private slots:
     void on_CB_selectUser_currentIndexChanged(int index);
 
     void on_BT_viewLog_clicked();
-    void createUser(bool overwrite);
 
     void on_finishButton_clicked();
     void editMode(bool edit);
 
     void on_BT_save_clicked();
     int checkCorrect(bool edit);
+
+    void on_BT_cancel_clicked();
+
+    void createUser(bool overwrite);
+
+public slots:
+    void setEditMode();
 
 private:
     Ui::SelectUserForm *ui;

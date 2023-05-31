@@ -107,9 +107,7 @@ void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
 void SelectUserForm::on_BT_create_clicked()
 {
     if(ui->BT_create->text()=="Edit"){
-        setReadOnly(false, true);
-        editMode(true);
-        //ui->BT_create->setText("Save");
+        setEditMode();
     }
     else {
       int status = checkCorrect(false);
@@ -117,6 +115,12 @@ void SelectUserForm::on_BT_create_clicked()
           return;
       createUser(status);
     }
+}
+
+void SelectUserForm::setEditMode()
+{
+  setReadOnly(false, true);
+  editMode(true);
 }
 
 int SelectUserForm::checkCorrect(bool edit){
@@ -261,6 +265,18 @@ void SelectUserForm::on_finishButton_clicked()
 
 void SelectUserForm::on_BT_save_clicked()
 {
-    if(checkCorrect(true) == 1)
-        createUser(true);
+    if(checkCorrect(true) >= 0)
+    {
+      createUser(true);
+      editMode(false);
+    }
+}
+
+void SelectUserForm::on_BT_cancel_clicked()
+{
+    int curr = ui->CB_selectUser->currentIndex();
+    ui->CB_selectUser->setCurrentIndex(0);
+    ui->CB_selectUser->setCurrentIndex(curr);
+    editMode(false);
+    setReadOnly(true, true);
 }

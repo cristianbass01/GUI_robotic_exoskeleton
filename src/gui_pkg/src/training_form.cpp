@@ -65,7 +65,7 @@ void TrainingForm::on_walkButton_clicked()
     frame_->customizeWindow(session);
 
     //session->setWindowState(Qt::WindowMaximized);
-    session->customizeForm(new WalkingForm(session));
+    session->customizeForm(new WalkingForm(session, log.get()));
 }
 
 void TrainingForm::on_controlButton_clicked()

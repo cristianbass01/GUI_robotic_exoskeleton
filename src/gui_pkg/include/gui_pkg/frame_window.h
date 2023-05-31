@@ -30,6 +30,8 @@ private slots:
 
     void on_actionView_User_triggered();
 
+    void on_actionEdit_User_triggered();
+
 private:
     Ui::FrameWindow *ui;
     QString currentForm;

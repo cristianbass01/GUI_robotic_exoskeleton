@@ -61,17 +61,25 @@ void FrameWindow::on_actionNew_User_triggered()
 
 void FrameWindow::on_actionView_User_triggered()
 {
-    if(currentUser == nullptr)
-    {
-      QMessageBox msgBox;
-      msgBox.setIcon(QMessageBox::Warning);
-      msgBox.setWindowTitle("Warning");
-      msgBox.setText("No user select");
-      msgBox.setInformativeText("Please select a user first");
-      msgBox.setStandardButtons(QMessageBox::Ok);
-      msgBox.exec();
-    }
+    this->customizeWindow(new SelectUserForm(this, false, (currentUser == nullptr)? nullptr : currentUser->getId()));
+}
 
-    else
-        this->customizeWindow(new SelectUserForm(this, false, currentUser->getId()));
+void FrameWindow::on_actionEdit_User_triggered()
+{
+  if(currentUser == nullptr)
+  {
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setWindowTitle("Warning");
+    msgBox.setText("No user select");
+    msgBox.setInformativeText("Please select a user first");
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
+  }
+
+  else {
+    SelectUserForm* selec = new SelectUserForm(this, false, currentUser->getId());
+    selec->setEditMode();
+    this->customizeWindow(selec);
+  }
 }
