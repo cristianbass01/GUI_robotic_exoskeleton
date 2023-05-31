@@ -226,13 +226,13 @@ void SelectUserForm::editMode(bool edit)
 void SelectUserForm::on_BT_selectUser_clicked()
 {
     currentUser = userList.getAt(selectUser);
-    frame_->customizeWindow(new TrainingForm(frame_.get(), userList.getAt(selectUser)));
+    frame_->customizeWindow(new TrainingForm(frame_, userList.getAt(selectUser)));
     frame_->show();
 }
 
 void SelectUserForm::on_BT_viewLog_clicked()
 {
-    frame_->customizeWindow(new LogView(frame_.get(), ui->TB_id->text()));
+    frame_->customizeWindow(new LogView(frame_, ui->TB_id->text()));
     frame_->show();
 
     this->hide();
