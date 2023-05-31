@@ -30,7 +30,7 @@ private slots:
 
 private:
   Ui::MainForm *ui;
-  std::shared_ptr<FrameWindow> frame_;
+  FrameWindow *frame_;
 };
 
 #endif // MAIN_FORM_H

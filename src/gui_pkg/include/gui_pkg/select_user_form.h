@@ -47,7 +47,7 @@ private:
     Ui::SelectUserForm *ui;
     QString id_user;
     QList<QPair<QString, int>> users;
-    std::shared_ptr<FrameWindow> frame_;
+    FrameWindow *frame_;
     int selectUser;
     bool overWriteMsg(QString text, QString InformativeText);
 };

@@ -12,7 +12,6 @@
 #include "global_variable.h"
 
 #include <QObject>
-#include <QCoreApplication>
 #include <QTimer>
 
 TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
@@ -20,9 +19,9 @@ TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
   ui(new Ui::TrainingForm)
 {
   //frame_.reset(parent);
-  //user_.reset(user);
+  user_.reset(user);
   frame_ = parent;
-  user_ = user;
+  //user_ = user;
 
   ui->setupUi(this);
 
@@ -31,7 +30,7 @@ TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
   if(user == nullptr)
       log = nullptr;
   else
-      log = new Log(user->getDir());
+      log.reset(new Log(user->getDir()));
 
   // se è già attivo il timer vuol dire che la connessione è già in corso
   if(connectedComponent->timer_->isActive()){
@@ -44,9 +43,6 @@ TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
 TrainingForm::~TrainingForm()
 {
   delete ui;
-  delete frame_;
-  delete log;
-  delete user_;
 }
 
 void TrainingForm::on_standButton_clicked()
@@ -60,7 +56,7 @@ void TrainingForm::on_stepButton_clicked()
     frame_->customizeWindow(session);
 
     //session->setWindowState(Qt::WindowMaximized);
-    session->customizeForm(new StepForm(session, log));
+    session->customizeForm(new StepForm(session, log.get()));
 }
 
 void TrainingForm::on_walkButton_clicked()
@@ -83,7 +79,7 @@ void TrainingForm::on_controlButton_clicked()
 
 void TrainingForm::on_finishButton_clicked()
 {
-
+    QApplication::quit();
 }
 
 void TrainingForm::on_connectButton_clicked()

@@ -4,6 +4,9 @@
 #include <ros/ros.h>
 #include <qtimer.h>
 #include <std_msgs/String.h>
+#include <QTimer>
+#include <QSharedPointer>
+
 
 class ConnectedComponent : public QObject
 {
@@ -19,6 +22,8 @@ private:
     char **argv;
     ros::NodeHandlePtr nh_;
     ros::ServiceClient client_;
+    QList<pid_t> pid_;
+    FILE * stream_;
 
 
 public:

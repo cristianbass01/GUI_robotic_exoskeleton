@@ -6,6 +6,7 @@
 #include "frame_window.h"
 #include <log.h>
 #include <QTime>
+#include "walk_thread.h"
 
 namespace Ui {
 class WalkingForm;
@@ -19,12 +20,22 @@ public:
     explicit WalkingForm(SessionForm *parent = nullptr, Log *log = nullptr);
     ~WalkingForm();
 
+private slots:
+    void on_startButton_clicked();
+
+    void on_stopButton_clicked();
+
+    void updateProgressBar(int value);
+
+    void finishProgressBar();
+
 private:
     Ui::WalkingForm *ui;
-    std::shared_ptr<SessionForm> session_;
-    std::shared_ptr<FrameWindow> frame_;
+    SessionForm *session_;
+    FrameWindow *frame_;
 
-    std::shared_ptr<Log> log_;
+    QSharedPointer<Log> log_;
+    QSharedPointer<WalkThread> thread_;
 
     void addLog(int set, int executed, int pause, QTime time);
 };

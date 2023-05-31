@@ -19,13 +19,31 @@ public:
     ~SessionForm();
 
     void customizeForm(QWidget *widget_to_insert);
-    FrameWindow *getFrame(){return this->frame_.get();}
+    FrameWindow *getFrame(){return this->frame_;}
 
     void setConnected(bool state);
 
     void displayUser();
 
+    void movement(const std::string code);
+
+    void setEnabled(bool state);
+
+    void setImage(const QString);
+
+    const QString LEFTSTEP = QString::fromStdString(":/Alice/Alice/Alice_left_step.png");
+    const QString RIGHTSTEP = QString::fromStdString(":/Alice/Alice/Alice_right_step.png");
+    const QString LEFTCLOSE = QString::fromStdString(":/Alice/Alice/Alice_step_five.png");
+    const QString SIT = QString::fromStdString(":/Alice/Alice/Alice_sit_straight.png");
+    const QString STORAGE = QString::fromStdString(":/Alice/Alice/Alice_sitting_exercises.png");
+    const QString STAND = QString::fromStdString(":/Alice/Alice/Alice_stand_straight.png");
+    const QString NOTCONNECTED = QString::fromStdString(":/Alice/Alice/Alice_not_connected.png");
+
 public slots:
+
+    void on_connectButton_clicked();
+
+private slots:
     void on_controlWindowButton_clicked();
 
     void on_stepWindowButton_clicked();
@@ -34,12 +52,18 @@ public slots:
 
     void on_walkWindowButton_clicked();
 
-    void on_connectButton_clicked();
+    void on_sitButton_clicked();
+
+    void on_storageButton_clicked();
+
+    void on_standButton_clicked();
 
 private:
     Ui::SessionForm *ui;
-    std::shared_ptr<FrameWindow> frame_;
-    std::shared_ptr<User> user_;
+    FrameWindow * frame_;
+    User *user_;
+
+    QWidget *form_ = nullptr;
 };
 
 #endif // WALKING_WINDOW_H

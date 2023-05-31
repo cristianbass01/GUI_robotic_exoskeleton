@@ -22,8 +22,9 @@ int main(int argc, char *argv[])
 
   //QString a2 = ;
 
-  FrameWindow* frame = new FrameWindow();
-  frame->customizeWindow(new MainForm(frame));
+  std::shared_ptr<FrameWindow> frame;
+  frame.reset(new FrameWindow());
+  frame->customizeWindow(new MainForm(frame.get()));
 
   // set the window title as the node name
   //w.setWindowTitle(QString::fromStdString(ros::this_node::getName()));

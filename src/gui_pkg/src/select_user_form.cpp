@@ -16,7 +16,7 @@
 SelectUserForm::SelectUserForm(FrameWindow *parent, bool create, QString id) :
   QWidget(parent), ui(new Ui::SelectUserForm)
 {
-    frame_.reset(parent);
+    frame_ = parent;
     ui->setupUi(this);
     createComboBox(!create, id);
     editMode(false);

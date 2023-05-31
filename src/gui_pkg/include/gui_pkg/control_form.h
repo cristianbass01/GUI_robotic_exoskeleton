@@ -22,8 +22,8 @@ public:
 
 private:
     Ui::ControlForm *ui;
-    std::shared_ptr<SessionForm> session_;
-    std::shared_ptr<FrameWindow> frame_;
+    SessionForm *session_;
+    FrameWindow *frame_;
 
     std::shared_ptr<Log> log_;
     int stepCount;

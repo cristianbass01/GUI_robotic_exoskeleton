@@ -25,6 +25,7 @@ void FrameWindow::customizeWindow(QWidget *widget_to_insert){
         ui->parentLayout->removeWidget(last->widget());
         last->widget()->close();
     }
+
     currentForm = widget_to_insert->objectName();
     ui->parentLayout->addWidget(widget_to_insert);
 }

@@ -18,6 +18,8 @@ public:
     explicit StepForm(SessionForm *parent = nullptr, Log *log = nullptr);
     ~StepForm();
 
+    void setEnabled(bool state);
+
 private slots:
     void on_leftFirstStepButton_clicked();
 
@@ -27,8 +29,8 @@ private slots:
 
 private:
     Ui::StepForm *ui;
-    std::shared_ptr<SessionForm> session_;
-    std::shared_ptr<FrameWindow> frame_;
+    SessionForm *session_;
+    FrameWindow *frame_;
 
     std::shared_ptr<Log> log_;
     int stepCount;

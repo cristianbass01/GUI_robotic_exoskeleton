@@ -10,7 +10,7 @@ MainForm::MainForm(FrameWindow *parent) :
   QWidget(parent),
   ui(new Ui::MainForm)
 {
-  frame_.reset(parent);
+  frame_ = parent;
   ui->setupUi(this);
 }
 MainForm::~MainForm()
@@ -25,7 +25,7 @@ void MainForm::on_BT_createUser_clicked()
     //CreateUserF->show();
 
 
-    frame_->customizeWindow(new SelectUserForm(frame_.get(), true));
+    frame_->customizeWindow(new SelectUserForm(frame_, true));
     frame_->show();
 
     this->close();
@@ -35,7 +35,7 @@ void MainForm::on_BT_createUser_clicked()
 void MainForm::on_BT_selectUser_clicked()
 {
     //SelectUserForm *SelectUserF = new SelectUserForm();
-    frame_->customizeWindow(new SelectUserForm(frame_.get()));
+    frame_->customizeWindow(new SelectUserForm(frame_));
     frame_->show();
     //SelectUserF->show();
 
@@ -45,7 +45,7 @@ void MainForm::on_BT_selectUser_clicked()
 
 void MainForm::on_BT_demo_clicked()
 {
-    frame_->customizeWindow(new TrainingForm(frame_.get()));
+    frame_->customizeWindow(new TrainingForm(frame_));
     frame_->show();
 
     this->close();

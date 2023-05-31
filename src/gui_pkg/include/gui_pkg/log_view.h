@@ -34,7 +34,7 @@ public:
 
 private:
   Ui::LogView *ui;
-  std::shared_ptr<FrameWindow> frame_;
+  FrameWindow *frame_;
 
   User* user;
 

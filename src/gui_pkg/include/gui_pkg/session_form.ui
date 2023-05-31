@@ -170,7 +170,7 @@ Press to connect...</string>
                <string/>
               </property>
               <property name="pixmap">
-               <pixmap>:/Alice/Alice/Alice_stand_straight.png</pixmap>
+               <pixmap resource="../../rc/aliceresources.qrc">:/Alice/Alice/Alice_not_connected.png</pixmap>
               </property>
               <property name="scaledContents">
                <bool>false</bool>
@@ -213,7 +213,7 @@ Press to connect...</string>
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="standButton_3">
+             <widget class="QPushButton" name="standButton">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -488,7 +488,7 @@ Press to connect...</string>
        <item>
         <widget class="QLabel" name="label">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -545,6 +545,8 @@ Press to connect...</string>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../rc/aliceresources.qrc"/>
+ </resources>
  <connections/>
 </ui>

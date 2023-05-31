@@ -33,7 +33,6 @@ private slots:
 private:
     Ui::FrameWindow *ui;
     QString currentForm;
-
 };
 
 #endif // FRAME_WINDOW_H

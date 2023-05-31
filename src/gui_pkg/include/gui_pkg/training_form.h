@@ -41,17 +41,17 @@ private slots:
 
 private:
     Ui::TrainingForm *ui;
-    //std::shared_ptr<FrameWindow> frame_;
-
-    //std::shared_ptr<Log> log;
-
-    //std::shared_ptr<User> user_;
-
     FrameWindow *frame_;
 
-    Log *log;
+    QSharedPointer<Log> log;
 
-    User *user_;
+    QSharedPointer<User> user_;
+
+    //FrameWindow *frame_;
+
+    //Log *log;
+
+    //User *user_;
 };
 
 #endif // TRAINING_WINDOW_H

@@ -13,8 +13,8 @@ StepForm::StepForm(SessionForm *parent, Log *log) :
     QWidget(parent),
     ui(new Ui::StepForm)
 {
-    session_.reset(parent);
-    frame_.reset(parent->getFrame());
+    session_ = parent;
+    frame_ = parent->getFrame();
     ui->setupUi(this);
 
     log_.reset(log);
@@ -42,9 +42,8 @@ void StepForm::on_feetTogetherButton_clicked()
 }
 
 void StepForm::movement(const std::string code){
-    ui->feetTogetherButton->setEnabled(false);
-    ui->leftFirstStepButton->setEnabled(false);
-    ui->rightFirstStepButton->setEnabled(false);
+    this->setEnabled(false);
+    session_->setEnabled(false);
 
     ui->loadingLabel->setMargin(0);
     ui->loadingLabel->setText("<img src=\":/icons/Icons/update-left-rotation.png\" width=\"40\"/>");
@@ -62,21 +61,26 @@ void StepForm::movement(const std::string code){
         session_->on_connectButton_clicked();
 
     if (connectedComponent->isConnected()){
+        //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
+
         QElapsedTimer timer;
         timer.start();
 
         connectedComponent->step(code);
+        lastStep = code;
+
+        this->setEnabled(true);
+        session_->setEnabled(true);
+
         if(code.compare(connectedComponent->LEFTCLOSE) == 0){
-            ui->leftFirstStepButton->setEnabled(true);
-            ui->rightFirstStepButton->setEnabled(true);
+            session_->setImage(session_->LEFTCLOSE);
             leg = "LEFT";
             close = true;
         } else if(code.compare(connectedComponent->LEFTSTEP)== 0){
-            ui->rightFirstStepButton->setEnabled(true);
+            session_->setImage(session_->LEFTSTEP);
             leg = "LEFT";
         } else if(code.compare(connectedComponent->RIGHTSTEP)== 0){
-            ui->feetTogetherButton->setEnabled(true);
-            ui->leftFirstStepButton->setEnabled(true);
+            session_->setImage(session_->RIGHTSTEP);
             leg = "RIGHT";
         }
         ms = static_cast<int>(timer.elapsed());
@@ -85,26 +89,13 @@ void StepForm::movement(const std::string code){
 
         ui->loadingLabel->setText("");
         ui->loadingLabel->setMargin(9);
-
-        lastStep = code;
     }
     else {
         connectedComponent->errorMsg("Error while calling the service");
         session_->setConnected(false);
         correct = false;
-
-        if(lastStep.compare("") != 0){
-            if(lastStep.compare(connectedComponent->LEFTCLOSE)){
-                ui->leftFirstStepButton->setEnabled(true);
-                ui->rightFirstStepButton->setEnabled(true);
-            } else if(lastStep.compare(connectedComponent->LEFTSTEP)){
-                ui->feetTogetherButton->setEnabled(true);
-                ui->rightFirstStepButton->setEnabled(true);
-            } else if(lastStep.compare(connectedComponent->RIGHTSTEP)){
-                ui->feetTogetherButton->setEnabled(true);
-                ui->leftFirstStepButton->setEnabled(true);
-            }
-        }
+        this->setEnabled(true);
+        session_->setEnabled(true);
     }
     addLog(leg, correct, close, t.addMSecs(ms));
 }
@@ -117,5 +108,30 @@ void StepForm::addLog(QString leg, bool correct, bool close, QTime time)
         log_->addStepEx(leg, correct, close, time);
         if(close)
             stepCount = 1;
+    }
+}
+
+void StepForm::setEnabled(bool state){
+    if (!state){
+        ui->feetTogetherButton->setEnabled(false);
+        ui->leftFirstStepButton->setEnabled(false);
+        ui->rightFirstStepButton->setEnabled(false);
+    }
+    else {
+        if(lastStep.compare("") != 0){
+            if(lastStep.compare(connectedComponent->LEFTCLOSE)){
+                ui->leftFirstStepButton->setEnabled(true);
+                ui->rightFirstStepButton->setEnabled(true);
+            } else if(lastStep.compare(connectedComponent->LEFTSTEP)){
+                ui->rightFirstStepButton->setEnabled(true);
+            } else if(lastStep.compare(connectedComponent->RIGHTSTEP)){
+                ui->feetTogetherButton->setEnabled(true);
+                ui->leftFirstStepButton->setEnabled(true);
+            }
+        }
+        else{
+            ui->leftFirstStepButton->setEnabled(true);
+            ui->rightFirstStepButton->setEnabled(true);
+        }
     }
 }

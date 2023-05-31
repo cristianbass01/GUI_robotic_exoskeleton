@@ -9,7 +9,7 @@ LogView::LogView(FrameWindow *parent, QString id) :
   QWidget(parent),
   ui(new Ui::LogView)
 {
-  frame_.reset(parent);
+  frame_ = parent;
   ui->setupUi(this);
   createComboBox(id);
 }
