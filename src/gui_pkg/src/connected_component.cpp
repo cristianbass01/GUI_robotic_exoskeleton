@@ -19,15 +19,11 @@ ConnectedComponent::ConnectedComponent(int argc, char *argv[])
 }
 
 ConnectedComponent::~ConnectedComponent(){
-    //delete argv;
-    std::cout << "Distruttore\n";
     nh_.reset();
-    /*
-    ros::shutdown();
 
     FILE * pipe = popen("ps -e | grep rosmaster", "r");
     if(pipe == nullptr){
-        std::cerr << "Failed to execute command." << std::endl;
+        ROS_ERROR("Failed to execute command.");
         return;
     }
     char buffer[128];
@@ -36,34 +32,33 @@ ConnectedComponent::~ConnectedComponent(){
     while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
         result += buffer;
     }
-    std::cout << "result: " << result;
 
-    pclose(pipe);
+    if(pipe)
+        pclose(pipe);
 
     if(!result.empty()){
         result = result.substr(result.find_first_not_of(" "), result.size());
         pid_t pid = std::stoi(result.substr(0, result.find(" ")));
-        std::cout << "pid: "<< pid << std::endl;
+        ROS_INFO("pid: %d",pid);
 
-        std::cout << "killing process";
+        ROS_INFO("killing process...");
         kill(pid, SIGKILL);
-        std::cout << "process killed";
+        ROS_INFO("process killed.");
 
         int status;
         waitpid(pid, &status, 0);
 
         if (WIFEXITED(status)) {
             int exitStatus = WEXITSTATUS(status);
-            std::cout << "Process exited with status: " << exitStatus << std::endl;
+            ROS_INFO("Process exited with status: %d",exitStatus);
         } else if (WIFSIGNALED(status)) {
             int signalNumber = WTERMSIG(status);
-            std::cout << "Process terminated by signal: " << signalNumber << std::endl;
+            ROS_INFO("Process terminated by signal:  %d", signalNumber);
         }
 
     }
-    */
-    std::system("killall rosmaster");
-    pclose(stream_);
+    if(stream_)
+        pclose(stream_);
 }
 
 void ConnectedComponent::step(const std::string &code){
