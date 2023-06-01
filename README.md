@@ -19,7 +19,7 @@ or download the zip file and then decompress it:
 
 ```
 $ wget https://github.com/cristianbass01/GUI_robotic_exoskeleton/archive/refs/heads/main.zip
-$ unzip main.zip -d ./GUI_exoskeleton
+$ unzip main.zip -d ./GUI_robotic_exoskeleton
 ```
 Go to the repo directory created:
 ```
