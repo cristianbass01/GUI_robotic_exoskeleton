@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>
+  	<!-- gui_pkg node -->
+	<node name="gui" pkg="gui_pkg" type="start_gui_node" output="screen"/>
+  
+</launch>

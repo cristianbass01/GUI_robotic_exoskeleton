@@ -20,32 +20,50 @@ ConnectedComponent::ConnectedComponent(int argc, char *argv[])
 
 ConnectedComponent::~ConnectedComponent(){
     //delete argv;
-    std::cout << "Distruttore";
+    std::cout << "Distruttore\n";
     nh_.reset();
+    /*
     ros::shutdown();
-/*
-    if(stream_ && pid_.size()>0){
+
+    FILE * pipe = popen("ps -e | grep rosmaster", "r");
+    if(pipe == nullptr){
+        std::cerr << "Failed to execute command." << std::endl;
+        return;
+    }
+    char buffer[128];
+    std::string result;
+
+    while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
+        result += buffer;
+    }
+    std::cout << "result: " << result;
+
+    pclose(pipe);
+
+    if(!result.empty()){
+        result = result.substr(result.find_first_not_of(" "), result.size());
+        pid_t pid = std::stoi(result.substr(0, result.find(" ")));
+        std::cout << "pid: "<< pid << std::endl;
+
+        std::cout << "killing process";
+        kill(pid, SIGKILL);
+        std::cout << "process killed";
+
         int status;
-        for(pid_t pid : pid_){
-            if (waitpid(pid, &status, WNOHANG) == 0) {
-                //Termina manualmente il processo utilizzando SIGTERM
-                kill(pid, SIGTERM);
+        waitpid(pid, &status, 0);
 
-                // Attendere la terminazione effettiva del processo
-                waitpid(pid, &status, 0);
-            }
-
-            if (WIFEXITED(status)) {
-                int exitStatus = WEXITSTATUS(status);
-                std::cout << "Process exited with status: " << exitStatus << std::endl;
-            } else if (WIFSIGNALED(status)) {
-                int signalNumber = WTERMSIG(status);
-                std::cout << "Process terminated by signal: " << signalNumber << std::endl;
-            }
+        if (WIFEXITED(status)) {
+            int exitStatus = WEXITSTATUS(status);
+            std::cout << "Process exited with status: " << exitStatus << std::endl;
+        } else if (WIFSIGNALED(status)) {
+            int signalNumber = WTERMSIG(status);
+            std::cout << "Process terminated by signal: " << signalNumber << std::endl;
         }
-    pclose(stream_);
-    }*/
 
+    }
+    */
+    std::system("killall rosmaster");
+    pclose(stream_);
 }
 
 void ConnectedComponent::step(const std::string &code){
@@ -68,46 +86,23 @@ bool ConnectedComponent::connect(){
     if(active) this->timer_->stop();
 
     if(!this->isConnected() ){
-        // launch rosserial and master using command line
-        // std::system("roslaunch rosserial_python rosserial.launch");
-        // std::system("gnome-terminal --command='rosrun fake_exo exoskeleton_node'");
-
         // initialize ROS
         ros::init(this->argc, this->argv, "gui_connection");
 
-        /*
+
         if(! (ros::master::check())){
-            //std::system("gnome-terminal --command='roscore'");
-            stream_ = popen("roslaunch fake_exo fake_exo.launch", "r");
+
+            // Simulation
+            stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
+
+            // Actual rosserial node
+            //stream_ = popen("roslaunch rosserial_python rosserial.launch", "w");
             if(!stream_){
                 errorMsg("Error occurred during\nconnection to the device.");
                 return false;
             }
-
-            pid_.append(fileno(stream_));
-
-            // Leggi tutte le righe e recupera i valori di "pid [valore]"
-            char buffer[256];
-            std::string output;
-            while (fgets(buffer, sizeof(buffer), stream_)) {
-                output += buffer;  // Accumula l'output completo
-            }
-
-            // Crea un'espressione regolare per trovare i valori di "pid [valore]"
-            std::regex regex("pid\\s+\\[([0-9]+)\\]");
-
-            // Crea un oggetto std::smatch per memorizzare le corrispondenze
-            std::smatch match;
-
-            // Trova e stampa tutti i valori di "pid [valore]"
-            std::string::const_iterator searchStart(output.cbegin());
-            while (std::regex_search(searchStart, output.cend(), match, regex)) {
-                std::cout << "PID: " << match[1] << std::endl;
-                pid_.append(stoi(match[1]));
-                searchStart = match.suffix().first;  // Continua la ricerca dalla fine dell'ultima corrispondenza
-            }
+            sleep(2);
         }
-        */
 
         // Reset the NodeHandle
         nh_.reset(new ros::NodeHandle("~"));
