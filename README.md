@@ -10,20 +10,30 @@ In summary, the developed interface represents an innovative and effective solut
 
 
 ## 2. Installation on Ubuntu
-  1. Open the terminal and clone the repo:
+### Download files
+Open the terminal and clone the repo:
 ```
 $ git clone https://github.com/cristianbass01/GUI_robotic_exoskeleton.git
 ```
-  2. Go to the repo directory created:
+or download the zip file and then decompress it:
+
+```
+$ wget https://github.com/cristianbass01/GUI_robotic_exoskeleton/archive/refs/heads/main.zip
+$ unzip main.zip -d ./GUI_exoskeleton
+```
+Go to the repo directory created:
 ```
 $ cd GUI_robotic_exoskeleton 
 ```
-  3. Make the setup.sh file executable and run it:
+  
+### Setup environment
+Make the setup.sh file executable and run it:
 ```
 $ chmod +x setup.sh
 $ ./setup.sh
 ```
-4. A new launch.sh file is being created, run it:
+### Launch file  
+A new launch.sh file is being created, run it:
 ```
 $ ./launch.sh
 ```
