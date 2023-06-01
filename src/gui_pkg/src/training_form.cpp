@@ -24,6 +24,7 @@ TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
   //user_ = user;
 
   ui->setupUi(this);
+  ui->connectLoadingIcon->hide();
 
   this->displayUser();
   currentUser = user;
@@ -84,6 +85,9 @@ void TrainingForm::on_finishButton_clicked()
 
 void TrainingForm::on_connectButton_clicked()
 {
+    ui->connectLoadingIcon->show();
+    QApplication::processEvents();
+
     if(connectedComponent->connect()){
         this->setConnected(true);
         if(! connectedComponent->timer_->isActive()){
@@ -96,6 +100,7 @@ void TrainingForm::on_connectButton_clicked()
         if(connectedComponent->timer_->isActive())
             connectedComponent->timer_->stop();
     }
+    ui->connectLoadingIcon->hide();
 }
 
 void TrainingForm::setConnected(bool state){

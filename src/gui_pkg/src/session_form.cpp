@@ -20,6 +20,8 @@ SessionForm::SessionForm(FrameWindow *parent, User *user) :
     ui->setupUi(this);
     this->displayUser();
 
+    ui->connectLoadingIcon->hide();
+
     this->setImage(this->NOTCONNECTED);
 
     // se è già attivo il timer vuol dire che la connessione è già in corso
@@ -87,6 +89,9 @@ void SessionForm::customizeForm(QWidget *widget_to_insert){
 
 void SessionForm::on_connectButton_clicked()
 {
+    ui->connectLoadingIcon->show();
+    QApplication::processEvents();
+
     if(connectedComponent->connect()){
         this->setConnected(true);
         if(! connectedComponent->timer_->isActive()){
@@ -99,6 +104,7 @@ void SessionForm::on_connectButton_clicked()
         if(connectedComponent->timer_->isActive())
             connectedComponent->timer_->stop();
     }
+    ui->connectLoadingIcon->hide();
 }
 
 void SessionForm::setConnected(bool state){

@@ -20,8 +20,23 @@ ConnectedComponent::ConnectedComponent(int argc, char *argv[])
 
 ConnectedComponent::~ConnectedComponent(){
     nh_.reset();
+    FILE * pipe;
 
-    FILE * pipe = popen("ps -e | grep rosmaster", "r");
+    // Terminare rosmaster!
+#ifdef _WIN32
+    ROS_INFO("Sistema operativo: Windows");
+    pipe = popen("tasklist | findstr rosmaster", "r");
+#elif __linux__
+    ROS_INFO("Sistema operativo: Linux");
+    pipe = popen("ps -e | grep rosmaster", "r");
+#elif __APPLE__
+    ROS_INFO("Sistema operativo: MacOS");
+    pipe = popen("ps -A | grep rosmaster", "r");
+#else
+    ROS_INFO("Sistema operativo sconosciuto");
+    return;
+#endif
+
     if(pipe == nullptr){
         ROS_ERROR("Failed to execute command.");
         return;
@@ -82,7 +97,7 @@ bool ConnectedComponent::connect(){
 
     if(!this->isConnected() ){
         // initialize ROS
-        ros::init(this->argc, this->argv, "gui_connection");
+        ros::init(this->argc, this->argv, "serial_connection");
 
 
         if(! (ros::master::check())){
@@ -144,4 +159,35 @@ void ConnectedComponent::errorMsg(std::string error){
         // Add your cancel logic here
         msgBox.close();
     }
+}
+
+std::string ConnectedComponent::getSerialPort(){
+    if(this->isConnected()){
+        std::string serialPort;
+        if (!nh_->getParam("port", serialPort)) {
+                ROS_ERROR("Failed to retrieve 'port' parameter");
+                return nullptr;
+        } else return serialPort;
+    }
+    return nullptr;
+}
+
+int ConnectedComponent::getBaudRate(){
+    if(this->isConnected()){
+        int baudRate;
+        if (!nh_->getParam("baud", baudRate)) {
+                ROS_ERROR("Failed to retrieve 'baud' parameter");
+                return 0;
+        } else return baudRate;
+    }
+    return 0;
+}
+
+int ConnectedComponent::setParams(int baudRate, std::string serialPort){
+    if(this->isConnected()){
+        nh_->setParam("port", serialPort);
+        nh_->setParam("baud", baudRate);
+        return 1;
+    }
+    return 0;
 }

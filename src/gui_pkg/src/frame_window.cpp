@@ -6,6 +6,7 @@
 #include "training_form.h"
 #include <global_variable.h>
 #include <QMessageBox>
+#include "log_view.h"
 
 FrameWindow::FrameWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -82,4 +83,28 @@ void FrameWindow::on_actionEdit_User_triggered()
     selec->setEditMode();
     this->customizeWindow(selec);
   }
+}
+
+void FrameWindow::on_actionTraining_Log_triggered()
+{
+    if(currentUser == nullptr)
+    {
+      QMessageBox msgBox;
+      msgBox.setIcon(QMessageBox::Warning);
+      msgBox.setWindowTitle("Warning");
+      msgBox.setText("No user select");
+      msgBox.setInformativeText("Please select a user first");
+      msgBox.setStandardButtons(QMessageBox::Ok);
+      msgBox.exec();
+    }
+
+    else {
+      this->customizeWindow(new LogView(this, currentUser->getId()));
+    }
+}
+
+
+void FrameWindow::on_actionMaximize_Window_triggered()
+{
+    this->showMaximized();
 }

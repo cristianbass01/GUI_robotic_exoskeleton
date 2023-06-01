@@ -37,6 +37,10 @@ public:
     const int CONTROL_TIME_OUT = 5000;
     std::shared_ptr<QTimer> timer_;
 
+    std::string getSerialPort();
+    int getBaudRate();
+    int setParams(int baudRate, std::string serialPort);
+
 public slots:
     bool connect();
     bool isConnected();
