@@ -32,7 +32,7 @@ private:
     SessionForm *session_;
     FrameWindow *frame_;
 
-    std::shared_ptr<Log> log_;
+    Log* log_;
     int stepCount;
 
     std::string lastStep = "";
