@@ -17,13 +17,14 @@ StepForm::StepForm(SessionForm *parent, Log *log) :
     frame_ = parent->getFrame();
     ui->setupUi(this);
 
-    log_.reset(log);
+    log_ = log;
     stepCount = 1;
 }
 
 StepForm::~StepForm()
 {
     delete ui;
+    delete log_;
 }
 
 void StepForm::on_leftFirstStepButton_clicked()
