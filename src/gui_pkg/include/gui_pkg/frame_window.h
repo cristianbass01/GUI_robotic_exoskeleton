@@ -36,6 +36,8 @@ private slots:
 
     void on_actionMaximize_Window_triggered();
 
+    void on_actionView_Log_triggered();
+
 private:
     Ui::FrameWindow *ui;
     QString currentForm;

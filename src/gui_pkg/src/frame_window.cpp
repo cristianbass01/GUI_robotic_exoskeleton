@@ -108,3 +108,21 @@ void FrameWindow::on_actionMaximize_Window_triggered()
 {
     this->showMaximized();
 }
+
+void FrameWindow::on_actionView_Log_triggered()
+{
+  if(currentUser == nullptr)
+  {
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setWindowTitle("Warning");
+    msgBox.setText("No user select");
+    msgBox.setInformativeText("Please select a user first");
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
+  }
+
+  else {
+    this->customizeWindow(new LogView(this, currentUser->getId()));
+  }
+}

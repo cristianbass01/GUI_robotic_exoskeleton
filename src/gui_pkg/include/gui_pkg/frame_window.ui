@@ -154,6 +154,7 @@ QLabel#userLabel{
    <addaction name="actionNew_User"/>
    <addaction name="actionEdit_User"/>
    <addaction name="actionView_User"/>
+   <addaction name="actionView_Log"/>
    <addaction name="separator"/>
    <addaction name="actionView"/>
    <addaction name="actionChange_settings"/>
@@ -314,6 +315,21 @@ QLabel#userLabel{
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionView_Log">
+   <property name="icon">
+    <iconset resource="../../rc/resource.qrc">
+     <normaloff>:/icons/Icons/diario-di-bordo.png</normaloff>:/icons/Icons/diario-di-bordo.png</iconset>
+   </property>
+   <property name="text">
+    <string>View Log</string>
+   </property>
+   <property name="toolTip">
+    <string>View Log</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
  </widget>
