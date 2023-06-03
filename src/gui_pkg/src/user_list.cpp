@@ -18,8 +18,8 @@ void UserList::add(const User& user) {
   userList.append(user);
 }
 
-void UserList::remove(const User& user) {
-  int p = findPos(user.getId());
+void UserList::remove(const QString& id) {
+  int p = findPos(id);
   if(p>=0)
     userList.removeAt(p);
 }

@@ -14,7 +14,7 @@ public:
   UserList() {}
   int size() { return userList.size();}
   void add(const User& user);
-  void remove(const User& user);
+  void remove(const QString& id);
   User* find(const QString& id);
   int findPos(const QString& id);
   User* getAt(const int pos);

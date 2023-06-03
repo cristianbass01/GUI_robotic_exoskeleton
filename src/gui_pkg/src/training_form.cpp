@@ -18,10 +18,8 @@ TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
   QWidget(parent),
   ui(new Ui::TrainingForm)
 {
-  //frame_.reset(parent);
-  user_.reset(user);
   frame_ = parent;
-  //user_ = user;
+  user_ = user;
 
   ui->setupUi(this);
   ui->connectLoadingIcon->hide();

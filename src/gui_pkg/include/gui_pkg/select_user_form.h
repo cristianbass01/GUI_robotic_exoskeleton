@@ -46,6 +46,8 @@ private slots:
 
     void createUser(bool overwrite);
 
+    void on_BT_delete_clicked();
+
 public slots:
     void setEditMode();
 
@@ -55,7 +57,7 @@ private:
     QList<QPair<QString, int>> users;
     FrameWindow *frame_;
     int selectUser;
-    bool overWriteMsg(QString text, QString InformativeText);
+    bool popUpMsg(QString text, QString InformativeText);
 };
 
 #endif // SELECT_USER_FORM_H

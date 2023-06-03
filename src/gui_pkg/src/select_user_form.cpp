@@ -31,6 +31,8 @@ void SelectUserForm::createComboBox(int start, QString id){
     ui->CB_selectUser->clear();
     users.clear();
 
+    start = (userList.size()>0) * start; // e' > 1 se c'è almeno un elemento nella lista, altrimenti è 0
+
     ui->CB_selectUser->addItem(QString("- - - Create User - - -"));
 
     User* u;
@@ -65,6 +67,7 @@ void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
     setReadOnly(ui->CB_selectUser->currentIndex()!=0, ui->CB_selectUser->currentIndex()!=0);
     ui->BT_selectUser->setVisible(ui->CB_selectUser->currentIndex()>0);
     ui->BT_viewLog->setVisible(ui->CB_selectUser->currentIndex()>0);
+    ui->BT_delete->setVisible(ui->CB_selectUser->currentIndex()>0);
 
     User* u = new User;
 
@@ -119,8 +122,8 @@ void SelectUserForm::on_BT_create_clicked()
 
 void SelectUserForm::setEditMode()
 {
-  setReadOnly(false, true);
-  editMode(true);
+    setReadOnly(false, true);
+    editMode(true);
 }
 
 int SelectUserForm::checkCorrect(bool edit){
@@ -142,9 +145,9 @@ int SelectUserForm::checkCorrect(bool edit){
     if(!edit && userList.findPos(id_user)>=0) // utente già presente
     {
       if(ui->TB_id->isReadOnly()) // sto modificando
-          create = overWriteMsg("You will overwrite a user", "Are you sure?");
+          create = popUpMsg("You will overwrite a user", "Are you sure?");
       else
-          create = overWriteMsg("The user already exists", "Do you want overwrite?");
+          create = popUpMsg("The user already exists", "Do you want overwrite?");
 
       return create * 2 -1; // -1 -> no save, 1 overwrite
     }
@@ -225,6 +228,11 @@ void SelectUserForm::editMode(bool edit)
     ui->BT_save->setMinimumHeight(size);
     ui->BT_cancel->setMinimumHeight(size);
     ui->BT_create->setMinimumHeight(30 - size);
+
+
+    ui->BT_delete->setVisible(!edit);
+    ui->BT_selectUser->setVisible(!edit);
+    ui->BT_viewLog->setVisible(!edit);
 }
 
 void SelectUserForm::on_BT_selectUser_clicked()
@@ -242,7 +250,7 @@ void SelectUserForm::on_BT_viewLog_clicked()
     this->hide();
 }
 
-bool SelectUserForm::overWriteMsg(QString text, QString InformativeText){
+bool SelectUserForm::popUpMsg(QString text, QString InformativeText){
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Warning);
     msgBox.setWindowTitle("Warning");
@@ -252,8 +260,6 @@ bool SelectUserForm::overWriteMsg(QString text, QString InformativeText){
     msgBox.setDefaultButton(QMessageBox::No);
 
     int ret = msgBox.exec();
-    //if(ret == QMessageBox::Yes)
-      //createUser(true);
     msgBox.close();
     return (ret == QMessageBox::Yes);
 }
@@ -279,4 +285,32 @@ void SelectUserForm::on_BT_cancel_clicked()
     ui->CB_selectUser->setCurrentIndex(curr);
     editMode(false);
     setReadOnly(true, true);
+}
+
+void SelectUserForm::on_BT_delete_clicked()
+{
+    if(popUpMsg("The current user will be deleted", "All their information and log will be deleted.\nAre you sure?"))
+    {
+
+      QString directoryPath = "/percorso/della/directory";
+
+      QDir directory(path + userList.find(ui->TB_id->text())->getDir());
+
+      if (directory.exists()) {
+          if (!directory.removeRecursively()) {
+
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Critical);
+            msgBox.setText("Si è verificato un errore!");
+            msgBox.setWindowTitle("Error");
+            msgBox.setText("Unable to delete user");
+            msgBox.setInformativeText("Error deleting directory");
+            msgBox.setStandardButtons(QMessageBox::Ok);
+          }
+      }
+
+      userList.remove(ui->TB_id->text());
+      userList.saveXml(path + "users.xml");
+      createComboBox(1, "");
+    }
 }

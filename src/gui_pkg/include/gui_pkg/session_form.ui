@@ -170,6 +170,12 @@ Press to connect...</string>
                 <height>600</height>
                </size>
               </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+    background-color: rgb(255, 255, 255);
+}
+</string>
+              </property>
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>

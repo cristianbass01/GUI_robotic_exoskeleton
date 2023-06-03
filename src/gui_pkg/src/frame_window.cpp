@@ -85,44 +85,23 @@ void FrameWindow::on_actionEdit_User_triggered()
   }
 }
 
-void FrameWindow::on_actionTraining_Log_triggered()
-{
-    if(currentUser == nullptr)
-    {
-      QMessageBox msgBox;
-      msgBox.setIcon(QMessageBox::Warning);
-      msgBox.setWindowTitle("Warning");
-      msgBox.setText("No user select");
-      msgBox.setInformativeText("Please select a user first");
-      msgBox.setStandardButtons(QMessageBox::Ok);
-      msgBox.exec();
-    }
-
-    else {
-      this->customizeWindow(new LogView(this, currentUser->getId()));
-    }
-}
-
-
 void FrameWindow::on_actionMaximize_Window_triggered()
 {
     this->showMaximized();
 }
 
+void FrameWindow::on_actionTraining_Log_triggered()
+{
+  if(currentUser == nullptr)
+      this->customizeWindow(new LogView(this, ""));
+  else
+      this->customizeWindow(new LogView(this, currentUser->getId()));
+}
+
 void FrameWindow::on_actionView_Log_triggered()
 {
   if(currentUser == nullptr)
-  {
-    QMessageBox msgBox;
-    msgBox.setIcon(QMessageBox::Warning);
-    msgBox.setWindowTitle("Warning");
-    msgBox.setText("No user select");
-    msgBox.setInformativeText("Please select a user first");
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.exec();
-  }
-
-  else {
-    this->customizeWindow(new LogView(this, currentUser->getId()));
-  }
+      this->customizeWindow(new LogView(this, ""));
+  else
+      this->customizeWindow(new LogView(this, currentUser->getId()));
 }

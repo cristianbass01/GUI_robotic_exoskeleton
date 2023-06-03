@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QPushButton#BT_cancel{
+   <string notr="true">QPushButton#BT_cancel, QPushButton#BT_delete{
 	background-color:#D72638;
 	color:#F4F4F6;
 	font-weight:600
@@ -602,6 +602,8 @@ QPushButton#BT_create, QPushButton#BT_save{
                  <property name="font">
                   <font>
                    <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
                   </font>
                  </property>
                  <property name="text">
@@ -610,6 +612,30 @@ QPushButton#BT_create, QPushButton#BT_save{
                 </widget>
                </item>
               </layout>
+             </item>
+             <item>
+              <widget class="QPushButton" name="BT_delete">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>410</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Delete</string>
+               </property>
+              </widget>
              </item>
              <item>
               <spacer name="verticalSpacer_3">
