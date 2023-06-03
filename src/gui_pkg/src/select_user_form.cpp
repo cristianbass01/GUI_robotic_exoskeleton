@@ -18,8 +18,8 @@ SelectUserForm::SelectUserForm(FrameWindow *parent, bool create, QString id) :
 {
     frame_ = parent;
     ui->setupUi(this);
-    createComboBox(!create, id);
     editMode(false);
+    createComboBox(!create, id);
 }
 
 SelectUserForm::~SelectUserForm()
@@ -64,10 +64,10 @@ void SelectUserForm::createComboBox(int start, QString id){
 
 void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
 {
-    setReadOnly(ui->CB_selectUser->currentIndex()!=0, ui->CB_selectUser->currentIndex()!=0);
-    ui->BT_selectUser->setVisible(ui->CB_selectUser->currentIndex()>0);
-    ui->BT_viewLog->setVisible(ui->CB_selectUser->currentIndex()>0);
-    ui->BT_delete->setVisible(ui->CB_selectUser->currentIndex()>0);
+    setReadOnly(index!=0, index!=0);
+    ui->BT_selectUser->setVisible(index>0);
+    ui->BT_viewLog->setVisible(index>0);
+    ui->BT_delete->setVisible(index>0);
 
     User* u = new User;
 
@@ -220,7 +220,7 @@ void SelectUserForm::setReadOnly(bool status, bool id)
 
 void SelectUserForm::editMode(bool edit)
 {
-    int size = 30 * edit; // true -> 1, fasle -> 0
+    int size = 30 * edit; // true -> 1, false -> 0
     ui->BT_save->setMaximumHeight(size);
     ui->BT_cancel->setMaximumHeight(size);
     ui->BT_create->setMaximumHeight(30 - size);
@@ -230,9 +230,9 @@ void SelectUserForm::editMode(bool edit)
     ui->BT_create->setMinimumHeight(30 - size);
 
 
-    ui->BT_delete->setVisible(!edit);
-    ui->BT_selectUser->setVisible(!edit);
-    ui->BT_viewLog->setVisible(!edit);
+    ui->BT_delete->setVisible(edit);
+    ui->BT_selectUser->setVisible(edit);
+    ui->BT_viewLog->setVisible(edit);
 }
 
 void SelectUserForm::on_BT_selectUser_clicked()
