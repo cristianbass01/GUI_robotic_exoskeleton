@@ -17,7 +17,7 @@ class TrainingForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit TrainingForm(FrameWindow *parent = nullptr, User *user = nullptr);
+    explicit TrainingForm(FrameWindow *parent = nullptr);
     ~TrainingForm();
 
     FrameWindow* getFrame(){return this->frame_;}
@@ -49,17 +49,11 @@ private slots:
 
     void on_storageButton_clicked();
 
+    Log* createLog();
+
 private:
     Ui::TrainingForm *ui;
     FrameWindow *frame_;
-    QSharedPointer<User> user_;
-
-    QSharedPointer<Log> log;
-
-    //FrameWindow *frame_;
-
-    //Log *log;
-
 };
 
 #endif // TRAINING_WINDOW_H

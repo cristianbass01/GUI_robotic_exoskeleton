@@ -238,7 +238,7 @@ void SelectUserForm::editMode(bool edit)
 void SelectUserForm::on_BT_selectUser_clicked()
 {
     currentUser = userList.getAt(selectUser);
-    frame_->customizeWindow(new TrainingForm(frame_, userList.getAt(selectUser)));
+    frame_->customizeWindow(new TrainingForm(frame_));
     frame_->show();
 }
 

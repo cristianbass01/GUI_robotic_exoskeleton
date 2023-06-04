@@ -11,14 +11,13 @@
 #include <QTimer>
 #include <QElapsedTimer>
 
-SessionForm::SessionForm(FrameWindow *parent, User *user) :
+SessionForm::SessionForm(FrameWindow *parent) :
     QWidget(parent),
     ui(new Ui::SessionForm)
 {
     frame_ = parent;
     ui->setupUi(this);
     this->displayUser();
-    user_.reset(user);
 
     ui->connectLoadingIcon->hide();
 
@@ -130,8 +129,8 @@ void SessionForm::setConnected(bool state){
 }
 
 void SessionForm::displayUser(){
-    if(currentUser!=nullptr){
-        ui->userLabel->setText(currentUser->getName()+" "+currentUser->getSurname());
+    if(currentUser){
+        ui->userLabel->setText(currentUser->getName()+"  "+currentUser->getSurname());
     }
     else {
         ui->userLabel->setText("  Demo  ");

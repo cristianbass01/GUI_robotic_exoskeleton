@@ -18,7 +18,7 @@ StepForm::StepForm(SessionForm *parent, Log *log) :
     ui->setupUi(this);
 
     log_ = log;
-    stepCount = 1;
+    stepCount = 0;
 }
 
 StepForm::~StepForm()
@@ -109,12 +109,11 @@ void StepForm::movement(const std::string code){
 
 void StepForm::addLog(QString leg, bool correct, bool close, QTime time)
 {
-    if(log_ != nullptr) // sono in demo
+    if(log_ != nullptr) // non sono in demo
     {
-        stepCount++;
-        log_->addStepEx(leg, correct, close, time);
+        log_->addStepEx(leg, ++stepCount, correct, close, time);
         if(close)
-            stepCount = 1;
+            stepCount = 0;
     }
 }
 

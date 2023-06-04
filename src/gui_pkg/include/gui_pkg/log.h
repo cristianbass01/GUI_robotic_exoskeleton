@@ -17,7 +17,7 @@ public:
   Log() {}
   Log(QString dir);
   void addWalkingEx(int set, int executed, int pause, QTime time);
-  void addStepEx(QString leg, bool correct, bool close, QTime time);
+  void addStepEx(QString leg, int count, bool correct, bool close, QTime time);
   void addControlEx(QString leg, bool correct, QTime time);
 };
 

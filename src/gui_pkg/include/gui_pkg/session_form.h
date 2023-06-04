@@ -15,7 +15,7 @@ class SessionForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit SessionForm(FrameWindow * parent = nullptr, User * user = nullptr);
+    explicit SessionForm(FrameWindow * parent = nullptr);
     ~SessionForm();
 
     void customizeForm(QWidget *widget_to_insert);

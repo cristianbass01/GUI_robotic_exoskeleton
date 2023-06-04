@@ -147,7 +147,7 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
             for(int j = 0; j < log_line.size(); j++){
               item = log_line.at(j);
 
-              if(logType < 2 && j > 0){
+              if(logType < 2 && j > 1){
                 if(item == "0")
                     item = "False";
                 else if(item== "1")

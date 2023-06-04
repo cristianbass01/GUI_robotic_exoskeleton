@@ -44,7 +44,7 @@ private slots:
 
     void on_actionHelp_triggered();
 
-    void on_actionView_Log_triggered();
+    void on_actionTraining_triggered();
 
 private:
     Ui::FrameWindow *ui;

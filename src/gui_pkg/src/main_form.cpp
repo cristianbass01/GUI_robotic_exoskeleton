@@ -45,6 +45,7 @@ void MainForm::on_BT_selectUser_clicked()
 
 void MainForm::on_BT_demo_clicked()
 {
+    currentUser = nullptr;
     frame_->customizeWindow(new TrainingForm(frame_));
     frame_->show();
 

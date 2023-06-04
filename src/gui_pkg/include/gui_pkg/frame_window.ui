@@ -96,10 +96,8 @@ QLabel#userLabel{
     </property>
     <addaction name="actionHome"/>
     <addaction name="separator"/>
+    <addaction name="actionTraining"/>
     <addaction name="actionTraining_Log"/>
-    <addaction name="separator"/>
-    <addaction name="actionSave"/>
-    <addaction name="actionSave_As"/>
     <addaction name="separator"/>
     <addaction name="actionMaximize_Window"/>
     <addaction name="separator"/>
@@ -147,14 +145,13 @@ QLabel#userLabel{
    <addaction name="separator"/>
    <addaction name="actionClose"/>
    <addaction name="separator"/>
-   <addaction name="actionSave"/>
-   <addaction name="actionSave_As"/>
-   <addaction name="separator"/>
    <addaction name="actionDemo"/>
    <addaction name="actionNew_User"/>
    <addaction name="actionEdit_User"/>
    <addaction name="actionView_User"/>
-   <addaction name="actionView_Log"/>
+   <addaction name="separator"/>
+   <addaction name="actionTraining"/>
+   <addaction name="actionTraining_Log"/>
    <addaction name="separator"/>
    <addaction name="actionView"/>
    <addaction name="actionChange_settings"/>
@@ -163,6 +160,7 @@ QLabel#userLabel{
    <addaction name="separator"/>
    <addaction name="actionHelp"/>
    <addaction name="actionInfo"/>
+   <addaction name="separator"/>
   </widget>
   <action name="actionChange_settings">
    <property name="icon">
@@ -330,6 +328,18 @@ QLabel#userLabel{
    </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionTraining">
+   <property name="icon">
+    <iconset resource="../../rc/resource.qrc">
+     <normaloff>:/icons/Icons/passeggiare.png</normaloff>:/icons/Icons/passeggiare.png</iconset>
+   </property>
+   <property name="text">
+    <string>Training</string>
+   </property>
+   <property name="toolTip">
+    <string>Training</string>
    </property>
   </action>
  </widget>

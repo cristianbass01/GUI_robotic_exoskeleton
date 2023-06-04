@@ -15,22 +15,16 @@
 #include <QTimer>
 #include <QElapsedTimer>
 
-TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
+TrainingForm::TrainingForm(FrameWindow *parent) :
   QWidget(parent),
   ui(new Ui::TrainingForm)
 {
   frame_ = parent;
-  user_.reset(user);
 
   ui->setupUi(this);
   ui->connectLoadingIcon->hide();
 
   this->displayUser();
-  currentUser = user;
-  if(user == nullptr)
-      log = nullptr;
-  else
-      log.reset(new Log(user->getDir()));
 
   // se è già attivo il timer vuol dire che la connessione è già in corso
   if(connectedComponent->timer_->isActive()){
@@ -42,7 +36,7 @@ TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
 
 TrainingForm::~TrainingForm()
 {
-  delete ui;
+    delete ui;
 }
 
 void TrainingForm::on_standButton_clicked()
@@ -62,25 +56,25 @@ void TrainingForm::on_storageButton_clicked()
 
 void TrainingForm::on_stepButton_clicked()
 {
-    SessionForm *session = new SessionForm(frame_, user_.get());
+    SessionForm *session = new SessionForm(frame_);
     frame_->customizeWindow(session);
 
     //session->setWindowState(Qt::WindowMaximized);
-    session->customizeForm(new StepForm(session, log.get()));
+    session->customizeForm(new StepForm(session, createLog()));
 }
 
 void TrainingForm::on_walkButton_clicked()
 {
-    SessionForm *session = new SessionForm(frame_, user_.get());
+    SessionForm *session = new SessionForm(frame_);
     frame_->customizeWindow(session);
 
     //session->setWindowState(Qt::WindowMaximized);
-    session->customizeForm(new WalkingForm(session, log.get()));
+    session->customizeForm(new WalkingForm(session, createLog()));
 }
 
 void TrainingForm::on_controlButton_clicked()
 {
-    SessionForm *session = new SessionForm(frame_, user_.get());
+    SessionForm *session = new SessionForm(frame_);
     frame_->customizeWindow(session);
 
     //session->setWindowState(Qt::WindowMaximized);
@@ -130,8 +124,8 @@ void TrainingForm::setConnected(bool state){
 }
 
 void TrainingForm::displayUser(){
-    if(user_){
-        ui->userLabel->setText(user_->getName()+" "+user_->getSurname());
+    if(currentUser){
+        ui->userLabel->setText(currentUser->getName()+"  "+currentUser->getSurname());
     }
     else {
         ui->userLabel->setText("  Demo  ");
@@ -202,5 +196,10 @@ void TrainingForm::setEnabled(bool state){
     }
 }
 
-
-
+Log* TrainingForm::createLog() // troppo un casino con log condiviso in caso de delete
+{
+  if(currentUser == nullptr)
+      return nullptr;
+  else
+      return new Log(currentUser->getDir());
+}
