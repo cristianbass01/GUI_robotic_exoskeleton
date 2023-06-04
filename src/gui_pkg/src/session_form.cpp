@@ -11,13 +11,14 @@
 #include <QTimer>
 #include <QElapsedTimer>
 
-SessionForm::SessionForm(FrameWindow *parent) :
+SessionForm::SessionForm(FrameWindow *parent, User *user) :
     QWidget(parent),
     ui(new Ui::SessionForm)
 {
     frame_ = parent;
     ui->setupUi(this);
     this->displayUser();
+    user_.reset(user);
 
     ui->connectLoadingIcon->hide();
 

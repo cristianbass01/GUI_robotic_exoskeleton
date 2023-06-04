@@ -52,7 +52,7 @@ private slots:
 private:
     Ui::TrainingForm *ui;
     FrameWindow *frame_;
-    User *user_;
+    QSharedPointer<User> user_;
 
     QSharedPointer<Log> log;
 

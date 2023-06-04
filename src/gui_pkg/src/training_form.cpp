@@ -20,7 +20,7 @@ TrainingForm::TrainingForm(FrameWindow *parent, User *user) :
   ui(new Ui::TrainingForm)
 {
   frame_ = parent;
-  user_ = user;
+  user_.reset(user);
 
   ui->setupUi(this);
   ui->connectLoadingIcon->hide();

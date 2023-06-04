@@ -15,7 +15,7 @@ class SessionForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit SessionForm(FrameWindow * parent = nullptr);
+    explicit SessionForm(FrameWindow * parent = nullptr, User * user = nullptr);
     ~SessionForm();
 
     void customizeForm(QWidget *widget_to_insert);
@@ -63,7 +63,7 @@ private slots:
 private:
     Ui::SessionForm *ui;
     FrameWindow * frame_;
-    //User *user_;
+    QSharedPointer<User> user_;
 
     QWidget *form_ = nullptr;
 };
