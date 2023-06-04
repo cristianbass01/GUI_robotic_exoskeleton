@@ -28,7 +28,7 @@
           <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
+          <enum>QSizePolicy::Expanding</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -247,8 +247,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../rc/resource.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

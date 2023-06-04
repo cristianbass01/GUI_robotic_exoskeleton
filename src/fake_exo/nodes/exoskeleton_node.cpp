@@ -11,8 +11,8 @@ bool exoResponse(gui_pkg::serv::Request  &req,
     ROS_INFO("Service received from the node");
     ROS_INFO("with code: %s", req.code.c_str());
     ROS_INFO("Execution... ");
-    sleep(5);
-    float p = 0.05f;
+    sleep(2);
+    float p = 0;
     if(float(rand()%100)/100 > p){
         ROS_INFO("OK: Correct execution");
         res.error = "";

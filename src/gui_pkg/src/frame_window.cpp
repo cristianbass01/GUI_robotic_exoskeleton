@@ -8,6 +8,8 @@
 #include <QMessageBox>
 #include "log_view.h"
 
+#include "connection_setting.h"
+
 FrameWindow::FrameWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::FrameWindow)
@@ -104,4 +106,34 @@ void FrameWindow::on_actionView_Log_triggered()
       this->customizeWindow(new LogView(this, ""));
   else
       this->customizeWindow(new LogView(this, currentUser->getId()));
+}
+
+void FrameWindow::on_actionChange_settings_triggered()
+{
+    ConnectionSetting * form = new ConnectionSetting(nullptr, false);
+    form->exec();
+}
+
+
+void FrameWindow::on_actionView_triggered()
+{
+    ConnectionSetting * form = new ConnectionSetting(nullptr, true);
+    form->exec();
+}
+
+void FrameWindow::on_actionInfo_triggered()
+{
+    QMessageBox::information(nullptr,"Information", "This application was designed as a bachelor thesis by Cristian Bassotto and Nicola Busato");
+}
+
+void FrameWindow::on_actionHelp_triggered()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Help");
+    msgBox.setText("This is just a prototipe.");
+    msgBox.setInformativeText("For more information, visit <a href=\"https://github.com/cristianbass01/GUI_robotic_exoskeleton.git\">GUI_robotic_exoskeleton</a>.");
+    msgBox.setIcon(QMessageBox::Question);
+    msgBox.exec();
+
+
 }

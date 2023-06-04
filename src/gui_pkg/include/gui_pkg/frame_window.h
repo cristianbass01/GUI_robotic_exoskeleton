@@ -36,6 +36,14 @@ private slots:
 
     void on_actionMaximize_Window_triggered();
 
+    void on_actionChange_settings_triggered();
+
+    void on_actionView_triggered();
+
+    void on_actionInfo_triggered();
+
+    void on_actionHelp_triggered();
+
     void on_actionView_Log_triggered();
 
 private:

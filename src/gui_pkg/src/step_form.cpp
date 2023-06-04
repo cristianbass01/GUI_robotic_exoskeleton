@@ -63,36 +63,42 @@ void StepForm::movement(const std::string code){
 
     if (connectedComponent->isConnected()){
         //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
+        try {
+            QElapsedTimer timer;
+            timer.start();
 
-        QElapsedTimer timer;
-        timer.start();
+            connectedComponent->step(code);
+            this->lastStep = code;
 
-        connectedComponent->step(code);
-        lastStep = code;
+            QApplication::processEvents();
 
-        this->setEnabled(true);
-        session_->setEnabled(true);
+            this->setEnabled(true);
+            session_->setEnabled(true);
 
-        if(code.compare(connectedComponent->LEFTCLOSE) == 0){
-            session_->setImage(session_->LEFTCLOSE);
-            leg = "LEFT";
-            close = true;
-        } else if(code.compare(connectedComponent->LEFTSTEP)== 0){
-            session_->setImage(session_->LEFTSTEP);
-            leg = "LEFT";
-        } else if(code.compare(connectedComponent->RIGHTSTEP)== 0){
-            session_->setImage(session_->RIGHTSTEP);
-            leg = "RIGHT";
+            if(code.compare(connectedComponent->LEFTCLOSE) == 0){
+                session_->setImage(session_->LEFTCLOSE);
+                leg = "LEFT";
+                close = true;
+            } else if(code.compare(connectedComponent->LEFTSTEP)== 0){
+                session_->setImage(session_->LEFTSTEP);
+                leg = "LEFT";
+            } else if(code.compare(connectedComponent->RIGHTSTEP)== 0){
+                session_->setImage(session_->RIGHTSTEP);
+                leg = "RIGHT";
+            }
+            ms = static_cast<int>(timer.elapsed());
+            //timer.stop();
+            //Qint milliseconds = 1500;  // Esempio di tempo in millisecondi
+
+            ui->loadingLabel->setText("");
+            ui->loadingLabel->setMargin(9);
+        } catch (...) {
+            connectedComponent->errorMsg("Error while calling the service");
         }
-        ms = static_cast<int>(timer.elapsed());
-        //timer.stop();
-        //Qint milliseconds = 1500;  // Esempio di tempo in millisecondi
 
-        ui->loadingLabel->setText("");
-        ui->loadingLabel->setMargin(9);
     }
     else {
-        connectedComponent->errorMsg("Error while calling the service");
+        connectedComponent->errorMsg("Error during the connection to the service");
         session_->setConnected(false);
         correct = false;
         this->setEnabled(true);
@@ -119,13 +125,13 @@ void StepForm::setEnabled(bool state){
         ui->rightFirstStepButton->setEnabled(false);
     }
     else {
-        if(lastStep.compare("") != 0){
-            if(lastStep.compare(connectedComponent->LEFTCLOSE)){
+        if(lastStep.size() > 0){
+            if(lastStep.compare(connectedComponent->LEFTCLOSE) == 0){
                 ui->leftFirstStepButton->setEnabled(true);
                 ui->rightFirstStepButton->setEnabled(true);
-            } else if(lastStep.compare(connectedComponent->LEFTSTEP)){
+            } else if(lastStep.compare(connectedComponent->LEFTSTEP) == 0){
                 ui->rightFirstStepButton->setEnabled(true);
-            } else if(lastStep.compare(connectedComponent->RIGHTSTEP)){
+            } else if(lastStep.compare(connectedComponent->RIGHTSTEP) == 0){
                 ui->feetTogetherButton->setEnabled(true);
                 ui->leftFirstStepButton->setEnabled(true);
             }

@@ -25,6 +25,10 @@ public:
 
     void displayUser();
 
+    void movement(const std::string);
+
+    void setEnabled(bool state);
+
 
 private slots:
     void on_standButton_clicked();
@@ -38,6 +42,12 @@ private slots:
     void on_finishButton_clicked();
 
     void on_connectButton_clicked();
+
+    void tryConnection();
+
+    void on_sitButton_clicked();
+
+    void on_storageButton_clicked();
 
 private:
     Ui::TrainingForm *ui;

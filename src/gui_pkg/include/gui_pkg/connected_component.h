@@ -7,6 +7,7 @@
 #include <QTimer>
 #include <QSharedPointer>
 
+#include <XmlRpc.h>
 
 class ConnectedComponent : public QObject
 {
@@ -39,7 +40,11 @@ public:
 
     std::string getSerialPort();
     int getBaudRate();
+    std::vector<std::string> getParamsList();
+    XmlRpc::XmlRpcValue getParam(const std::string key);
+
     int setParams(int baudRate, std::string serialPort);
+    int setParam(std::string key, XmlRpc::XmlRpcValue value);
 
 public slots:
     bool connect();

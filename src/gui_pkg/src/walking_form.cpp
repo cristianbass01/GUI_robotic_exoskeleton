@@ -57,6 +57,9 @@ void WalkingForm::on_startButton_clicked()
 
 void WalkingForm::on_stopButton_clicked()
 {
+    ui->stopButton->setText("Stopping...");
+    ui->stopButton->setEnabled(false);
+
     if(thread_)
         thread_->stop();
 }
@@ -72,7 +75,10 @@ void WalkingForm::updateProgressBar(int value){
 
 void WalkingForm::finishProgressBar(){
     ui->progressBar->hide();
+
     ui->stopButton->setEnabled(false);
+    ui->stopButton->setText("Stop");
+
     ui->startButton->setEnabled(true);
     session_->setEnabled(true);
 }

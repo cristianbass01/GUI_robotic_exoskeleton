@@ -100,15 +100,15 @@ bool ConnectedComponent::connect(){
         ros::init(this->argc, this->argv, "serial_connection");
 
 
-        if(! (ros::master::check())){
+        if(!ros::master::check()){
 
             // Simulation
             stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
 
             // Actual rosserial node
-            //stream_ = popen("roslaunch rosserial_python rosserial.launch", "w");
+            // stream_ = popen("roslaunch rosserial_python rosserial.launch", "w");
             if(!stream_){
-                errorMsg("Error occurred during\nconnection to the device.");
+                errorMsg("Error occurred during initialization.");
                 return false;
             }
             sleep(2);
@@ -121,6 +121,15 @@ bool ConnectedComponent::connect(){
         client_ = nh_->serviceClient<gui_pkg::serv>("/exo");
 
         if(!isConnected()){
+            // Simulation
+            stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
+
+            // Actual rosserial node
+            // stream_ = popen("roslaunch rosserial_python rosserial.launch", "w");
+            if(!stream_){
+                errorMsg("Error occurred during initialization.");
+                return false;
+            }
             errorMsg("Error occurred during\nconnection to the device.");
         }
     }
@@ -174,7 +183,8 @@ std::string ConnectedComponent::getSerialPort(){
 
 int ConnectedComponent::getBaudRate(){
     if(this->isConnected()){
-        int baudRate;
+        int baudRate=0;
+
         if (!nh_->getParam("baud", baudRate)) {
                 ROS_ERROR("Failed to retrieve 'baud' parameter");
                 return 0;
@@ -183,10 +193,34 @@ int ConnectedComponent::getBaudRate(){
     return 0;
 }
 
+std::vector<std::string> ConnectedComponent::getParamsList(){
+    std::vector<std::string> paramsList;
+    if(this->isConnected()){
+        nh_->getParamNames(paramsList);
+    }
+    return paramsList;
+}
+
+XmlRpc::XmlRpcValue ConnectedComponent::getParam(const std::string key){
+    XmlRpc::XmlRpcValue param_value;
+    if(this->isConnected() and nh_->hasParam(key)){
+        nh_->getParam(key, param_value);
+    }
+    return param_value;
+}
+
 int ConnectedComponent::setParams(int baudRate, std::string serialPort){
     if(this->isConnected()){
         nh_->setParam("port", serialPort);
         nh_->setParam("baud", baudRate);
+        return 1;
+    }
+    return 0;
+}
+
+int ConnectedComponent::setParam(std::string key, XmlRpc::XmlRpcValue value){
+    if(this->isConnected()){
+        nh_->setParam(key, value);
         return 1;
     }
     return 0;

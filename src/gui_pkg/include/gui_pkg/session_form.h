@@ -58,6 +58,8 @@ private slots:
 
     void on_standButton_clicked();
 
+    void tryConnection();
+
 private:
     Ui::SessionForm *ui;
     FrameWindow * frame_;

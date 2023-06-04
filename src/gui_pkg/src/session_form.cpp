@@ -25,8 +25,8 @@ SessionForm::SessionForm(FrameWindow *parent) :
 
     // se è già attivo il timer vuol dire che la connessione è già in corso
     if(connectedComponent->timer_->isActive()){
-        this->on_connectButton_clicked();
-        QObject::connect(connectedComponent->timer_.get(), SIGNAL(timeout()), this, SLOT(on_connectButton_clicked()));
+        this->tryConnection();
+        QObject::connect(connectedComponent->timer_.get(), SIGNAL(timeout()), this, SLOT(tryConnection()));
         connectedComponent->timer_->start(connectedComponent->CONTROL_TIME_OUT);
     }
 
@@ -91,10 +91,17 @@ void SessionForm::on_connectButton_clicked()
     ui->connectLoadingIcon->show();
     QApplication::processEvents();
 
+    this->tryConnection();
+
+    ui->connectLoadingIcon->hide();
+}
+
+void SessionForm::tryConnection(){
+
     if(connectedComponent->connect()){
         this->setConnected(true);
         if(! connectedComponent->timer_->isActive()){
-            QObject::connect(connectedComponent->timer_.get(), SIGNAL(timeout()), this, SLOT(on_connectButton_clicked()));
+            QObject::connect(connectedComponent->timer_.get(), SIGNAL(timeout()), this, SLOT(tryConnection()));
             connectedComponent->timer_->start(connectedComponent->CONTROL_TIME_OUT);
         }
     }
@@ -103,7 +110,6 @@ void SessionForm::on_connectButton_clicked()
         if(connectedComponent->timer_->isActive())
             connectedComponent->timer_->stop();
     }
-    ui->connectLoadingIcon->hide();
 }
 
 void SessionForm::setConnected(bool state){
@@ -127,7 +133,7 @@ void SessionForm::displayUser(){
         ui->userLabel->setText(currentUser->getName()+" "+currentUser->getSurname());
     }
     else {
-        ui->userLabel->setText("Demo");
+        ui->userLabel->setText("  Demo  ");
     }
 }
 
@@ -197,10 +203,12 @@ void SessionForm::movement(const std::string code){
 
 void SessionForm::setEnabled(bool state){
     if (state){
+        QApplication::restoreOverrideCursor();
         ui->sitButton->setEnabled(true);
         ui->storageButton->setEnabled(true);
         ui->standButton->setEnabled(true);
     } else {
+        QApplication::setOverrideCursor(Qt::WaitCursor);
         ui->sitButton->setEnabled(false);
         ui->storageButton->setEnabled(false);
         ui->standButton->setEnabled(false);
