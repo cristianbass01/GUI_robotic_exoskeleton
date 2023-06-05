@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Parameter Settings</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../rc/resource.qrc">
+    <normaloff>:/INDI/INDI/Logo.ico</normaloff>:/INDI/INDI/Logo.ico</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -168,6 +172,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../rc/resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

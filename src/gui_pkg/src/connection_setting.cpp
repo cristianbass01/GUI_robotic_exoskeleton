@@ -142,28 +142,28 @@ void ConnectionSetting::setup(bool readOnly){
 
             // Determina il tipo di parametro
             if (param_value.getType() == XmlRpc::XmlRpcValue::TypeInt) {
-                ROS_INFO("Il parametro %s è di tipo int.", param_name.c_str());
+                //ROS_INFO("Il parametro %s è di tipo int.", param_name.c_str());
                 QLabel *label = new QLabel(QString::fromStdString(param_name));
                 QSpinBox * field = new QSpinBox();
                 field->setValue(param_value);
                 field->setReadOnly(readOnly);
                 ui->formLayout->addRow(label, field);
             } else if (param_value.getType() == XmlRpc::XmlRpcValue::TypeDouble) {
-                ROS_INFO("Il parametro %s è di tipo double.", param_name.c_str());
+                //ROS_INFO("Il parametro %s è di tipo double.", param_name.c_str());
                 QLabel *label = new QLabel(QString::fromStdString(param_name));
                 QDoubleSpinBox * field = new QDoubleSpinBox();
                 field->setValue(param_value);
                 field->setReadOnly(readOnly);
                 ui->formLayout->addRow(label, field);
             } else if (param_value.getType() == XmlRpc::XmlRpcValue::TypeString) {
-                ROS_INFO("Il parametro %s è di tipo string.", param_name.c_str());
+                //ROS_INFO("Il parametro %s è di tipo string.", param_name.c_str());
                 QLabel* label = new QLabel(QString::fromStdString(param_name));
                 QLineEdit* lineEdit = new QLineEdit();
                 lineEdit->setText(QString::fromStdString(param_value));
                 lineEdit->setReadOnly(readOnly);
                 ui->formLayout->addRow(label, lineEdit);
             } else if (param_value.getType() == XmlRpc::XmlRpcValue::TypeArray) {
-                ROS_INFO("Il parametro %s è di tipo vector.", param_name.c_str());
+                //ROS_INFO("Il parametro %s è di tipo vector.", param_name.c_str());
                 QLabel* label = new QLabel(QString::fromStdString(param_name));
                 QListWidget *field = new QListWidget();
                 for(int i = 0; i < param_value.size(); ++i){
@@ -179,7 +179,7 @@ void ConnectionSetting::setup(bool readOnly){
                     field->setEditTriggers(QAbstractItemView::DoubleClicked);
                 ui->formLayout->addRow(label, field);
             } else if (param_value.getType() == XmlRpc::XmlRpcValue::TypeStruct) {
-                ROS_INFO("Il parametro %s è di tipo map.", param_name.c_str());
+                //ROS_INFO("Il parametro %s è di tipo map.", param_name.c_str());
                 QLabel* label = new QLabel(QString::fromStdString(param_name));
                 QTableWidget* field = new QTableWidget();
                 field->setRowCount(param_value.size());
@@ -198,7 +198,7 @@ void ConnectionSetting::setup(bool readOnly){
                     field->setEditTriggers(QAbstractItemView::DoubleClicked);
                 ui->formLayout->addRow(label, field);
             } else if (param_value.getType() == XmlRpc::XmlRpcValue::TypeBoolean) {
-                ROS_INFO("Il parametro %s è di tipo boolean.", param_name.c_str());
+                //ROS_INFO("Il parametro %s è di tipo boolean.", param_name.c_str());
                 QLabel* label = new QLabel(QString::fromStdString(param_name));
                 QCheckBox *field = new QCheckBox();
                 if(param_value)
