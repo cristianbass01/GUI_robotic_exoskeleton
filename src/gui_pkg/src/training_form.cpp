@@ -41,17 +41,23 @@ TrainingForm::~TrainingForm()
 
 void TrainingForm::on_standButton_clicked()
 {
+    frame_->showStatus("Standing...");
     this->movement(connectedComponent->STAND);
+    frame_->clearStatus();
 }
 
 void TrainingForm::on_sitButton_clicked()
 {
+    frame_->showStatus("Sitting...");
     this->movement(connectedComponent->SIT);
+    frame_->clearStatus();
 }
 
 void TrainingForm::on_storageButton_clicked()
 {
+    frame_->showStatus("Storing...");
     this->movement(connectedComponent->STORAGE);
+    frame_->clearStatus();
 }
 
 void TrainingForm::on_stepButton_clicked()
@@ -89,11 +95,13 @@ void TrainingForm::on_finishButton_clicked()
 void TrainingForm::on_connectButton_clicked()
 {
     ui->connectLoadingIcon->show();
+    frame_->showStatus("Connecting...");
     QApplication::processEvents();
 
     this->tryConnection();
 
     ui->connectLoadingIcon->hide();
+    frame_->clearStatus();
 }
 
 void TrainingForm::tryConnection(){

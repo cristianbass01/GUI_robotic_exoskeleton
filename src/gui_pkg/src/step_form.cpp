@@ -29,17 +29,23 @@ StepForm::~StepForm()
 
 void StepForm::on_leftFirstStepButton_clicked()
 {
+    frame_->showStatus("Moving: left step...");
     this->movement(connectedComponent->LEFTSTEP);
+    frame_->clearStatus();
 }
 
 void StepForm::on_rightFirstStepButton_clicked()
 {
+    frame_->showStatus("Moving: right step...");
     this->movement(connectedComponent->RIGHTSTEP);
+    frame_->clearStatus();
 }
 
 void StepForm::on_feetTogetherButton_clicked()
 {
+    frame_->showStatus("Moving: closing step...");
     this->movement(connectedComponent->LEFTCLOSE);
+    frame_->clearStatus();
 }
 
 void StepForm::movement(const std::string code){

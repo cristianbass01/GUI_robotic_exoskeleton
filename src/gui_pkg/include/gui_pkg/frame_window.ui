@@ -65,7 +65,27 @@ QLabel#userLabel{
 	border: 3px;
 	padding: 10px;
 	border-radius: 5px;
-}</string>
+}
+
+QPushButton#standButton, QPushButton#sitButton, QPushButton#storageButton{
+	
+	background-color: rgb(18, 184, 250);
+}
+
+QPushButton#walkButton, QPushButton#stepButton, QPushButton#controlButton{
+	
+	background-color: rgb(52, 101, 164);
+}
+
+QPushButton#startButton{
+background-color: rgb(138, 226, 52);
+}
+
+QPushButton#stopButton{
+	
+	background-color: rgb(239, 41, 41);
+}
+ </string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="autoFillBackground">
@@ -164,7 +184,7 @@ QLabel#userLabel{
   </widget>
   <action name="actionChange_settings">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/settings_update.png</normaloff>:/icons/Icons/settings_update.png</iconset>
    </property>
    <property name="text">
@@ -173,7 +193,7 @@ QLabel#userLabel{
   </action>
   <action name="actionView">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/settings_view.png</normaloff>:/icons/Icons/settings_view.png</iconset>
    </property>
    <property name="text">
@@ -182,7 +202,7 @@ QLabel#userLabel{
   </action>
   <action name="actionNew_User">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/utente-uomo-cerchiato(0).png</normaloff>:/icons/Icons/utente-uomo-cerchiato(0).png</iconset>
    </property>
    <property name="text">
@@ -191,7 +211,7 @@ QLabel#userLabel{
   </action>
   <action name="actionDemo">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/utente-uomo-cerchiato (2).png</normaloff>:/icons/Icons/utente-uomo-cerchiato (2).png</iconset>
    </property>
    <property name="text">
@@ -200,7 +220,7 @@ QLabel#userLabel{
   </action>
   <action name="actionLoad_User">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/utente-uomo-cerchiato (1).png</normaloff>:/icons/Icons/utente-uomo-cerchiato (1).png</iconset>
    </property>
    <property name="text">
@@ -209,7 +229,7 @@ QLabel#userLabel{
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/salva.png</normaloff>:/icons/Icons/salva.png</iconset>
    </property>
    <property name="text">
@@ -221,7 +241,7 @@ QLabel#userLabel{
   </action>
   <action name="actionSave_As">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/salva-con-nome.png</normaloff>:/icons/Icons/salva-con-nome.png</iconset>
    </property>
    <property name="text">
@@ -230,7 +250,7 @@ QLabel#userLabel{
   </action>
   <action name="actionHelp">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/aiuto.png</normaloff>:/icons/Icons/aiuto.png</iconset>
    </property>
    <property name="text">
@@ -242,7 +262,7 @@ QLabel#userLabel{
   </action>
   <action name="actionTraining_Log">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/single-page-mode.png</normaloff>:/icons/Icons/single-page-mode.png</iconset>
    </property>
    <property name="text">
@@ -254,7 +274,7 @@ QLabel#userLabel{
   </action>
   <action name="actionEdit_User">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/utente-uomo-cerchiato (3).png</normaloff>:/icons/Icons/utente-uomo-cerchiato (3).png</iconset>
    </property>
    <property name="text">
@@ -263,7 +283,7 @@ QLabel#userLabel{
   </action>
   <action name="actionClose">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/eliminare.png</normaloff>:/icons/Icons/eliminare.png</iconset>
    </property>
    <property name="text">
@@ -275,7 +295,7 @@ QLabel#userLabel{
   </action>
   <action name="actionHome">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/home-page.png</normaloff>:/icons/Icons/home-page.png</iconset>
    </property>
    <property name="text">
@@ -284,7 +304,7 @@ QLabel#userLabel{
   </action>
   <action name="actionInfo">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/informazioni.png</normaloff>:/icons/Icons/informazioni.png</iconset>
    </property>
    <property name="text">
@@ -296,7 +316,7 @@ QLabel#userLabel{
   </action>
   <action name="actionView_User">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/utente-uomo-cerchiato (4).png</normaloff>:/icons/Icons/utente-uomo-cerchiato (4).png</iconset>
    </property>
    <property name="text">
@@ -305,7 +325,7 @@ QLabel#userLabel{
   </action>
   <action name="actionMaximize_Window">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/full-page-view.png</normaloff>:/icons/Icons/full-page-view.png</iconset>
    </property>
    <property name="text">
@@ -317,7 +337,7 @@ QLabel#userLabel{
   </action>
   <action name="actionView_Log">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/diario-di-bordo.png</normaloff>:/icons/Icons/diario-di-bordo.png</iconset>
    </property>
    <property name="text">
@@ -332,7 +352,7 @@ QLabel#userLabel{
   </action>
   <action name="actionTraining">
    <property name="icon">
-    <iconset resource="../../rc/resource.qrc">
+    <iconset>
      <normaloff>:/icons/Icons/passeggiare.png</normaloff>:/icons/Icons/passeggiare.png</iconset>
    </property>
    <property name="text">
@@ -343,8 +363,6 @@ QLabel#userLabel{
    </property>
   </action>
  </widget>
- <resources>
-  <include location="../../rc/resource.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

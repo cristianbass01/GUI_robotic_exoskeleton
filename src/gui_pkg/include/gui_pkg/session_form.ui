@@ -424,7 +424,7 @@ Press to connect...</string>
             <number>20</number>
            </property>
            <item>
-            <widget class="QPushButton" name="stepWindowButton">
+            <widget class="QPushButton" name="stepButton">
              <property name="sizePolicy">
               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
                <horstretch>0</horstretch>
@@ -452,7 +452,7 @@ Press to connect...</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="walkWindowButton">
+            <widget class="QPushButton" name="walkButton">
              <property name="sizePolicy">
               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
                <horstretch>0</horstretch>
@@ -480,7 +480,7 @@ Press to connect...</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="controlWindowButton">
+            <widget class="QPushButton" name="controlButton">
              <property name="sizePolicy">
               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
                <horstretch>0</horstretch>

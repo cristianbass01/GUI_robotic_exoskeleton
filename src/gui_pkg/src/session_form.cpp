@@ -37,18 +37,18 @@ SessionForm::~SessionForm()
     delete ui;
 }
 
-void SessionForm::on_controlWindowButton_clicked()
+void SessionForm::on_controlButton_clicked()
 {
     this->customizeForm(new ControlForm(this));
 }
 
 
-void SessionForm::on_stepWindowButton_clicked()
+void SessionForm::on_stepButton_clicked()
 {
     this->customizeForm(new StepForm(this));
 }
 
-void SessionForm::on_walkWindowButton_clicked()
+void SessionForm::on_walkButton_clicked()
 {
     this->customizeForm(new WalkingForm(this));
 }
@@ -70,17 +70,17 @@ void SessionForm::customizeForm(QWidget *widget_to_insert){
     ui->parentLayout->addWidget(widget_to_insert);
 
     if (widget_to_insert->objectName().compare("WalkingForm")==0){
-        ui->walkWindowButton->hide();
-        ui->stepWindowButton->show();
-        ui->controlWindowButton->show();
+        ui->walkButton->hide();
+        ui->stepButton->show();
+        ui->controlButton->show();
     } else if (widget_to_insert->objectName().compare("StepForm")==0) {
-        ui->walkWindowButton->show();
-        ui->stepWindowButton->hide();
-        ui->controlWindowButton->show();
+        ui->walkButton->show();
+        ui->stepButton->hide();
+        ui->controlButton->show();
     } else if (widget_to_insert->objectName().compare("ControlForm")==0) {
-        ui->walkWindowButton->show();
-        ui->stepWindowButton->show();
-        ui->controlWindowButton->hide();
+        ui->walkButton->show();
+        ui->stepButton->show();
+        ui->controlButton->hide();
     }
 
     form_ = widget_to_insert;
@@ -139,17 +139,23 @@ void SessionForm::displayUser(){
 
 void SessionForm::on_standButton_clicked()
 {
+    frame_->showStatus("Standing...");
     this->movement(connectedComponent->STAND);
+    frame_->clearStatus();
 }
 
 void SessionForm::on_sitButton_clicked()
 {
+    frame_->showStatus("Sitting...");
     this->movement(connectedComponent->SIT);
+    frame_->clearStatus();
 }
 
 void SessionForm::on_storageButton_clicked()
 {
+    frame_->showStatus("Storing...");
     this->movement(connectedComponent->STORAGE);
+    frame_->clearStatus();
 }
 
 void SessionForm::movement(const std::string code){
@@ -207,11 +213,21 @@ void SessionForm::setEnabled(bool state){
         ui->sitButton->setEnabled(true);
         ui->storageButton->setEnabled(true);
         ui->standButton->setEnabled(true);
+        ui->walkButton->setEnabled(true);
+        ui->controlButton->setEnabled(true);
+        ui->stepButton->setEnabled(true);
+        ui->returnButton->setEnabled(true);
+        frame_->setEnabled(true);
     } else {
         QApplication::setOverrideCursor(Qt::WaitCursor);
         ui->sitButton->setEnabled(false);
         ui->storageButton->setEnabled(false);
         ui->standButton->setEnabled(false);
+        ui->walkButton->setEnabled(false);
+        ui->controlButton->setEnabled(false);
+        ui->stepButton->setEnabled(false);
+        ui->returnButton->setEnabled(false);
+        frame_->setEnabled(false);
     }
 }
 

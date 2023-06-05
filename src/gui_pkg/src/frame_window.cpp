@@ -15,6 +15,7 @@ FrameWindow::FrameWindow(QWidget *parent) :
     ui(new Ui::FrameWindow)
 {
     ui->setupUi(this);
+    ui->statusBar->hide();
 }
 
 FrameWindow::~FrameWindow()
@@ -143,6 +144,19 @@ void FrameWindow::on_actionHelp_triggered()
     msgBox.setInformativeText("For more information, visit <a href=\"https://github.com/cristianbass01/GUI_robotic_exoskeleton.git\">GUI_robotic_exoskeleton</a>.");
     msgBox.setIcon(QMessageBox::Question);
     msgBox.exec();
+}
 
+void FrameWindow::setEnabled(bool state){
+    ui->toolBar->setEnabled(state);
+    ui->menubar->setEnabled(state);
+}
 
+void FrameWindow::showStatus(std::string msg){
+    ui->statusBar->show();
+    ui->statusBar->showMessage(QString::fromStdString(msg));
+}
+
+void FrameWindow::clearStatus(){
+    ui->statusBar->clearMessage();
+    ui->statusBar->hide();
 }

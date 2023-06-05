@@ -44,13 +44,13 @@ public slots:
     void on_connectButton_clicked();
 
 private slots:
-    void on_controlWindowButton_clicked();
+    void on_controlButton_clicked();
 
-    void on_stepWindowButton_clicked();
+    void on_stepButton_clicked();
 
     void on_returnButton_clicked();
 
-    void on_walkWindowButton_clicked();
+    void on_walkButton_clicked();
 
     void on_sitButton_clicked();
 

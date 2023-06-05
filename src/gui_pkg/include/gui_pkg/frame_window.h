@@ -20,6 +20,12 @@ public:
 
     void setConnected(bool state);
 
+    void setEnabled(bool state);
+
+    void showStatus(std::string msg);
+
+    void clearStatus();
+
 private slots:
     void on_actionHome_triggered();
     void on_actionClose_triggered();
