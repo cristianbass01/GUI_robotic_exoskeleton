@@ -230,9 +230,9 @@ void SelectUserForm::editMode(bool edit)
     ui->BT_create->setMinimumHeight(30 - size);
 
 
-    ui->BT_delete->setVisible(edit);
-    ui->BT_selectUser->setVisible(edit);
-    ui->BT_viewLog->setVisible(edit);
+    ui->BT_delete->setVisible(!edit);
+    ui->BT_selectUser->setVisible(!edit);
+    ui->BT_viewLog->setVisible(!edit);
 }
 
 void SelectUserForm::on_BT_selectUser_clicked()

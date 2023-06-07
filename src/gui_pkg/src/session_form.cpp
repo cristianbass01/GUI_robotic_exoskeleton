@@ -139,6 +139,7 @@ void SessionForm::displayUser(){
 
 void SessionForm::on_standButton_clicked()
 {
+    status = 2;
     frame_->showStatus("Standing...");
     this->movement(connectedComponent->STAND);
     frame_->clearStatus();
@@ -146,6 +147,7 @@ void SessionForm::on_standButton_clicked()
 
 void SessionForm::on_sitButton_clicked()
 {
+    status = 1;
     frame_->showStatus("Sitting...");
     this->movement(connectedComponent->SIT);
     frame_->clearStatus();
@@ -153,6 +155,7 @@ void SessionForm::on_sitButton_clicked()
 
 void SessionForm::on_storageButton_clicked()
 {
+    status = 0;
     frame_->showStatus("Storing...");
     this->movement(connectedComponent->STORAGE);
     frame_->clearStatus();

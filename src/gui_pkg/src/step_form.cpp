@@ -49,6 +49,7 @@ void StepForm::on_feetTogetherButton_clicked()
 }
 
 void StepForm::movement(const std::string code){
+    status = 3;
     this->setEnabled(false);
     session_->setEnabled(false);
 
@@ -111,6 +112,7 @@ void StepForm::movement(const std::string code){
         session_->setEnabled(true);
     }
     addLog(leg, correct, close, t.addMSecs(ms));
+    status = 2;
 }
 
 void StepForm::addLog(QString leg, bool correct, bool close, QTime time)
