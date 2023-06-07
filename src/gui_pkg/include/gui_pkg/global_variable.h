@@ -10,6 +10,7 @@
 extern UserList userList;
 extern User* currentUser;
 extern const QString path;
+extern int status; // 0 storage; 1 sit; 2 stand; 3 moving
 
 extern std::shared_ptr<ConnectedComponent> connectedComponent;
 

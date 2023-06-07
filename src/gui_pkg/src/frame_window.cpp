@@ -160,3 +160,20 @@ void FrameWindow::clearStatus(){
     ui->statusBar->clearMessage();
     ui->statusBar->hide();
 }
+
+void FrameWindow::closeEvent(QCloseEvent *event)  // show prompt when user wants to close app
+{
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Question);
+    msgBox.setWindowTitle("Confirmation");
+    msgBox.setText("Close Confirmation");
+    msgBox.setInformativeText("Are you sure?");
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+
+    int ret = msgBox.exec();
+    msgBox.close();
+    event->ignore();
+    if (ret == QMessageBox::Yes)
+        event->accept();
+}

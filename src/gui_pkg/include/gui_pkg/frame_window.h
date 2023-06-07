@@ -52,6 +52,8 @@ private slots:
 
     void on_actionTraining_triggered();
 
+    void closeEvent(QCloseEvent *event);
+
 private:
     Ui::FrameWindow *ui;
     QString currentForm;
