@@ -53,7 +53,7 @@ QLabel#Alice, QFrame#home{
 	border-radius: 15px;
 }
 
-QPushButton#connectButton{
+QPushButton#connectButton, QLabel#lbStatus{
 	background-color: rgb(255, 213, 213);
 	color: rgb(239, 41, 41);
 	border: 1px;

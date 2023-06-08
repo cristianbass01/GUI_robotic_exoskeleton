@@ -95,6 +95,8 @@ void SessionForm::changeStatus()
       qobject_cast<StepForm*>(form_)->setEnabled(status>1);
   else if (form_->objectName().compare("ControlForm")==0)
       qobject_cast<ControlForm*>(form_)->setEnabled(status>1);
+
+  ui->lbStatus->setMaximumWidth((status<=1) * 535);
 }
 
 
@@ -127,7 +129,7 @@ void SessionForm::tryConnection(){
 void SessionForm::setConnected(bool state){
     if(state){
         if(ui->connectButton->text().toStdString().compare("Connected") != 0)
-            this->setImage(this->STAND);
+            this->setImage(this->STORAGE); // this->setImage(this->STAND);
         ui->connectButton->setText("Connected");
         ui->connectButton->setStyleSheet("color: rgb(78, 154, 6); background-color: rgb(194, 251, 192);");
     }
