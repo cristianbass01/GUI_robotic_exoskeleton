@@ -60,6 +60,8 @@ private slots:
 
     void tryConnection();
 
+    void changeStatus();
+
 private:
     Ui::SessionForm *ui;
     FrameWindow * frame_;
