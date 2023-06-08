@@ -73,14 +73,17 @@ void SessionForm::customizeForm(QWidget *widget_to_insert){
         ui->walkButton->hide();
         ui->stepButton->show();
         ui->controlButton->show();
+        qobject_cast<WalkingForm*>(widget_to_insert)->setEnabled(status>1);
     } else if (widget_to_insert->objectName().compare("StepForm")==0) {
         ui->walkButton->show();
         ui->stepButton->hide();
         ui->controlButton->show();
+        qobject_cast<StepForm*>(widget_to_insert)->setEnabled(status>1);
     } else if (widget_to_insert->objectName().compare("ControlForm")==0) {
         ui->walkButton->show();
         ui->stepButton->show();
         ui->controlButton->hide();
+        qobject_cast<ControlForm*>(widget_to_insert)->setEnabled(status>1);
     }
 
     form_ = widget_to_insert;

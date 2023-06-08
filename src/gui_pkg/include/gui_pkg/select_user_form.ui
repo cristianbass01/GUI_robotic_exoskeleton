@@ -778,10 +778,20 @@
   <tabstop>TB_name</tabstop>
   <tabstop>TB_id</tabstop>
   <tabstop>DE_birthday</tabstop>
+  <tabstop>RB_male</tabstop>
+  <tabstop>RB_female</tabstop>
+  <tabstop>RB_other</tabstop>
   <tabstop>NB_height</tabstop>
   <tabstop>NB_weight</tabstop>
   <tabstop>NB_upperLeg</tabstop>
   <tabstop>NB_lowerLeg</tabstop>
+  <tabstop>BT_create</tabstop>
+  <tabstop>BT_cancel</tabstop>
+  <tabstop>BT_save</tabstop>
+  <tabstop>BT_delete</tabstop>
+  <tabstop>BT_selectUser</tabstop>
+  <tabstop>BT_viewLog</tabstop>
+  <tabstop>finishButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

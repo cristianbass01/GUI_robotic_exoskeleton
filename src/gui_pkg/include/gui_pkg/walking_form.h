@@ -20,6 +20,8 @@ public:
     explicit WalkingForm(SessionForm *parent = nullptr, Log *log = nullptr);
     ~WalkingForm();
 
+    void setEnabled(bool state);
+
 private slots:
     void on_startButton_clicked();
 
