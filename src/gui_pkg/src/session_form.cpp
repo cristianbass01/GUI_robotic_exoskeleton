@@ -84,7 +84,21 @@ void SessionForm::customizeForm(QWidget *widget_to_insert){
     }
 
     form_ = widget_to_insert;
+    changeStatus();
 }
+
+void SessionForm::changeStatus()
+{
+  if (form_->objectName().compare("WalkingForm")==0)
+      qobject_cast<WalkingForm*>(form_)->setEnabled(status>1);
+  else if (form_->objectName().compare("StepForm")==0)
+      qobject_cast<StepForm*>(form_)->setEnabled(status>1);
+  else if (form_->objectName().compare("ControlForm")==0)
+      qobject_cast<ControlForm*>(form_)->setEnabled(status>1);
+
+  ui->lbStatus->setMaximumWidth((status<=1) * 535);
+}
+
 
 void SessionForm::on_connectButton_clicked()
 {
@@ -115,7 +129,7 @@ void SessionForm::tryConnection(){
 void SessionForm::setConnected(bool state){
     if(state){
         if(ui->connectButton->text().toStdString().compare("Connected") != 0)
-            this->setImage(this->STAND);
+            this->setImage(this->STORAGE); // this->setImage(this->STAND);
         ui->connectButton->setText("Connected");
         ui->connectButton->setStyleSheet("color: rgb(78, 154, 6); background-color: rgb(194, 251, 192);");
     }
@@ -139,6 +153,8 @@ void SessionForm::displayUser(){
 
 void SessionForm::on_standButton_clicked()
 {
+    status = 2;
+    changeStatus();
     frame_->showStatus("Standing...");
     this->movement(ConnectedComponent::getInstance().STAND);
     frame_->clearStatus();
@@ -146,6 +162,8 @@ void SessionForm::on_standButton_clicked()
 
 void SessionForm::on_sitButton_clicked()
 {
+    status = 1;
+    changeStatus();
     frame_->showStatus("Sitting...");
     this->movement(ConnectedComponent::getInstance().SIT);
     frame_->clearStatus();
@@ -153,6 +171,8 @@ void SessionForm::on_sitButton_clicked()
 
 void SessionForm::on_storageButton_clicked()
 {
+    status = 0;
+    changeStatus();
     frame_->showStatus("Storing...");
     this->movement(ConnectedComponent::getInstance().STORAGE);
     frame_->clearStatus();

@@ -136,6 +136,16 @@ Press to connect...</string>
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="lbStatus">
+       <property name="text">
+        <string>       The exoskeleton must be in STAND position to perform the training.</string>
+       </property>
+       <property name="margin">
+        <number>2</number>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <layout class="QVBoxLayout" name="parentLayout"/>
@@ -176,7 +186,7 @@ Press to connect...</string>
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>40</height>
+              <height>20</height>
              </size>
             </property>
            </spacer>

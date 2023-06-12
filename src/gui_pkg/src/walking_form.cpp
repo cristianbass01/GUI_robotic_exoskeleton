@@ -98,3 +98,8 @@ void WalkingForm::finishProgressBar(){
 
     frame_->clearStatus();
 }
+
+void WalkingForm::setEnabled(bool state){
+    //ui->stopButton->setEnabled(state);
+    ui->startButton->setEnabled(state);
+}

@@ -32,11 +32,20 @@ QPushButton:pressed {
     background-color: #2176AE;     
 }
 
-
-
 QLineEdit:Focus {
 	border: 2px solid #2176AE;
-	
+}
+
+QPushButton#BT_cancel, QPushButton#BT_delete, QPushButton#stopButton, QPushButton#returnButton{
+	background-color:#D72638;
+	color:#F4F4F6;
+	font-weight:600
+}
+
+QPushButton#BT_create, QPushButton#BT_save, QPushButton#startButton{
+	background-color:#40B8A6;
+	color:#F4F4F6;
+	font-weight:600
 }
 
 QLabel#Alice, QFrame#home{
@@ -44,7 +53,7 @@ QLabel#Alice, QFrame#home{
 	border-radius: 15px;
 }
 
-QPushButton#connectButton{
+QPushButton#connectButton, QLabel#lbStatus{
 	background-color: rgb(255, 213, 213);
 	color: rgb(239, 41, 41);
 	border: 1px;
@@ -69,12 +78,15 @@ QLabel#userLabel{
 
 QPushButton#standButton, QPushButton#sitButton, QPushButton#storageButton{
 	
-	background-color: rgb(18, 184, 250);
+	background-color: #3993DD;
+	color:#F4F4F6;
 }
 
 QPushButton#walkButton, QPushButton#stepButton, QPushButton#controlButton{
 	
-	background-color: rgba(40, 185, 166, 188);
+	background-color: #2176AE;
+	color:#F4F4F6;
+	font-weight:600
 }
 
 QPushButton#startButton{

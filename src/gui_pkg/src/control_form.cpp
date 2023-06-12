@@ -17,11 +17,14 @@ ControlForm::~ControlForm()
 }
 
 
-
-
 void ControlForm::addLog(QString leg, bool correct, bool close, QTime time){
   if(log_ != nullptr) // sono in demo
   {
 
   }
+}
+
+void ControlForm::setEnabled(bool state){
+    ui->stopButton->setEnabled(state);
+    ui->startButton->setEnabled(state);
 }

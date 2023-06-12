@@ -20,6 +20,8 @@ public:
     explicit ControlForm(SessionForm *parent = nullptr, Log *log = nullptr);
     ~ControlForm();
 
+    void setEnabled(bool state);
+
 private:
     Ui::ControlForm *ui;
     SessionForm *session_;
