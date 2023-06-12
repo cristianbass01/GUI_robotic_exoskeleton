@@ -30,21 +30,21 @@ StepForm::~StepForm()
 void StepForm::on_leftFirstStepButton_clicked()
 {
     frame_->showStatus("Moving: left step...");
-    this->movement(connectedComponent->LEFTSTEP);
+    this->movement(ConnectedComponent::getInstance().LEFTSTEP);
     frame_->clearStatus();
 }
 
 void StepForm::on_rightFirstStepButton_clicked()
 {
     frame_->showStatus("Moving: right step...");
-    this->movement(connectedComponent->RIGHTSTEP);
+    this->movement(ConnectedComponent::getInstance().RIGHTSTEP);
     frame_->clearStatus();
 }
 
 void StepForm::on_feetTogetherButton_clicked()
 {
     frame_->showStatus("Moving: closing step...");
-    this->movement(connectedComponent->LEFTCLOSE);
+    this->movement(ConnectedComponent::getInstance().LEFTCLOSE);
     frame_->clearStatus();
 }
 
@@ -64,16 +64,16 @@ void StepForm::movement(const std::string code){
     int ms = 0;
     //--
 
-    if (!connectedComponent->isConnected())
+    if (!ConnectedComponent::getInstance().isConnected())
         session_->on_connectButton_clicked();
 
-    if (connectedComponent->isConnected()){
+    if (ConnectedComponent::getInstance().isConnected()){
         //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
         try {
             QElapsedTimer timer;
             timer.start();
 
-            connectedComponent->step(code);
+            ConnectedComponent::getInstance().step(code);
             this->lastStep = code;
 
             QApplication::processEvents();
@@ -81,14 +81,14 @@ void StepForm::movement(const std::string code){
             this->setEnabled(true);
             session_->setEnabled(true);
 
-            if(code.compare(connectedComponent->LEFTCLOSE) == 0){
+            if(code.compare(ConnectedComponent::getInstance().LEFTCLOSE) == 0){
                 session_->setImage(session_->LEFTCLOSE);
                 leg = "LEFT";
                 close = true;
-            } else if(code.compare(connectedComponent->LEFTSTEP)== 0){
+            } else if(code.compare(ConnectedComponent::getInstance().LEFTSTEP)== 0){
                 session_->setImage(session_->LEFTSTEP);
                 leg = "LEFT";
-            } else if(code.compare(connectedComponent->RIGHTSTEP)== 0){
+            } else if(code.compare(ConnectedComponent::getInstance().RIGHTSTEP)== 0){
                 session_->setImage(session_->RIGHTSTEP);
                 leg = "RIGHT";
             }
@@ -99,12 +99,12 @@ void StepForm::movement(const std::string code){
             ui->loadingLabel->setText("");
             ui->loadingLabel->setMargin(9);
         } catch (...) {
-            connectedComponent->errorMsg("Error while calling the service");
+            ConnectedComponent::getInstance().errorMsg("Error while calling the service");
         }
 
     }
     else {
-        connectedComponent->errorMsg("Error during the connection to the service");
+        ConnectedComponent::getInstance().errorMsg("Error during the connection to the service");
         session_->setConnected(false);
         correct = false;
         this->setEnabled(true);
@@ -131,12 +131,12 @@ void StepForm::setEnabled(bool state){
     }
     else {
         if(lastStep.size() > 0){
-            if(lastStep.compare(connectedComponent->LEFTCLOSE) == 0){
+            if(lastStep.compare(ConnectedComponent::getInstance().LEFTCLOSE) == 0){
                 ui->leftFirstStepButton->setEnabled(true);
                 ui->rightFirstStepButton->setEnabled(true);
-            } else if(lastStep.compare(connectedComponent->LEFTSTEP) == 0){
+            } else if(lastStep.compare(ConnectedComponent::getInstance().LEFTSTEP) == 0){
                 ui->rightFirstStepButton->setEnabled(true);
-            } else if(lastStep.compare(connectedComponent->RIGHTSTEP) == 0){
+            } else if(lastStep.compare(ConnectedComponent::getInstance().RIGHTSTEP) == 0){
                 ui->feetTogetherButton->setEnabled(true);
                 ui->leftFirstStepButton->setEnabled(true);
             }

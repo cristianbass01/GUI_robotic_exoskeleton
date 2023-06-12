@@ -24,7 +24,7 @@ void WalkThread::run()
         QMutex mutex;
 
         // Esegui un passo destro
-        connectedComponent->step(connectedComponent->RIGHTSTEP);
+        ConnectedComponent::getInstance().step(ConnectedComponent::getInstance().RIGHTSTEP);
 
         if(stopped_) break;
 
@@ -35,11 +35,11 @@ void WalkThread::run()
         sleep(1);
 
         if(step == numSteps_){
-            connectedComponent->step(connectedComponent->LEFTCLOSE);
+            ConnectedComponent::getInstance().step(ConnectedComponent::getInstance().LEFTCLOSE);
 
         }
         else{
-            connectedComponent->step(connectedComponent->LEFTSTEP);
+            ConnectedComponent::getInstance().step(ConnectedComponent::getInstance().LEFTSTEP);
         }
 
         if(stopped_) break;

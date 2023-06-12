@@ -9,12 +9,16 @@
 
 #include <XmlRpc.h>
 
-class ConnectedComponent : public QObject
+class ConnectedComponent
 {
-    Q_OBJECT
 
 public:
-    ConnectedComponent(int argc, char *argv[]);
+    static ConnectedComponent& getInstance(){
+        static ConnectedComponent instance;
+        return instance;
+    }
+
+    void initialize(int argc, char *argv[]);
     void step(const std::string &code);
     ~ConnectedComponent();
 
@@ -26,6 +30,10 @@ private:
     QList<pid_t> pid_;
     FILE * stream_;
 
+    ConnectedComponent(){}
+    // no copy
+    ConnectedComponent(const ConnectedComponent&) = delete;
+    void operator= (const ConnectedComponent&) = delete;
 
 public:
     const std::string RIGHTSTEP = "12";

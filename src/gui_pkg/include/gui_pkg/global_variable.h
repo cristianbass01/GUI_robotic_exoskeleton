@@ -11,6 +11,4 @@ extern UserList userList;
 extern User* currentUser;
 extern const QString path;
 
-extern std::shared_ptr<ConnectedComponent> connectedComponent;
-
 #endif // GLOBAL_VARIABLE_H

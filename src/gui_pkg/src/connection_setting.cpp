@@ -44,7 +44,7 @@ void ConnectionSetting::on_discardButton_clicked()
 void ConnectionSetting::on_saveButton_clicked()
 {
     bool retry = false;
-    if(connectedComponent->isConnected()){
+    if(ConnectedComponent::getInstance().isConnected()){
         for(int i = 0; i < ui->formLayout->rowCount(); i++){
             QFormLayout::TakeRowResult row = ui->formLayout->takeRow(i);
             std::string param_name = qobject_cast<QLabel*>(row.labelItem->widget())->text().toStdString();
@@ -52,7 +52,7 @@ void ConnectionSetting::on_saveButton_clicked()
             ui->formLayout->insertRow(i, row.labelItem->widget(), row.fieldItem->widget());
 
 
-            XmlRpc::XmlRpcValue param_value = connectedComponent->getParam(param_name);
+            XmlRpc::XmlRpcValue param_value = ConnectedComponent::getInstance().getParam(param_name);
             XmlRpc::XmlRpcValue new_param_value;
 
             // Determina il tipo di parametro
@@ -97,7 +97,7 @@ void ConnectionSetting::on_saveButton_clicked()
                 ROS_WARN("Il tipo del parametro %s non è gestito.", param_name.c_str());
             }
 
-            if(!connectedComponent->setParam(param_name, new_param_value)){
+            if(!ConnectedComponent::getInstance().setParam(param_name, new_param_value)){
                 QMessageBox msgBox;
                 msgBox.setIcon(QMessageBox::Critical);
                 msgBox.setWindowTitle("Parameter Error");
@@ -134,11 +134,11 @@ void ConnectionSetting::setup(bool readOnly){
         //delete item;
     }
 
-    if(connectedComponent->isConnected()){
-        std::vector<std::string> paramsList = connectedComponent->getParamsList();
+    if(ConnectedComponent::getInstance().isConnected()){
+        std::vector<std::string> paramsList = ConnectedComponent::getInstance().getParamsList();
         for(std::string param_name : paramsList){
 
-            XmlRpc::XmlRpcValue param_value = connectedComponent->getParam(param_name);
+            XmlRpc::XmlRpcValue param_value = ConnectedComponent::getInstance().getParam(param_name);
 
             // Determina il tipo di parametro
             if (param_value.getType() == XmlRpc::XmlRpcValue::TypeInt) {

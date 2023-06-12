@@ -74,18 +74,22 @@ QPushButton#standButton, QPushButton#sitButton, QPushButton#storageButton{
 
 QPushButton#walkButton, QPushButton#stepButton, QPushButton#controlButton{
 	
-	background-color: rgb(52, 101, 164);
+	background-color: rgba(40, 185, 166, 188);
 }
 
 QPushButton#startButton{
-background-color: rgb(138, 226, 52);
+background-color: rgb(131, 215, 145)
 }
 
 QPushButton#stopButton{
 	
-	background-color: rgb(239, 41, 41);
+	background-color: rgb(255, 137, 137)
 }
- </string>
+ 
+QPushButton#rightFirstStepButton, QPushButton#leftFirstStepButton, QPushButton#FeetTogetherButton{
+	
+	background-color: rgba(40, 185, 166, 188);
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="autoFillBackground">

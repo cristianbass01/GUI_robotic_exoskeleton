@@ -11,13 +11,6 @@
 #include <stdio.h>
 #include <sys/wait.h>
 
-ConnectedComponent::ConnectedComponent(int argc, char *argv[])
-{
-    this->argc = argc;
-    this->argv = argv;
-    this->timer_.reset(new QTimer());
-}
-
 ConnectedComponent::~ConnectedComponent(){
     nh_.reset();
     FILE * pipe;
@@ -74,6 +67,12 @@ ConnectedComponent::~ConnectedComponent(){
     }
     if(stream_)
         pclose(stream_);
+}
+
+void ConnectedComponent::initialize(int argc, char **argv){
+    this->argc = argc;
+    this->argv = argv;
+    this->timer_.reset(new QTimer());
 }
 
 void ConnectedComponent::step(const std::string &code){

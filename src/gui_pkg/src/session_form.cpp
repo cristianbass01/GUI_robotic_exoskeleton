@@ -24,10 +24,10 @@ SessionForm::SessionForm(FrameWindow *parent) :
     this->setImage(this->NOTCONNECTED);
 
     // se è già attivo il timer vuol dire che la connessione è già in corso
-    if(connectedComponent->timer_->isActive()){
+    if(ConnectedComponent::getInstance().timer_->isActive()){
         this->tryConnection();
-        QObject::connect(connectedComponent->timer_.get(), SIGNAL(timeout()), this, SLOT(tryConnection()));
-        connectedComponent->timer_->start(connectedComponent->CONTROL_TIME_OUT);
+        QObject::connect(ConnectedComponent::getInstance().timer_.get(), SIGNAL(timeout()), this, SLOT(tryConnection()));
+        ConnectedComponent::getInstance().timer_->start(ConnectedComponent::getInstance().CONTROL_TIME_OUT);
     }
 
 }
@@ -98,17 +98,17 @@ void SessionForm::on_connectButton_clicked()
 
 void SessionForm::tryConnection(){
 
-    if(connectedComponent->connect()){
+    if(ConnectedComponent::getInstance().connect()){
         this->setConnected(true);
-        if(! connectedComponent->timer_->isActive()){
-            QObject::connect(connectedComponent->timer_.get(), SIGNAL(timeout()), this, SLOT(tryConnection()));
-            connectedComponent->timer_->start(connectedComponent->CONTROL_TIME_OUT);
+        if(! ConnectedComponent::getInstance().timer_->isActive()){
+            QObject::connect(ConnectedComponent::getInstance().timer_.get(), SIGNAL(timeout()), this, SLOT(tryConnection()));
+            ConnectedComponent::getInstance().timer_->start(ConnectedComponent::getInstance().CONTROL_TIME_OUT);
         }
     }
     else {
         this->setConnected(false);
-        if(connectedComponent->timer_->isActive())
-            connectedComponent->timer_->stop();
+        if(ConnectedComponent::getInstance().timer_->isActive())
+            ConnectedComponent::getInstance().timer_->stop();
     }
 }
 
@@ -140,21 +140,21 @@ void SessionForm::displayUser(){
 void SessionForm::on_standButton_clicked()
 {
     frame_->showStatus("Standing...");
-    this->movement(connectedComponent->STAND);
+    this->movement(ConnectedComponent::getInstance().STAND);
     frame_->clearStatus();
 }
 
 void SessionForm::on_sitButton_clicked()
 {
     frame_->showStatus("Sitting...");
-    this->movement(connectedComponent->SIT);
+    this->movement(ConnectedComponent::getInstance().SIT);
     frame_->clearStatus();
 }
 
 void SessionForm::on_storageButton_clicked()
 {
     frame_->showStatus("Storing...");
-    this->movement(connectedComponent->STORAGE);
+    this->movement(ConnectedComponent::getInstance().STORAGE);
     frame_->clearStatus();
 }
 
@@ -172,22 +172,22 @@ void SessionForm::movement(const std::string code){
     //QTime t = QTime(0,0,0);
     int ms = 0;
     //--
-    if (!connectedComponent->isConnected())
+    if (!ConnectedComponent::getInstance().isConnected())
         this->on_connectButton_clicked();
 
-    if (connectedComponent->isConnected()){
+    if (ConnectedComponent::getInstance().isConnected()){
         //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
         QElapsedTimer timer;
         timer.start();
-        connectedComponent->step(code);
-        if(code.compare(connectedComponent->SIT) == 0){
+        ConnectedComponent::getInstance().step(code);
+        if(code.compare(ConnectedComponent::getInstance().SIT) == 0){
             this->setImage(this->SIT);
             leg = "SIT";
             //close = true;
-        } else if(code.compare(connectedComponent->STORAGE)== 0){
+        } else if(code.compare(ConnectedComponent::getInstance().STORAGE)== 0){
             this->setImage(this->STORAGE);
             leg = "STORAGE";
-        } else if(code.compare(connectedComponent->STAND)== 0){
+        } else if(code.compare(ConnectedComponent::getInstance().STAND)== 0){
             this->setImage(this->STAND);
             leg = "STAND";
         }
@@ -196,7 +196,7 @@ void SessionForm::movement(const std::string code){
         //Qint milliseconds = 1500;  // Esempio di tempo in millisecondi
     }
     else {
-        connectedComponent->errorMsg("Error while calling the service");
+        ConnectedComponent::getInstance().errorMsg("Error while calling the service");
         this->setConnected(false);
         correct = false;
     }
