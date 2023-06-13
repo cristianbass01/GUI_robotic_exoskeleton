@@ -44,6 +44,10 @@ private:
     {"#", "Set", "Executed", "Pause", "Time"}  // walkingLog
 
   };
+  const int CONTROL = 0;
+  const int STEP = 1;
+  const int WALKING = 2;
+
 
   QTreeWidgetItem* controlItem;
   QTreeWidgetItem* stepItem;
