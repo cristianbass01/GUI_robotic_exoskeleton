@@ -21,7 +21,7 @@ SessionForm::SessionForm(FrameWindow *parent) :
 
     ui->connectLoadingIcon->hide();
 
-    this->setImage(this->NOTCONNECTED);
+    this->updateImage();
 
     // se è già attivo il timer vuol dire che la connessione è già in corso
     if(ConnectedComponent::getInstance().timer_->isActive()){
@@ -84,19 +84,38 @@ void SessionForm::customizeForm(QWidget *widget_to_insert){
     }
 
     form_ = widget_to_insert;
-    changeStatus();
+    updateStatus();
 }
 
-void SessionForm::changeStatus()
+void SessionForm::updateStatus()
 {
-  if (form_->objectName().compare("WalkingForm")==0)
-      qobject_cast<WalkingForm*>(form_)->setEnabled(status>1);
-  else if (form_->objectName().compare("StepForm")==0)
-      qobject_cast<StepForm*>(form_)->setEnabled(status>1);
-  else if (form_->objectName().compare("ControlForm")==0)
-      qobject_cast<ControlForm*>(form_)->setEnabled(status>1);
+    int status = 1;
+    std::string currentState = ConnectedComponent::getInstance().getCurrentState();
+    if(currentState.compare(ConnectedComponent::getInstance().SIT) == 0)
+        status = 0;
+    else if(currentState.compare(ConnectedComponent::getInstance().STORAGE) == 0)
+        status = 0;
+    else if(currentState.compare(ConnectedComponent::getInstance().STAND) == 0)
+        status = 2;
 
-  ui->lbStatus->setMaximumWidth((status<=1) * 535);
+    if (form_->objectName().compare("StepForm")==0){
+        qobject_cast<StepForm*>(form_)->setEnabled(status >= 1);
+        if(status >= 1)
+            ui->lbStatus->hide();
+        else
+            ui->lbStatus->show();
+    }
+    else{
+        if (form_->objectName().compare("WalkingForm")==0)
+            qobject_cast<WalkingForm*>(form_)->setEnabled(status == 2);
+        else if (form_->objectName().compare("ControlForm")==0)
+            qobject_cast<ControlForm*>(form_)->setEnabled(status == 2);
+
+        if(status == 2)
+            ui->lbStatus->hide();
+        else
+            ui->lbStatus->show();
+    }
 }
 
 
@@ -128,10 +147,8 @@ void SessionForm::tryConnection(){
 
 void SessionForm::setConnected(bool state){
     if(state){
-        if(ui->connectButton->text().toStdString().compare("Connected") != 0)
-            this->setImage(this->STORAGE); // this->setImage(this->STAND);
         ui->connectButton->setText("Connected");
-        ui->connectButton->setStyleSheet("color: rgb(78, 154, 6); background-color: rgb(194, 251, 192);");
+        ui->connectButton->setStyleSheet("color: rgb(78, 154, 6); background-color: rgb(194, 251, 192);");        
     }
     else {
         ui->connectButton->setText("Not connected\nPress to connect...");
@@ -153,29 +170,26 @@ void SessionForm::displayUser(){
 
 void SessionForm::on_standButton_clicked()
 {
-    status = 2;
-    changeStatus();
     frame_->showStatus("Standing...");
     this->movement(ConnectedComponent::getInstance().STAND);
     frame_->clearStatus();
+    updateStatus();
 }
 
 void SessionForm::on_sitButton_clicked()
 {
-    status = 1;
-    changeStatus();
     frame_->showStatus("Sitting...");
     this->movement(ConnectedComponent::getInstance().SIT);
     frame_->clearStatus();
+    updateStatus();
 }
 
 void SessionForm::on_storageButton_clicked()
 {
-    status = 0;
-    changeStatus();
     frame_->showStatus("Storing...");
     this->movement(ConnectedComponent::getInstance().STORAGE);
     frame_->clearStatus();
+    updateStatus();
 }
 
 void SessionForm::movement(const std::string code){
@@ -192,8 +206,12 @@ void SessionForm::movement(const std::string code){
     //QTime t = QTime(0,0,0);
     int ms = 0;
     //--
-    if (!ConnectedComponent::getInstance().isConnected())
+    if (!ConnectedComponent::getInstance().isConnected()){
+        std::string currentMsg = frame_->clearStatus();
         this->on_connectButton_clicked();
+        frame_->showStatus(currentMsg);
+        QCoreApplication::processEvents();
+    }
 
     if (ConnectedComponent::getInstance().isConnected()){
         //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
@@ -201,16 +219,14 @@ void SessionForm::movement(const std::string code){
         timer.start();
         ConnectedComponent::getInstance().step(code);
         if(code.compare(ConnectedComponent::getInstance().SIT) == 0){
-            this->setImage(this->SIT);
             leg = "SIT";
             //close = true;
         } else if(code.compare(ConnectedComponent::getInstance().STORAGE)== 0){
-            this->setImage(this->STORAGE);
             leg = "STORAGE";
         } else if(code.compare(ConnectedComponent::getInstance().STAND)== 0){
-            this->setImage(this->STAND);
             leg = "STAND";
         }
+        this->updateImage();
         ms = static_cast<int>(timer.elapsed());
         //timer.stop();
         //Qint milliseconds = 1500;  // Esempio di tempo in millisecondi
@@ -257,4 +273,24 @@ void SessionForm::setImage(const QString code){
     int height = 400;
     QPixmap scaledPixmap = pixmap.scaled(width, height, Qt::KeepAspectRatio);
     ui->Alice->setPixmap(scaledPixmap);
+}
+
+void SessionForm::updateImage(){
+    if(ConnectedComponent::getInstance().isConnected()){
+        std::string currentState = ConnectedComponent::getInstance().getCurrentState();
+        if(currentState.compare(ConnectedComponent::getInstance().STAND) == 0)
+            this->setImage(this->STAND);
+        else if(currentState.compare(ConnectedComponent::getInstance().SIT) == 0)
+            this->setImage(this->SIT);
+        else if(currentState.compare(ConnectedComponent::getInstance().STORAGE) == 0)
+            this->setImage(this->STORAGE);
+        else if(currentState.compare(ConnectedComponent::getInstance().LEFTSTEP) == 0)
+            this->setImage(this->LEFTSTEP);
+        else if(currentState.compare(ConnectedComponent::getInstance().RIGHTSTEP) == 0)
+            this->setImage(this->RIGHTSTEP);
+        else if(currentState.compare(ConnectedComponent::getInstance().LEFTCLOSE) == 0)
+            this->setImage(this->LEFTCLOSE);
+    }
+    else
+        this->setImage(this->NOTCONNECTED);
 }

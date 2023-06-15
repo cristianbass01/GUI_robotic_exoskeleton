@@ -73,6 +73,7 @@ void ConnectedComponent::initialize(int argc, char **argv){
     this->argc = argc;
     this->argv = argv;
     this->timer_.reset(new QTimer());
+    this->currentState_ = this->STORAGE;
 }
 
 void ConnectedComponent::step(const std::string &code){
@@ -82,6 +83,7 @@ void ConnectedComponent::step(const std::string &code){
     if (this->client_.call(srv))
     {
       ROS_INFO("OK: Service call done");
+      this->currentState_ = code;
     }
     else
     {
@@ -223,4 +225,8 @@ int ConnectedComponent::setParam(std::string key, XmlRpc::XmlRpcValue value){
         return 1;
     }
     return 0;
+}
+
+std::string ConnectedComponent::getCurrentState(){
+    return this->currentState_;
 }

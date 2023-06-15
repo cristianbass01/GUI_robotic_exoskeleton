@@ -29,6 +29,7 @@ private:
     ros::ServiceClient client_;
     QList<pid_t> pid_;
     FILE * stream_;
+    std::string currentState_;
 
     ConnectedComponent(){}
     // no copy
@@ -53,6 +54,8 @@ public:
 
     int setParams(int baudRate, std::string serialPort);
     int setParam(std::string key, XmlRpc::XmlRpcValue value);
+
+    std::string getCurrentState();
 
 public slots:
     bool connect();

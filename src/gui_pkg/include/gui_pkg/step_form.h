@@ -35,8 +35,6 @@ private:
     Log* log_;
     int stepCount;
 
-    std::string lastStep = "";
-
     void movement(const std::string code);
     void addLog(QString leg, bool correct, bool close, QTime time);
 };

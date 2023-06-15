@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>541</width>
-    <height>319</height>
+    <width>543</width>
+    <height>403</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="ControlForm">
@@ -18,7 +18,7 @@
     <number>20</number>
    </property>
    <item>
-    <spacer name="verticalSpacer_3">
+    <spacer name="verticalSpacer_4">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -109,7 +109,7 @@
       <item row="0" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout_10">
         <item>
-         <widget class="QSpinBox" name="spinBox">
+         <widget class="QSpinBox" name="walkingSteps">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -193,15 +193,32 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="topMargin">
+      <number>20</number>
+     </property>
+     <property name="bottomMargin">
+      <number>20</number>
+     </property>
+     <item>
+      <widget class="QProgressBar" name="progressBar">
+       <property name="value">
+        <number>24</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
      <property name="spacing">
       <number>20</number>
      </property>
      <property name="topMargin">
-      <number>40</number>
+      <number>10</number>
      </property>
      <item>
-      <spacer name="horizontalSpacer_3">
+      <spacer name="horizontalSpacer_4">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -267,7 +284,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_9">
+      <spacer name="horizontalSpacer_10">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>

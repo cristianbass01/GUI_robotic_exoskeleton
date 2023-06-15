@@ -15,7 +15,6 @@ WalkThread::WalkThread(int numSteps, Log *log)
 
 void WalkThread::run()
 {
-    status = 3;
     QTime t = QTime(0,0,0);
     QElapsedTimer timer;
     timer.start();
@@ -55,7 +54,6 @@ void WalkThread::run()
 
     int ms = static_cast<int>(timer.elapsed());
     addLog(numSteps_,step -1, numSteps_ - (step - 1), t.addMSecs(ms));
-    status = 2;
 }
 
 void WalkThread::stop(){

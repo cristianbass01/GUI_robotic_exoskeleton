@@ -156,9 +156,11 @@ void FrameWindow::showStatus(std::string msg){
     ui->statusBar->showMessage(QString::fromStdString(msg));
 }
 
-void FrameWindow::clearStatus(){
+std::string FrameWindow::clearStatus(){
+    std::string currentMsg = ui->statusBar->currentMessage().toStdString();
     ui->statusBar->clearMessage();
     ui->statusBar->hide();
+    return currentMsg;
 }
 
 void FrameWindow::closeEvent(QCloseEvent *event)  // show prompt when user wants to close app

@@ -24,7 +24,7 @@ public:
 
     void showStatus(std::string msg);
 
-    void clearStatus();
+    std::string clearStatus();
 
 private slots:
     void on_actionHome_triggered();

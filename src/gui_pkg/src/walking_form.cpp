@@ -75,16 +75,14 @@ void WalkingForm::updateProgressBar(int value){
     if(value%2 == 0){
         if(value == ui->progressBar->maximum()){
             frame_->showStatus("Walking: final step...");
-            session_->setImage(session_->LEFTCLOSE);
         }
         else{
             frame_->showStatus("Walking: left step...");
-            session_->setImage(session_->LEFTSTEP);
         }
     } else {
         frame_->showStatus("Walking: right step...");
-        session_->setImage(session_->RIGHTSTEP);
     }
+    session_->updateImage();
 }
 
 void WalkingForm::finishProgressBar(){

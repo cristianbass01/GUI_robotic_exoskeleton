@@ -17,6 +17,7 @@ StepForm::StepForm(SessionForm *parent, Log *log) :
     frame_ = parent->getFrame();
     ui->setupUi(this);
 
+    this->setEnabled(true);
     log_ = log;
     stepCount = 0;
 }
@@ -49,7 +50,6 @@ void StepForm::on_feetTogetherButton_clicked()
 }
 
 void StepForm::movement(const std::string code){
-    status = 3;
     this->setEnabled(false);
     session_->setEnabled(false);
 
@@ -75,7 +75,6 @@ void StepForm::movement(const std::string code){
             timer.start();
 
             ConnectedComponent::getInstance().step(code);
-            this->lastStep = code;
 
             QApplication::processEvents();
 
@@ -83,16 +82,14 @@ void StepForm::movement(const std::string code){
             session_->setEnabled(true);
 
             if(code.compare(ConnectedComponent::getInstance().LEFTCLOSE) == 0){
-                session_->setImage(session_->LEFTCLOSE);
                 leg = "LEFT";
                 close = true;
             } else if(code.compare(ConnectedComponent::getInstance().LEFTSTEP)== 0){
-                session_->setImage(session_->LEFTSTEP);
                 leg = "LEFT";
             } else if(code.compare(ConnectedComponent::getInstance().RIGHTSTEP)== 0){
-                session_->setImage(session_->RIGHTSTEP);
                 leg = "RIGHT";
             }
+            session_->updateImage();
             ms = static_cast<int>(timer.elapsed());
             //timer.stop();
             //Qint milliseconds = 1500;  // Esempio di tempo in millisecondi
@@ -112,7 +109,6 @@ void StepForm::movement(const std::string code){
         session_->setEnabled(true);
     }
     addLog(leg, correct, close, t.addMSecs(ms));
-    status = 2;
 }
 
 void StepForm::addLog(QString leg, bool correct, bool close, QTime time)
@@ -132,18 +128,18 @@ void StepForm::setEnabled(bool state){
         ui->rightFirstStepButton->setEnabled(false);
     }
     else {
-        if(lastStep.size() > 0){
-            if(lastStep.compare(ConnectedComponent::getInstance().LEFTCLOSE) == 0){
-                ui->leftFirstStepButton->setEnabled(true);
-                ui->rightFirstStepButton->setEnabled(true);
-            } else if(lastStep.compare(ConnectedComponent::getInstance().LEFTSTEP) == 0){
-                ui->rightFirstStepButton->setEnabled(true);
-            } else if(lastStep.compare(ConnectedComponent::getInstance().RIGHTSTEP) == 0){
-                ui->feetTogetherButton->setEnabled(true);
-                ui->leftFirstStepButton->setEnabled(true);
-            }
-        }
-        else{
+        std::string lastStep = ConnectedComponent::getInstance().getCurrentState();
+
+        ui->feetTogetherButton->setEnabled(false);
+        ui->leftFirstStepButton->setEnabled(false);
+        ui->rightFirstStepButton->setEnabled(false);
+
+        if(lastStep.compare(ConnectedComponent::getInstance().LEFTSTEP) == 0){
+            ui->rightFirstStepButton->setEnabled(true);
+        } else if(lastStep.compare(ConnectedComponent::getInstance().RIGHTSTEP) == 0){
+            ui->feetTogetherButton->setEnabled(true);
+            ui->leftFirstStepButton->setEnabled(true);
+        } else{
             ui->leftFirstStepButton->setEnabled(true);
             ui->rightFirstStepButton->setEnabled(true);
         }

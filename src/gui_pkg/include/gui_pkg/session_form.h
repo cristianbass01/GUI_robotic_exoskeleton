@@ -29,15 +29,8 @@ public:
 
     void setEnabled(bool state);
 
-    void setImage(const QString);
+    void updateImage();
 
-    const QString LEFTSTEP = QString::fromStdString(":/Alice/Alice/Alice_left_step.png");
-    const QString RIGHTSTEP = QString::fromStdString(":/Alice/Alice/Alice_right_step.png");
-    const QString LEFTCLOSE = QString::fromStdString(":/Alice/Alice/Alice_step_five.png");
-    const QString SIT = QString::fromStdString(":/Alice/Alice/Alice_sit_straight.png");
-    const QString STORAGE = QString::fromStdString(":/Alice/Alice/Alice_sitting_exercises.png");
-    const QString STAND = QString::fromStdString(":/Alice/Alice/Alice_stand_straight.png");
-    const QString NOTCONNECTED = QString::fromStdString(":/Alice/Alice/Alice_not_connected.png");
 
 public slots:
 
@@ -60,7 +53,7 @@ private slots:
 
     void tryConnection();
 
-    void changeStatus();
+    void updateStatus();
 
 private:
     Ui::SessionForm *ui;
@@ -68,6 +61,16 @@ private:
     QSharedPointer<User> user_;
 
     QWidget *form_ = nullptr;
+
+    const QString LEFTSTEP = QString::fromStdString(":/Alice/Alice/Alice_left_step.png");
+    const QString RIGHTSTEP = QString::fromStdString(":/Alice/Alice/Alice_right_step.png");
+    const QString LEFTCLOSE = QString::fromStdString(":/Alice/Alice/Alice_step_five.png");
+    const QString SIT = QString::fromStdString(":/Alice/Alice/Alice_sit_straight.png");
+    const QString STORAGE = QString::fromStdString(":/Alice/Alice/Alice_sitting_exercises.png");
+    const QString STAND = QString::fromStdString(":/Alice/Alice/Alice_stand_straight.png");
+    const QString NOTCONNECTED = QString::fromStdString(":/Alice/Alice/Alice_not_connected.png");
+
+    void setImage(const QString);
 };
 
 #endif // WALKING_WINDOW_H

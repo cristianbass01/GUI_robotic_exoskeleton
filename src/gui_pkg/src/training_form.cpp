@@ -152,8 +152,12 @@ void TrainingForm::movement(const std::string code){
     //QTime t = QTime(0,0,0);
     int ms = 0;
     //--
-    if (!ConnectedComponent::getInstance().isConnected())
+    if (!ConnectedComponent::getInstance().isConnected()){
+        std::string currentMsg = frame_->clearStatus();
         this->on_connectButton_clicked();
+        frame_->showStatus(currentMsg);
+        QCoreApplication::processEvents();
+    }
 
     if (ConnectedComponent::getInstance().isConnected()){
         //TODO Inserire un try catch per gestire la disconnessione durante la chiamata

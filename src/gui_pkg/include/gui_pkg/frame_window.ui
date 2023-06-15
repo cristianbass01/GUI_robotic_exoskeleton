@@ -15,7 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow{
-	background-color:#F4F4F6
+	background-color:#F4F4F6;
 }
 
 QPushButton{
@@ -36,16 +36,25 @@ QLineEdit:Focus {
 	border: 2px solid #2176AE;
 }
 
+QPushButton:!enabled{
+	color: rgb(125, 125, 125);
+}
+
+QPushButton:enabled{
+	color: rgb(255, 255, 255);
+	font-weight: 600
+}
+
 QPushButton#BT_cancel, QPushButton#BT_delete, QPushButton#stopButton, QPushButton#returnButton{
 	background-color:#D72638;
-	color:#F4F4F6;
-	font-weight:600
+	/*color: #F4F4F6;*/
+	font-weight: 600
 }
 
 QPushButton#BT_create, QPushButton#BT_save, QPushButton#startButton{
 	background-color:#40B8A6;
-	color:#F4F4F6;
-	font-weight:600
+	/*color: #F4F4F6;*/
+	font-weight: 600
 }
 
 QLabel#Alice, QFrame#home{
@@ -64,7 +73,7 @@ QPushButton#connectButton, QLabel#lbStatus{
 
 QPushButton#finishButton{
 	background-color:#D72638;
-	color:#F4F4F6;
+	/*color: #F4F4F6;*/
 	font-weight:600
 }
 
@@ -79,14 +88,14 @@ QLabel#userLabel{
 QPushButton#standButton, QPushButton#sitButton, QPushButton#storageButton{
 	
 	background-color: #3993DD;
-	color:#F4F4F6;
+	/*color: #F4F4F6;*/
 }
 
 QPushButton#walkButton, QPushButton#stepButton, QPushButton#controlButton{
 	
 	background-color: #2176AE;
-	color:#F4F4F6;
-	font-weight:600
+	/*color: #F4F4F6;*/˚
+	font-weight: 600
 }
 
 QPushButton#startButton{

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Installa ROS Noetic (required)
-sudo apt install -y ros-noetic-desktop-full
+# sudo apt install -y ros-noetic-desktop-full
 
 # Inizializza l'ambiente di sviluppo di ROS Noetic
 source /opt/ros/noetic/setup.bash
