@@ -28,26 +28,31 @@ SelectUserForm::~SelectUserForm()
 }
 
 void SelectUserForm::createComboBox(int start, QString id){
+    // svuoto il contenuto attuale
     ui->CB_selectUser->clear();
     users.clear();
 
+    // controllo se c'è quel numero di elementi
     start = (userList.size()>0) * start; // e' > 1 se c'è almeno un elemento nella lista, altrimenti è 0
 
     ui->CB_selectUser->addItem(QString("- - - Create User - - -"));
 
     User* u;
+    // popolamento della lista formata dalla coppia (cognome+nome) e indice del file xml
+    // l'indice di userList
     for(int i = 0; i<userList.size(); i++) {
       u = userList.getAt(i);
-      users.append(QPair<QString, int>(u->getSurname() + " " + u->getName(), i)); // i è la posizione nel xml
+      users.append(QPair<QString, int>(u->getSurname() + " " + u->getName(), i)); // i è la posizione nel userList
     }
 
+    // ordinamento degli elementi, non esiste un metodo diretto
     auto pairStringComparator = [](const QPair<QString, int>& pair1, const QPair<QString, int>& pair2) {
         return pair1.first < pair2.first;
     };
-
-    // usa il metodo qSort per ordinare la lista in base al comparatore personalizzato
     qSort(users.begin(), users.end(), pairStringComparator);
 
+
+    // popolamento della comboBox e ricerca del utente
     int p = 1;
     for(const auto& user : users) {
         ui->CB_selectUser->addItem(user.first);
@@ -56,43 +61,40 @@ void SelectUserForm::createComboBox(int start, QString id){
         p++;
     }
 
-    //ui->CB_selectUser->addItems(users);
-
-    ui->CB_selectUser->setCurrentIndex(start);
+    ui->CB_selectUser->setCurrentIndex(start); // imposta il valore della comboBox
 }
 
 
 void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
 {
-    setReadOnly(index!=0, index!=0);
+    setReadOnly(index>0); // se è maggiore di zero allora sono in selezione
     ui->BT_selectUser->setVisible(index>0);
     ui->BT_viewLog->setVisible(index>0);
     ui->BT_delete->setVisible(index>0);
 
     User* u = new User;
 
-    if(index>0)
+    if(index>0) // modifiche grafiche in base alla modalità
     {
-        selectUser = users[index-1].second;
-        u = userList.getAt(selectUser);
-        ui->BT_create->setText("Edit");
+        selectUser = users[index-1].second; // recupero l'indice della del elemento
+        u = userList.getAt(selectUser); // recupero l'utente
 
-        //ui->TB_id->setVisible(true);
+        ui->BT_create->setText("Edit");
         ui->TB_id->setMaximumWidth(610);
-        //ui->TB_id->setMinimumHeight(30);
     }
     else {
         ui->BT_create->setText("Save");
 
-        //ui->TB_id->setVisible(false);
-        ui->TB_id->setMaximumWidth(0);
-        //ui->TB_id->setMinimumHeight(0);
+        ui->TB_id->setMaximumWidth(0);// modifico la largezza di id,
+        // in questo modo è invisibile ma occupa comunque lo spazio verticale
     }
 
-    if(u == nullptr) {
+    if(u == nullptr) { // se l'utente non è presente do errore
       QMessageBox::warning(this,"Warning", "The selected user is not present.");
-      return; //// come proseguo? elimino dal file, o chiedo di recrearlo?
+      return;
     }
+
+    // imbosto i campi in base al utente
     ui->TB_name->setText(u->getName());
     ui->TB_surname->setText(u->getSurname());
     ui->TB_id->setText(u->getId());
@@ -129,7 +131,7 @@ void SelectUserForm::on_BT_create_clicked()
 
 void SelectUserForm::setEditMode()
 {
-    setReadOnly(false, true);
+    setReadOnly(false);
     editMode(true);
 }
 
@@ -211,11 +213,10 @@ void SelectUserForm::createUser(bool overwrite){
     createComboBox(0,id_user);
 }
 
-void SelectUserForm::setReadOnly(bool status, bool id)
+void SelectUserForm::setReadOnly(bool status)
 {
     ui->TB_name->setReadOnly(status);
     ui->TB_surname->setReadOnly(status);
-    ui->TB_id->setReadOnly(id);
     ui->DE_birthday->setReadOnly(status);
     ui->RB_male->setEnabled(!status);
     ui->RB_female->setEnabled(!status);
@@ -244,7 +245,7 @@ void SelectUserForm::editMode(bool edit)
 
 void SelectUserForm::on_BT_selectUser_clicked()
 {
-    currentUser = userList.getAt(selectUser);
+    currentUser = userList.getAt(selectUser); // imposto l'utente corrente
     frame_->customizeWindow(new TrainingForm(frame_));
     frame_->show();
 }
@@ -291,7 +292,7 @@ void SelectUserForm::on_BT_cancel_clicked()
     ui->CB_selectUser->setCurrentIndex(0);
     ui->CB_selectUser->setCurrentIndex(curr);
     editMode(false);
-    setReadOnly(true, true);
+    setReadOnly(true);
 }
 
 void SelectUserForm::on_BT_delete_clicked()
