@@ -201,10 +201,6 @@ void SessionForm::movement(const std::string code){
     QCoreApplication::processEvents();
 
     // LOG
-    QString leg;
-    bool correct = true, close = false;
-    //QTime t = QTime(0,0,0);
-    int ms = 0;
     //--
     if (!ConnectedComponent::getInstance().isConnected()){
         std::string currentMsg = frame_->clearStatus();
@@ -215,32 +211,16 @@ void SessionForm::movement(const std::string code){
 
     if (ConnectedComponent::getInstance().isConnected()){
         //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
-        QElapsedTimer timer;
-        timer.start();
         ConnectedComponent::getInstance().step(code);
-        if(code.compare(ConnectedComponent::getInstance().SIT) == 0){
-            leg = "SIT";
-            //close = true;
-        } else if(code.compare(ConnectedComponent::getInstance().STORAGE)== 0){
-            leg = "STORAGE";
-        } else if(code.compare(ConnectedComponent::getInstance().STAND)== 0){
-            leg = "STAND";
-        }
         this->updateImage();
-        ms = static_cast<int>(timer.elapsed());
-        //timer.stop();
-        //Qint milliseconds = 1500;  // Esempio di tempo in millisecondi
     }
     else {
         ConnectedComponent::getInstance().errorMsg("Error while calling the service");
         this->setConnected(false);
-        correct = false;
     }
 
     this->setEnabled(true);
     form_->setEnabled(true);
-
-    //addLog(leg, correct, close, t.addMSecs(ms));
 }
 
 void SessionForm::setEnabled(bool state){
