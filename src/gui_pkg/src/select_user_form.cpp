@@ -77,9 +77,16 @@ void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
         u = userList.getAt(selectUser);
         ui->BT_create->setText("Edit");
 
+        //ui->TB_id->setVisible(true);
+        ui->TB_id->setMaximumWidth(610);
+        //ui->TB_id->setMinimumHeight(30);
     }
     else {
         ui->BT_create->setText("Save");
+
+        //ui->TB_id->setVisible(false);
+        ui->TB_id->setMaximumWidth(0);
+        //ui->TB_id->setMinimumHeight(0);
     }
 
     if(u == nullptr) {
@@ -130,13 +137,14 @@ int SelectUserForm::checkCorrect(bool edit){
   bool create = true;
 
   id_user = ui->TB_id->text();
-  if(ui->TB_name->text().size() < 3 || ui->TB_surname->text().size() < 3 || id_user.length() < 3 || id_user.contains(" ")) // 16 caratteri è giusto?
+
+  if(ui->TB_name->text().size() < 3 || ui->TB_surname->text().size() < 3) // || id_user.length() < 3 || id_user.contains(" ")) // 16 caratteri è giusto?
   {
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Warning);
     msgBox.setWindowTitle("Warning");
     msgBox.setText("One or more fields may be incomplete");
-    msgBox.setInformativeText("First name, Last name and ID must have at least 3 letters");
+    msgBox.setInformativeText("First name and Last name must have at least 3 letters");
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.exec();
     return -1;
@@ -187,7 +195,7 @@ void SelectUserForm::createUser(bool overwrite){
     else {
       dir = userList.find(ui->TB_id->text())->getDir();
     }
-
+    id_user = dir;
     User u(dir,id_user,ui->TB_name->text(),ui->TB_surname->text(),ui->DE_birthday->date(), sex,
            ui->NB_height->value(), ui->NB_weight->value(), ui->NB_upperLeg->value(), ui->NB_lowerLeg->value());
 
@@ -228,7 +236,6 @@ void SelectUserForm::editMode(bool edit)
     ui->BT_save->setMinimumHeight(size);
     ui->BT_cancel->setMinimumHeight(size);
     ui->BT_create->setMinimumHeight(30 - size);
-
 
     ui->BT_delete->setVisible(!edit);
     ui->BT_selectUser->setVisible(!edit);
