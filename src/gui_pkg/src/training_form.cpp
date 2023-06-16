@@ -31,7 +31,7 @@ TrainingForm::TrainingForm(FrameWindow *parent) :
       this->tryConnection();
       QObject::connect(ConnectedComponent::getInstance().timer_.get(), SIGNAL(timeout()), this, SLOT(tryConnection()));
       ConnectedComponent::getInstance().timer_->start(ConnectedComponent::getInstance().CONTROL_TIME_OUT);
-  }
+  } else this->setConnected(false);
 }
 
 TrainingForm::~TrainingForm()
@@ -89,7 +89,7 @@ void TrainingForm::on_controlButton_clicked()
 
 void TrainingForm::on_finishButton_clicked()
 {
-    QApplication::quit();
+    frame_->close();
 }
 
 void TrainingForm::on_connectButton_clicked()
@@ -122,10 +122,12 @@ void TrainingForm::tryConnection(){
 void TrainingForm::setConnected(bool state){
     if(state){
         ui->connectButton->setText("Connected");
+        ui->shutdownButton->show();
         ui->connectButton->setStyleSheet("color: rgb(78, 154, 6); background-color: rgb(194, 251, 192);");
     }
     else {
         ui->connectButton->setText("Not connected\nPress to connect...");
+        ui->shutdownButton->hide();
         ui->connectButton->setStyleSheet("background-color: rgb(255, 213, 213); color: rgb(239, 41, 41);");
     }
     QCoreApplication::processEvents();
@@ -192,4 +194,19 @@ Log* TrainingForm::createLog() // troppo un casino con log condiviso in caso de 
       return nullptr;
   else
       return new Log(currentUser->getDir());
+}
+
+void TrainingForm::on_shutdownButton_clicked()
+{
+    ui->connectLoadingIcon->show();
+    frame_->showStatus("Shutting down...");
+    QApplication::processEvents();
+
+    ConnectedComponent::getInstance().shutdown();
+    this->setConnected(false);
+    if(ConnectedComponent::getInstance().timer_->isActive())
+        ConnectedComponent::getInstance().timer_->stop();
+
+    ui->connectLoadingIcon->hide();
+    frame_->clearStatus();
 }

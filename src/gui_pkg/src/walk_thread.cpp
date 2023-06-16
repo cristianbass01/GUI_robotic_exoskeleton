@@ -6,6 +6,7 @@
 #include <QMutex>
 #include <QTime>
 #include <QElapsedTimer>
+#include <QMessageBox>
 
 WalkThread::WalkThread(int numSteps, Log *log)
 {
@@ -24,7 +25,9 @@ void WalkThread::run()
         QMutex mutex;
 
         // Esegui un passo destro
-        ConnectedComponent::getInstance().step(ConnectedComponent::getInstance().RIGHTSTEP);
+        if(!ConnectedComponent::getInstance().step(ConnectedComponent::getInstance().RIGHTSTEP)){
+            break;
+        }
 
         if(stopped_) break;
 
@@ -32,14 +35,16 @@ void WalkThread::run()
         emit progressUpdated(step*2-1);
         mutex.unlock();
 
-        sleep(1);
-
         if(step == numSteps_){
-            ConnectedComponent::getInstance().step(ConnectedComponent::getInstance().LEFTCLOSE);
+            if(!ConnectedComponent::getInstance().step(ConnectedComponent::getInstance().LEFTCLOSE)){
+                break;
+            }
 
         }
         else{
-            ConnectedComponent::getInstance().step(ConnectedComponent::getInstance().LEFTSTEP);
+            if(!ConnectedComponent::getInstance().step(ConnectedComponent::getInstance().LEFTSTEP)){
+                break;
+            }
         }
 
         if(stopped_) break;
@@ -47,8 +52,16 @@ void WalkThread::run()
         mutex.lock();
         emit progressUpdated(step*2);
         mutex.unlock();
-
-        sleep(1);
+    }
+    if(stopped_ == false && step != numSteps_){
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle("Warning");
+        msgBox.setText("Movement failed");
+        msgBox.setInformativeText("Exoskeleton failed the step");
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();
+        stopped_ = true;
     }
     emit stopped();
 

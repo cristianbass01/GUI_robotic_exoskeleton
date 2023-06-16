@@ -45,7 +45,7 @@ QPushButton:enabled{
 	font-weight: 600
 }
 
-QPushButton#BT_cancel, QPushButton#BT_delete, QPushButton#stopButton, QPushButton#returnButton{
+QPushButton#BT_cancel, QPushButton#BT_delete, QPushButton#stopButton, QPushButton#returnButton, QPushButton#shutdownButton{
 	background-color:#D72638;
 	/*color: #F4F4F6;*/
 	font-weight: 600
@@ -62,7 +62,7 @@ QLabel#Alice, QFrame#home{
 	border-radius: 15px;
 }
 
-QPushButton#connectButton, QLabel#lbStatus{
+QPushButton#connectButton, QLabel#lbStatus, QPushButton#shutdownButton{
 	background-color: rgb(255, 213, 213);
 	color: rgb(239, 41, 41);
 	border: 1px;

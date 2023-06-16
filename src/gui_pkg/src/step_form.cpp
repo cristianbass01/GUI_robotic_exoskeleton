@@ -8,6 +8,7 @@
 #include <QMovie>
 #include <QTimer>
 #include <QElapsedTimer>
+#include <QMessageBox>
 
 StepForm::StepForm(SessionForm *parent, Log *log) :
     QWidget(parent),
@@ -68,36 +69,36 @@ void StepForm::movement(const std::string code){
     if (!ConnectedComponent::getInstance().isConnected())
         session_->on_connectButton_clicked();
 
+    QApplication::processEvents();
+
     if (ConnectedComponent::getInstance().isConnected()){
         //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
         try {
             QElapsedTimer timer;
             timer.start();
 
-            ConnectedComponent::getInstance().step(code);
-
-            QApplication::processEvents();
+            if(!ConnectedComponent::getInstance().step(code)){
+                QMessageBox msgBox;
+                msgBox.setIcon(QMessageBox::Warning);
+                msgBox.setWindowTitle("Warning");
+                msgBox.setText("Movement failed");
+                msgBox.setInformativeText("Exoskeleton failed the step");
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.exec();
+                correct = false;
+            }
 
             this->setEnabled(true);
             session_->setEnabled(true);
-
-            if(code.compare(ConnectedComponent::getInstance().LEFTCLOSE) == 0){
-                leg = "LEFT";
-                close = true;
-            } else if(code.compare(ConnectedComponent::getInstance().LEFTSTEP)== 0){
-                leg = "LEFT";
-            } else if(code.compare(ConnectedComponent::getInstance().RIGHTSTEP)== 0){
-                leg = "RIGHT";
-            }
             session_->updateImage();
-            ms = static_cast<int>(timer.elapsed());
-            //timer.stop();
-            //Qint milliseconds = 1500;  // Esempio di tempo in millisecondi
 
             ui->loadingLabel->setText("");
             ui->loadingLabel->setMargin(9);
+
+            ms = static_cast<int>(timer.elapsed());
         } catch (...) {
             ConnectedComponent::getInstance().errorMsg("Error while calling the service");
+            correct = false;
         }
 
     }
@@ -108,6 +109,16 @@ void StepForm::movement(const std::string code){
         this->setEnabled(true);
         session_->setEnabled(true);
     }
+
+    if(code.compare(ConnectedComponent::getInstance().LEFTCLOSE) == 0){
+        leg = "LEFT";
+        close = true;
+    } else if(code.compare(ConnectedComponent::getInstance().LEFTSTEP)== 0){
+        leg = "LEFT";
+    } else if(code.compare(ConnectedComponent::getInstance().RIGHTSTEP)== 0){
+        leg = "RIGHT";
+    }
+
     addLog(leg, correct, close, t.addMSecs(ms));
 }
 

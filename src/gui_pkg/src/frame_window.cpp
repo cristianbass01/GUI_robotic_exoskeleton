@@ -176,6 +176,9 @@ void FrameWindow::closeEvent(QCloseEvent *event)  // show prompt when user wants
     int ret = msgBox.exec();
     msgBox.close();
     event->ignore();
-    if (ret == QMessageBox::Yes)
-        event->accept();
+    if (ret == QMessageBox::Yes){
+        ConnectedComponent::getInstance().shutdown();
+        event->accept(); 
+        QApplication::quit();
+    }
 }

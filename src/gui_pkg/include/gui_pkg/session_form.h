@@ -55,6 +55,8 @@ private slots:
 
     void updateStatus();
 
+    void on_shutdownButton_clicked();
+
 private:
     Ui::SessionForm *ui;
     FrameWindow * frame_;

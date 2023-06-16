@@ -21,6 +21,7 @@ WalkingForm::WalkingForm(SessionForm *parent, Log *log) :
 WalkingForm::~WalkingForm()
 {
   delete log_;
+  delete ui;
 }
 
 void WalkingForm::on_startButton_clicked()

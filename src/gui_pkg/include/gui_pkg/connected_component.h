@@ -19,7 +19,7 @@ public:
     }
 
     void initialize(int argc, char *argv[]);
-    void step(const std::string &code);
+    bool step(const std::string &code);
     ~ConnectedComponent();
 
 private:
@@ -56,6 +56,8 @@ public:
     int setParam(std::string key, XmlRpc::XmlRpcValue value);
 
     std::string getCurrentState();
+
+    void shutdown();
 
 public slots:
     bool connect();

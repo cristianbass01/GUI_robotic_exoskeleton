@@ -10,6 +10,7 @@
 #include <global_variable.h>
 #include <QTimer>
 #include <QElapsedTimer>
+#include <QMessageBox>
 
 SessionForm::SessionForm(FrameWindow *parent) :
     QWidget(parent),
@@ -28,8 +29,7 @@ SessionForm::SessionForm(FrameWindow *parent) :
         this->tryConnection();
         QObject::connect(ConnectedComponent::getInstance().timer_.get(), SIGNAL(timeout()), this, SLOT(tryConnection()));
         ConnectedComponent::getInstance().timer_->start(ConnectedComponent::getInstance().CONTROL_TIME_OUT);
-    }
-
+    } else this->setConnected(false);
 }
 
 SessionForm::~SessionForm()
@@ -148,10 +148,12 @@ void SessionForm::tryConnection(){
 void SessionForm::setConnected(bool state){
     if(state){
         ui->connectButton->setText("Connected");
+        ui->shutdownButton->show();
         ui->connectButton->setStyleSheet("color: rgb(78, 154, 6); background-color: rgb(194, 251, 192);");        
     }
     else {
         ui->connectButton->setText("Not connected\nPress to connect...");
+        ui->shutdownButton->hide();
         ui->connectButton->setStyleSheet("background-color: rgb(255, 213, 213); color: rgb(239, 41, 41);");
         this->setImage(this->NOTCONNECTED);
     }
@@ -211,7 +213,15 @@ void SessionForm::movement(const std::string code){
 
     if (ConnectedComponent::getInstance().isConnected()){
         //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
-        ConnectedComponent::getInstance().step(code);
+        if(!ConnectedComponent::getInstance().step(code)){
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setWindowTitle("Warning");
+            msgBox.setText("Movement failed");
+            msgBox.setInformativeText("Exoskeleton failed the step");
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.exec();
+        }
         this->updateImage();
     }
     else {
@@ -273,4 +283,19 @@ void SessionForm::updateImage(){
     }
     else
         this->setImage(this->NOTCONNECTED);
+}
+
+void SessionForm::on_shutdownButton_clicked()
+{
+    ui->connectLoadingIcon->show();
+    frame_->showStatus("Shutting down...");
+    QApplication::processEvents();
+
+    ConnectedComponent::getInstance().shutdown();
+    this->setConnected(false);
+    if(ConnectedComponent::getInstance().timer_->isActive())
+        ConnectedComponent::getInstance().timer_->stop();
+
+    ui->connectLoadingIcon->hide();
+    frame_->clearStatus();
 }

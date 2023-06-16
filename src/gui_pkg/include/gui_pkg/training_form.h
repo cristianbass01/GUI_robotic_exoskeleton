@@ -51,6 +51,8 @@ private slots:
 
     Log* createLog();
 
+    void on_shutdownButton_clicked();
+
 private:
     Ui::TrainingForm *ui;
     FrameWindow *frame_;

@@ -58,6 +58,13 @@ Press to connect...</string>
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="shutdownButton">
+          <property name="text">
+           <string>Shutdown</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="connectLoadingIcon">
           <property name="enabled">
            <bool>true</bool>

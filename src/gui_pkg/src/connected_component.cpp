@@ -1,5 +1,5 @@
 #include "connected_component.h"
-#include "gui_pkg/serv.h"
+#include "gui_pkg/Test.h"
 #include <QMessageBox>
 #include <QString>
 #include <QCoreApplication>
@@ -11,7 +11,16 @@
 #include <stdio.h>
 #include <sys/wait.h>
 
+/**
+ * @brief ConnectedComponent::~ConnectedComponent
+ */
 ConnectedComponent::~ConnectedComponent(){
+}
+
+void ConnectedComponent::shutdown(){
+    if(timer_->isActive())
+        timer_->stop();
+
     nh_.reset();
     FILE * pipe;
 
@@ -69,6 +78,11 @@ ConnectedComponent::~ConnectedComponent(){
         pclose(stream_);
 }
 
+/**
+ * @brief ConnectedComponent::initialize
+ * @param argc
+ * @param argv
+ */
 void ConnectedComponent::initialize(int argc, char **argv){
     this->argc = argc;
     this->argv = argv;
@@ -76,22 +90,39 @@ void ConnectedComponent::initialize(int argc, char **argv){
     this->currentState_ = this->STORAGE;
 }
 
-void ConnectedComponent::step(const std::string &code){
-    gui_pkg::serv srv;
-    srv.request.code = code;
+/**
+ * @brief ConnectedComponent::step
+ * @param code
+ */
+bool ConnectedComponent::step(const std::string &code){
+    gui_pkg::Test srv;
+    srv.request.input = code;
     ROS_INFO("Trying to send a service call");
     if (this->client_.call(srv))
     {
       ROS_INFO("OK: Service call done");
-      this->currentState_ = code;
+
+      if(stoi(srv.response.output) == 1){
+          ROS_ERROR("Failed to make the movement");
+          return false;
+      }
+      else {
+          ROS_INFO("Successfull movement");
+          this->currentState_ = code;
+          return true;
+      }
     }
     else
     {
       ROS_ERROR("ERROR: Failed to call service server");
-      throw srv.response.error;
+      return false;
     }
 }
 
+/**
+ * @brief ConnectedComponent::connect
+ * @return
+ */
 bool ConnectedComponent::connect(){
     bool active = this->timer_->isActive();
     if(active) this->timer_->stop();
@@ -104,10 +135,11 @@ bool ConnectedComponent::connect(){
         if(!ros::master::check()){
 
             // Simulation
-            stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
+            //stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
 
             // Actual rosserial node
-            // stream_ = popen("roslaunch rosserial_python rosserial.launch", "w");
+            stream_ = popen("roslaunch rosserial_python rosserial.launch", "w");
+
             if(!stream_){
                 errorMsg("Error occurred during initialization.");
                 return false;
@@ -119,7 +151,7 @@ bool ConnectedComponent::connect(){
         nh_.reset(new ros::NodeHandle("~"));
 
         //Trying to connect to the server
-        client_ = nh_->serviceClient<gui_pkg::serv>("/exo");
+        client_ = nh_->serviceClient<gui_pkg::Test>("/Movement_srv");
 
         if(!isConnected()){
             // Simulation
@@ -131,7 +163,7 @@ bool ConnectedComponent::connect(){
                 errorMsg("Error occurred during initialization.");
                 return false;
             }
-            errorMsg("Error occurred during\nconnection to the device.");
+            //errorMsg("Error occurred during\nconnection to the device.");
         }
     }
 
@@ -139,6 +171,10 @@ bool ConnectedComponent::connect(){
     return this->isConnected();
 }
 
+/**
+ * @brief ConnectedComponent::isConnected
+ * @return
+ */
 bool ConnectedComponent::isConnected(){
 
     if(nh_ && nh_->ok() && client_ && client_.isValid()){
@@ -171,6 +207,10 @@ void ConnectedComponent::errorMsg(std::string error){
     }
 }
 
+/**
+ * @brief ConnectedComponent::getSerialPort
+ * @return
+ */
 std::string ConnectedComponent::getSerialPort(){
     if(this->isConnected()){
         std::string serialPort;
@@ -182,6 +222,10 @@ std::string ConnectedComponent::getSerialPort(){
     return nullptr;
 }
 
+/**
+ * @brief ConnectedComponent::getBaudRate
+ * @return
+ */
 int ConnectedComponent::getBaudRate(){
     if(this->isConnected()){
         int baudRate=0;
@@ -194,6 +238,10 @@ int ConnectedComponent::getBaudRate(){
     return 0;
 }
 
+/**
+ * @brief ConnectedComponent::getParamsList
+ * @return
+ */
 std::vector<std::string> ConnectedComponent::getParamsList(){
     std::vector<std::string> paramsList;
     if(this->isConnected()){
@@ -202,6 +250,11 @@ std::vector<std::string> ConnectedComponent::getParamsList(){
     return paramsList;
 }
 
+/**
+ * @brief ConnectedComponent::getParam
+ * @param key
+ * @return
+ */
 XmlRpc::XmlRpcValue ConnectedComponent::getParam(const std::string key){
     XmlRpc::XmlRpcValue param_value;
     if(this->isConnected() and nh_->hasParam(key)){
