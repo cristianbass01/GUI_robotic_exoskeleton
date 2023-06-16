@@ -40,8 +40,8 @@ private:
 
   const QVector< QVector< QString > > columnName = {
     {"#", "Leg", "Correct", "Time"},           // ControlLog
-    {"#", "Leg", "Step Count", "Correct", "Closed", "Time"}, // StepLog
-    {"#", "Set", "Executed", "Pause", "Time"}  // walkingLog
+    {"#", "Leg", "Step Count", "Correct", "Last", "Time"}, // StepLog
+    {"#", "Selected", "Executed", "Pause", "Time"}  // walkingLog
 
   };
   const int CONTROL = 0;
