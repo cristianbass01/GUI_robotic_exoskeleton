@@ -45,6 +45,7 @@ void ConnectionSetting::on_saveButton_clicked()
 {
     bool retry = false;
     if(ConnectedComponent::getInstance().isConnected()){
+        ui->noConnectionLabel->hide();
         for(int i = 0; i < ui->formLayout->rowCount(); i++){
             QFormLayout::TakeRowResult row = ui->formLayout->takeRow(i);
             std::string param_name = qobject_cast<QLabel*>(row.labelItem->widget())->text().toStdString();
@@ -115,6 +116,13 @@ void ConnectionSetting::on_saveButton_clicked()
                 }
             }
         }
+    } else{
+        ui->noConnectionLabel->show();
+        QApplication::processEvents();
+        ConnectedComponent::getInstance().errorConnectionMsg("No connection to the device, retry to connect?");
+        if(ConnectedComponent::getInstance().isConnected())
+            ui->noConnectionLabel->hide();
+        retry = true;
     }
 
     if(!retry)
@@ -135,6 +143,7 @@ void ConnectionSetting::setup(bool readOnly){
     }
 
     if(ConnectedComponent::getInstance().isConnected()){
+        ui->noConnectionLabel->hide();
         std::vector<std::string> paramsList = ConnectedComponent::getInstance().getParamsList();
         for(std::string param_name : paramsList){
 
@@ -217,15 +226,16 @@ void ConnectionSetting::setup(bool readOnly){
                 ROS_WARN("Il tipo del parametro %s non è gestito.", param_name.c_str());
             }
         }
-    }
-
-    if(readOnly){
+        if(readOnly){
+            ui->changePage->hide();
+            ui->viewPage->show();
+        } else{
+            ui->changePage->show();
+            ui->viewPage->hide();
+        }
+    } else {
         ui->changePage->hide();
-        ui->viewPage->show();
-    } else{
-        ui->changePage->show();
         ui->viewPage->hide();
+        ui->noConnectionLabel->show();
     }
-
-    //this->show();
 }

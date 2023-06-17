@@ -132,7 +132,7 @@ bool ConnectedComponent::step(const std::string &code){
  * @return
  */
 bool ConnectedComponent::connect(){
-    bool simulation = false;
+    bool simulation = true;
 
     bool active = this->timer_->isActive();
     if(active) this->timer_->stop();
