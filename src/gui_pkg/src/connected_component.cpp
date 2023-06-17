@@ -132,7 +132,8 @@ bool ConnectedComponent::step(const std::string &code){
  * @return
  */
 bool ConnectedComponent::connect(){
-    bool simulation = true;
+    // SIMULATION !!
+    bool simulation = false;
 
     bool active = this->timer_->isActive();
     if(active) this->timer_->stop();
@@ -176,25 +177,6 @@ bool ConnectedComponent::connect(){
                     return false;
                 }
             } else{
-                /*
-                const int bufferSize = 256;
-                char buffer[bufferSize];
-                std::string firstError;
-
-                while (fgets(buffer, bufferSize, stream_) != nullptr) {
-                    if (strncmp(buffer, "[ERROR]", 8) == 0) {
-                        firstError = buffer;
-                        break;
-                    }
-                }
-
-                if (!firstError.empty()) {
-                    std::cout << "First error: " << firstError;
-                } else {
-                    firstError = "Reason unknown";
-                    std::cout << "No errors found." << std::endl;
-                }*/
-
                 errorConnectionMsg("Port failed");
             }
         }
