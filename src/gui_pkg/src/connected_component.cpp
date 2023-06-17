@@ -15,6 +15,8 @@
  * @brief ConnectedComponent::~ConnectedComponent
  */
 ConnectedComponent::~ConnectedComponent(){
+    if(stream_)
+        pclose(stream_);
 }
 
 void ConnectedComponent::shutdown(){
@@ -29,8 +31,8 @@ void ConnectedComponent::shutdown(){
     ROS_INFO("Sistema operativo: Windows");
     pipe = popen("tasklist | findstr rosmaster", "r");
 #elif __linux__
-    ROS_INFO("Sistema operativo: Linux");
-    pipe = popen("ps -e | grep rosmaster", "r");
+    //ROS_INFO("Sistema operativo: Linux");
+    pipe = popen("ps -e | grep -e rosmaster -e roslaunch -e serial_node.py", "r");
 #elif __APPLE__
     ROS_INFO("Sistema operativo: MacOS");
     pipe = popen("ps -A | grep rosmaster", "r");
@@ -50,32 +52,38 @@ void ConnectedComponent::shutdown(){
         result += buffer;
     }
 
-    if(pipe)
+    if(pipe){
         pclose(pipe);
+    }
 
     if(!result.empty()){
-        result = result.substr(result.find_first_not_of(" "), result.size());
-        pid_t pid = std::stoi(result.substr(0, result.find(" ")));
-        ROS_INFO("pid: %d",pid);
+        std::string line;
+        std::istringstream iss(result);
 
-        ROS_INFO("killing process...");
-        kill(pid, SIGKILL);
-        ROS_INFO("process killed.");
+        while(std::getline(iss, line)){
 
-        int status;
-        waitpid(pid, &status, 0);
+            line = line.substr(line.find_first_not_of(" "), line.size());
+            pid_t pid = std::stoi(line.substr(0, line.find(" ")));
+            //std::cout<<"pid: " << pid;
 
-        if (WIFEXITED(status)) {
-            int exitStatus = WEXITSTATUS(status);
-            ROS_INFO("Process exited with status: %d",exitStatus);
-        } else if (WIFSIGNALED(status)) {
-            int signalNumber = WTERMSIG(status);
-            ROS_INFO("Process terminated by signal:  %d", signalNumber);
+            //ROS_INFO("killing process...");
+            kill(pid, SIGKILL);
+            //ROS_INFO("process killed.");
+
+            int status;
+            waitpid(pid, &status, 0);
+
+            if (WIFEXITED(status)) {
+                int exitStatus = WEXITSTATUS(status);
+                ROS_INFO("Process exited with status: %d",exitStatus);
+                //std::cout << "Process exited with status: " << exitStatus;
+            } else if (WIFSIGNALED(status)) {
+                int signalNumber = WTERMSIG(status);
+                //std::cout << "Process terminated by signal: " << signalNumber;
+                ROS_INFO("Process terminated by signal:  %d", signalNumber);
+            }
         }
-
     }
-    if(stream_)
-        pclose(stream_);
 }
 
 /**
@@ -124,6 +132,8 @@ bool ConnectedComponent::step(const std::string &code){
  * @return
  */
 bool ConnectedComponent::connect(){
+    bool simulation = false;
+
     bool active = this->timer_->isActive();
     if(active) this->timer_->stop();
 
@@ -131,19 +141,19 @@ bool ConnectedComponent::connect(){
         // initialize ROS
         ros::init(this->argc, this->argv, "serial_connection");
 
+        bool isRosserialActive = false;
 
         if(!ros::master::check()){
-
-            // Simulation
-            //stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
-
-            // Actual rosserial node
-            stream_ = popen("roslaunch rosserial_python rosserial.launch", "w");
+            if(simulation)
+                stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
+            else
+                stream_ = popen("roslaunch rosserial_python rosserial.launch", "w");
 
             if(!stream_){
-                errorMsg("Error occurred during initialization.");
+                errorConnectionMsg("Error occurred during initialization.");
                 return false;
             }
+            isRosserialActive = true;
             sleep(2);
         }
 
@@ -154,16 +164,39 @@ bool ConnectedComponent::connect(){
         client_ = nh_->serviceClient<gui_pkg::Test>("/Movement_srv");
 
         if(!isConnected()){
-            // Simulation
-            stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
 
-            // Actual rosserial node
-            // stream_ = popen("roslaunch rosserial_python rosserial.launch", "w");
-            if(!stream_){
-                errorMsg("Error occurred during initialization.");
-                return false;
+            if(!isRosserialActive){
+                if(simulation)
+                    stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
+                else
+                    stream_ = popen("roslaunch rosserial_python rosserial.launch", "w");
+
+                if(!stream_){
+                    errorConnectionMsg("Error occurred during initialization.");
+                    return false;
+                }
+            } else{
+                /*
+                const int bufferSize = 256;
+                char buffer[bufferSize];
+                std::string firstError;
+
+                while (fgets(buffer, bufferSize, stream_) != nullptr) {
+                    if (strncmp(buffer, "[ERROR]", 8) == 0) {
+                        firstError = buffer;
+                        break;
+                    }
+                }
+
+                if (!firstError.empty()) {
+                    std::cout << "First error: " << firstError;
+                } else {
+                    firstError = "Reason unknown";
+                    std::cout << "No errors found." << std::endl;
+                }*/
+
+                errorConnectionMsg("Port failed");
             }
-            //errorMsg("Error occurred during\nconnection to the device.");
         }
     }
 
@@ -184,7 +217,7 @@ bool ConnectedComponent::isConnected(){
     return false;
 }
 
-void ConnectedComponent::errorMsg(std::string error){
+void ConnectedComponent::errorConnectionMsg(std::string error){
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Critical);
     msgBox.setWindowTitle("Error");
@@ -199,11 +232,13 @@ void ConnectedComponent::errorMsg(std::string error){
         // Retry button clicked
         // Add your retry logic here
         msgBox.close();
+        this->shutdown();
         this->connect();
     } else if (ret == QMessageBox::Cancel) {
         // Cancel button clicked
         // Add your cancel logic here
         msgBox.close();
+        this->shutdown();
     }
 }
 

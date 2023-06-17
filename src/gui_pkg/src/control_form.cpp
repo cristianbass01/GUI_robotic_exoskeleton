@@ -45,7 +45,7 @@ void ControlForm::on_startButton_clicked()
             QObject::connect(thread_.get(), &WalkThread::progressUpdated, this, &ControlForm::updateProgressBar);
             QObject::connect(thread_.get(), &WalkThread::stopped, this, &ControlForm::finishProgressBar);
         } catch (...) {
-            ConnectedComponent::getInstance().errorMsg("Error while calling the service");
+            ConnectedComponent::getInstance().errorConnectionMsg("Error while calling the service");
             session_->setEnabled(true);
             ui->stopButton->setEnabled(false);
             ui->startButton->setEnabled(true);
@@ -53,7 +53,7 @@ void ControlForm::on_startButton_clicked()
 
     }
     else {
-        ConnectedComponent::getInstance().errorMsg("Error while connecting to the service");
+        ConnectedComponent::getInstance().errorConnectionMsg("Error while connecting to the service");
         session_->setConnected(false);
         session_->setEnabled(true);
         ui->stopButton->setEnabled(false);

@@ -160,7 +160,7 @@ void TrainingForm::movement(const std::string code){
         ConnectedComponent::getInstance().step(code);
     }
     else {
-        ConnectedComponent::getInstance().errorMsg("Error while calling the service");
+        ConnectedComponent::getInstance().errorConnectionMsg("Connection Error");
         this->setConnected(false);
     }
 

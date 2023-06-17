@@ -97,13 +97,13 @@ void StepForm::movement(const std::string code){
 
             ms = static_cast<int>(timer.elapsed());
         } catch (...) {
-            ConnectedComponent::getInstance().errorMsg("Error while calling the service");
+            ConnectedComponent::getInstance().errorConnectionMsg("Error while calling the service");
             correct = false;
         }
 
     }
     else {
-        ConnectedComponent::getInstance().errorMsg("Error during the connection to the service");
+        ConnectedComponent::getInstance().errorConnectionMsg("Error during the connection to the service");
         session_->setConnected(false);
         correct = false;
         this->setEnabled(true);

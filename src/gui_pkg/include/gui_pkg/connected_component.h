@@ -62,7 +62,7 @@ public:
 public slots:
     bool connect();
     bool isConnected();
-    void errorMsg(std::string error);
+    void errorConnectionMsg(std::string error);
 };
 
 #endif // CONNECTED_COMPONENT_H

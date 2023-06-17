@@ -225,7 +225,7 @@ void SessionForm::movement(const std::string code){
         this->updateImage();
     }
     else {
-        ConnectedComponent::getInstance().errorMsg("Error while calling the service");
+        ConnectedComponent::getInstance().errorConnectionMsg("Error while calling the service");
         this->setConnected(false);
     }
 
