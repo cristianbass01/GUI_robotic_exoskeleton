@@ -6,36 +6,33 @@ The interface is implemented in C++ with the aid of the Qt libraries for the gra
 
 The validation of the interface was conducted through tests on a prototype exoskeleton, demonstrating its effectiveness and ease of use. 
 
-In summary, the developed interface represents an innovative and effective solution for the control of exoskeletons, offering a new possibility of customisation and control to improve the quality of life of patients requiring walking assistance.
-
-
 ## 2. Installation on Ubuntu
 ### 2.1 Download files
 Open the terminal and clone the repo:
 ```
-$ git clone https://github.com/cristianbass01/GUI_robotic_exoskeleton.git
+git clone https://github.com/cristianbass01/GUI_robotic_exoskeleton.git
 ```
 or download the zip file and then decompress it:
 
 ```
-$ wget https://github.com/cristianbass01/GUI_robotic_exoskeleton/archive/refs/heads/main.zip
-$ unzip main.zip -d ./GUI_robotic_exoskeleton
+wget https://github.com/cristianbass01/GUI_robotic_exoskeleton/archive/refs/heads/main.zip
+unzip main.zip -d ./GUI_robotic_exoskeleton
 ```
 Go to the repo directory created:
 ```
-$ cd GUI_robotic_exoskeleton 
+cd GUI_robotic_exoskeleton 
 ```
-  
+
 ### 2.2 Setup environment
 Make the setup.sh file executable and run it:
 ```
-$ chmod +x setup.sh
-$ ./setup.sh
+chmod +x setup.sh
+./setup.sh
 ```
 ### 2.3 Launch file  
 A new launch.sh file is being created, run it:
 ```
-$ ./launch.sh
+./launch.sh
 ```
 
 ## 3. Authors
