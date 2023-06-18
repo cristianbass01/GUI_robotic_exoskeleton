@@ -12,7 +12,7 @@ bool exoResponse(gui_pkg::Test::Request  &req,
     ROS_INFO("with code: %s", req.input.c_str());
     ROS_INFO("Execution... ");
     sleep(2);
-    float p = 0.1;
+    float p = 0;
     if(float(rand()%100)/100 > p){
         ROS_INFO("OK: Correct execution");
         res.output = "0";

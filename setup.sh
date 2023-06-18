@@ -13,7 +13,7 @@ catkin_make install
 if [ -f ./install/lib/gui_pkg/start_gui_node ]; then
     echo "Executable created. Now you can launch the launch.sh"
     echo "#!/bin/bash" > launch.sh
-    echo "source /opt/ros/noetic/setup.bash
+    echo "source ./devel/setup.sh
 ./install/lib/gui_pkg/start_gui_node" >> launch.sh
     
     # Rendi il file launch.sh eseguibile

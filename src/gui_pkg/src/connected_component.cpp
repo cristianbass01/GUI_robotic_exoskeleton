@@ -133,7 +133,7 @@ bool ConnectedComponent::step(const std::string &code){
  */
 bool ConnectedComponent::connect(){
     // SIMULATION !!
-    bool simulation = false;
+    bool simulation = true;
 
     bool active = this->timer_->isActive();
     if(active) this->timer_->stop();
@@ -145,7 +145,7 @@ bool ConnectedComponent::connect(){
         bool isRosserialActive = false;
 
         if(!ros::master::check()){
-            if(simulation)
+            if(simulation == true)
                 stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
             else
                 stream_ = popen("roslaunch rosserial_python rosserial.launch", "w");
@@ -167,7 +167,7 @@ bool ConnectedComponent::connect(){
         if(!isConnected()){
 
             if(!isRosserialActive){
-                if(simulation)
+                if(simulation == true)
                     stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
                 else
                     stream_ = popen("roslaunch rosserial_python rosserial.launch", "w");
