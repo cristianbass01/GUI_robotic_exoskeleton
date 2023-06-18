@@ -91,7 +91,7 @@ void FrameWindow::on_actionEdit_User_triggered()
 
 void FrameWindow::on_actionMaximize_Window_triggered()
 {
-    this->showMaximized();
+    this->showFullScreen();
 }
 
 void FrameWindow::on_actionTraining_triggered()
@@ -180,4 +180,9 @@ void FrameWindow::closeEvent(QCloseEvent *event)  // show prompt when user wants
         ConnectedComponent::getInstance().shutdown();
         event->accept(); 
     }
+}
+
+void FrameWindow::on_actionMinimize_Window_triggered()
+{
+    this->showNormal();
 }

@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
   // load the icon from our qrc file and set it as the application icon
   QIcon icon(":/icons/Icons/exoskeleton_icon.png");
   frame->setWindowIcon(icon);
+  frame->showMaximized();
   userList.loadXml(path + "users.xml");
   currentUser = nullptr;
   status = 0; // presuppongo sia sempre in storage quando è fermo

@@ -53,7 +53,7 @@ void WalkThread::run()
         emit progressUpdated(step*2);
         mutex.unlock();
     }
-    if(stopped_ == false && step != numSteps_){
+    if(stopped_ == false && step-1 != numSteps_){
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle("Warning");

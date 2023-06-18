@@ -54,6 +54,8 @@ private slots:
 
     void closeEvent(QCloseEvent *event);
 
+    void on_actionMinimize_Window_triggered();
+
 private:
     Ui::FrameWindow *ui;
     QString currentForm;

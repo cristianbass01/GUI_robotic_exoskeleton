@@ -16,13 +16,18 @@
   <property name="styleSheet">
    <string notr="true">QMainWindow{
 	background-color:#F4F4F6;
-	font-size: 20px;
+}
+
+QWidget{
+	font-size: 18px;
 }
 
 QPushButton{
 	border: 1px solid #000000;
 	background-color: #68ACE4;
 	border-radius: 15px;
+	font: bold;
+	padding: 10px;
 }
 
 QPushButton:hover {
@@ -43,19 +48,24 @@ QPushButton:!enabled{
 
 QPushButton:enabled{
 	color: rgb(255, 255, 255);
-	font-weight: 600
+	/*font-weight: 600*/
+}
+
+QPushButton#BT_createUser, QPushButton#BT_selectUser, QPushButton#BT_demo{
+	padding: 20px;
 }
 
 QPushButton#BT_cancel, QPushButton#BT_delete, QPushButton#stopButton, QPushButton#returnButton, QPushButton#shutdownButton{
 	background-color:#D72638;
 	/*color: #F4F4F6;*/
-	font-weight: 600
+	/*font-weight: 600*/
 }
 
 QPushButton#BT_create, QPushButton#BT_save, QPushButton#startButton{
 	background-color:#40B8A6;
+	padding: 0px;
 	/*color: #F4F4F6;*/
-	font-weight: 600
+	/*font-weight: 600*/
 }
 
 QLabel#Alice, QFrame#home{
@@ -75,7 +85,7 @@ QPushButton#connectButton, QLabel#lbStatus, QPushButton#shutdownButton{
 QPushButton#finishButton{
 	background-color:#D72638;
 	/*color: #F4F4F6;*/
-	font-weight:600
+	/*font-weight: 600*/
 }
 
 QLabel#userLabel{
@@ -89,14 +99,16 @@ QLabel#userLabel{
 QPushButton#standButton, QPushButton#sitButton, QPushButton#storageButton{
 	
 	background-color: #3993DD;
+	padding: 20px;
 	/*color: #F4F4F6;*/
 }
 
 QPushButton#walkButton, QPushButton#stepButton, QPushButton#controlButton{
 	
 	background-color: #2176AE;
+	padding: 20px;
 	/*color: #F4F4F6;*/˚
-	font-weight: 600
+   /*font-weight: 600*/
 }
 
 QPushButton#startButton{
@@ -108,9 +120,10 @@ QPushButton#stopButton{
 	background-color: rgb(255, 137, 137)
 }
  
-QPushButton#rightFirstStepButton, QPushButton#leftFirstStepButton, QPushButton#FeetTogetherButton{
+QPushButton#rightFirstStepButton, QPushButton#leftFirstStepButton, QPushButton#feetTogetherButton{
 	
 	background-color: rgba(40, 185, 166, 188);
+	padding: 10px;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -133,7 +146,7 @@ QPushButton#rightFirstStepButton, QPushButton#leftFirstStepButton, QPushButton#F
      <x>0</x>
      <y>0</y>
      <width>1214</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -146,6 +159,7 @@ QPushButton#rightFirstStepButton, QPushButton#leftFirstStepButton, QPushButton#F
     <addaction name="actionTraining_Log"/>
     <addaction name="separator"/>
     <addaction name="actionMaximize_Window"/>
+    <addaction name="actionMinimize_Window"/>
     <addaction name="separator"/>
     <addaction name="actionClose"/>
    </widget>
@@ -203,9 +217,11 @@ QPushButton#rightFirstStepButton, QPushButton#leftFirstStepButton, QPushButton#F
    <addaction name="actionChange_settings"/>
    <addaction name="separator"/>
    <addaction name="actionMaximize_Window"/>
+   <addaction name="actionMinimize_Window"/>
    <addaction name="separator"/>
    <addaction name="actionHelp"/>
    <addaction name="actionInfo"/>
+   <addaction name="separator"/>
    <addaction name="separator"/>
   </widget>
   <action name="actionChange_settings">
@@ -386,6 +402,15 @@ QPushButton#rightFirstStepButton, QPushButton#leftFirstStepButton, QPushButton#F
    </property>
    <property name="toolTip">
     <string>Training</string>
+   </property>
+  </action>
+  <action name="actionMinimize_Window">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/icons/Icons/ridurre.png</normaloff>:/icons/Icons/ridurre.png</iconset>
+   </property>
+   <property name="text">
+    <string>Minimize Window</string>
    </property>
   </action>
  </widget>

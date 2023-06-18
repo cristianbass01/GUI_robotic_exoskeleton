@@ -149,7 +149,8 @@ void SessionForm::setConnected(bool state){
     if(state){
         ui->connectButton->setText("Connected");
         ui->shutdownButton->show();
-        ui->connectButton->setStyleSheet("color: rgb(78, 154, 6); background-color: rgb(194, 251, 192);");        
+        ui->connectButton->setStyleSheet("color: rgb(78, 154, 6); background-color: rgb(194, 251, 192);");
+        this->updateImage();
     }
     else {
         ui->connectButton->setText("Not connected\nPress to connect...");
