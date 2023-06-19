@@ -148,14 +148,14 @@ bool ConnectedComponent::connect(){
             if(simulation == true)
                 stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
             else
-                stream_ = popen("roslaunch rosserial_python rosserial.launch", "w");
+                stream_ = popen("roslaunch gui_pkg rosserial.launch", "w");
 
             if(!stream_){
                 errorConnectionMsg("Error occurred during initialization.");
                 return false;
             }
             isRosserialActive = true;
-            sleep(2);
+            sleep(6);
         }
 
         // Reset the NodeHandle
@@ -170,7 +170,7 @@ bool ConnectedComponent::connect(){
                 if(simulation == true)
                     stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
                 else
-                    stream_ = popen("roslaunch rosserial_python rosserial.launch", "w");
+                    stream_ = popen("roslaunch gui_pkg rosserial.launch", "w");
 
                 if(!stream_){
                     errorConnectionMsg("Error occurred during initialization.");
