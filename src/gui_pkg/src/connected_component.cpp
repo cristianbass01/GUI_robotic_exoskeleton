@@ -96,6 +96,10 @@ void ConnectedComponent::initialize(int argc, char **argv){
     this->argv = argv;
     this->timer_.reset(new QTimer());
     this->currentState_ = this->STORAGE;
+
+    if (argc > 1 && std::string(argv[1]) == "debug") {
+        debug_mode_ = true;
+    }
 }
 
 /**
@@ -132,9 +136,6 @@ bool ConnectedComponent::step(const std::string &code){
  * @return
  */
 bool ConnectedComponent::connect(){
-    // SIMULATION !!
-    bool simulation = false;
-
     bool active = this->timer_->isActive();
     if(active) this->timer_->stop();
 
@@ -145,7 +146,7 @@ bool ConnectedComponent::connect(){
         bool isRosserialActive = false;
 
         if(!ros::master::check()){
-            if(simulation == true)
+            if(this->debug_mode_ == true)
                 stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
             else
                 stream_ = popen("roslaunch gui_pkg rosserial.launch", "w");
@@ -167,7 +168,7 @@ bool ConnectedComponent::connect(){
         if(!isConnected()){
 
             if(!isRosserialActive){
-                if(simulation == true)
+                if(debug_mode_ == true)
                     stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
                 else
                     stream_ = popen("roslaunch gui_pkg rosserial.launch", "w");

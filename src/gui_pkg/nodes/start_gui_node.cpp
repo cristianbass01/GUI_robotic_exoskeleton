@@ -11,7 +11,6 @@
 const QString path = QDir::homePath() + "/Alice/Log/";
 UserList userList;
 User *currentUser;
-int status;
 
 int main(int argc, char *argv[])
 {
@@ -36,7 +35,6 @@ int main(int argc, char *argv[])
   frame->showMaximized();
   userList.loadXml(path + "users.xml");
   currentUser = nullptr;
-  status = 0; // presuppongo sia sempre in storage quando è fermo
   frame->show();
 
   return a.exec();

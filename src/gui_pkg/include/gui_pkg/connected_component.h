@@ -30,6 +30,7 @@ private:
     QList<pid_t> pid_;
     FILE * stream_;
     std::string currentState_;
+    bool debug_mode_ = false;
 
     ConnectedComponent(){}
     // no copy
