@@ -7,6 +7,10 @@ The interface is implemented in C++ with the aid of the Qt libraries for the gra
 The validation of the interface was conducted through tests on a prototype exoskeleton, demonstrating its effectiveness and ease of use. 
 
 ## 2. Installation on Ubuntu
+If you have Windows 10 or 11 and want to run it, you must install wsl and install an Ubuntu-20.04 distribution by using prompt:
+```
+wsl --install -d Ubuntu-20.04
+```
 ### 2.1 Download files
 Open the terminal and clone the repo:
 ```
@@ -17,6 +21,10 @@ or download the zip file and then decompress it:
 ```
 wget https://github.com/cristianbass01/GUI_robotic_exoskeleton/archive/refs/heads/main.zip
 unzip main.zip
+```
+If you don't have unzip installed:
+```
+sudo apt install unzip
 ```
 Go to the repo directory created:
 ```
