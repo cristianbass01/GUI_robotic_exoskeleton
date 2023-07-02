@@ -24,8 +24,12 @@ cd GUI_robotic_exoskeleton
 ```
 
 ### 2.2 Setup environment
-In order to be able to run this application, you need to have ROS Noetic installed on your system. 
-If you don't have it installed already, please refer to the official [ROS Noetic website](http://wiki.ros.org/noetic/Installation) for instructions on how to install it.
+In order to be able to run this application, you need to have ROS Noetic installed on your system.
+If not, you can install it using:
+```
+wget -c https://raw.githubusercontent.com/qboticslabs/ros_install_noetic/master/ros_install_noetic.sh && chmod +x ./ros_install_noetic.sh && ./ros_install_noetic.sh
+```
+If you have problems installing it, please refer to the official [ROS Noetic website](http://wiki.ros.org/noetic/Installation) for instructions.
 
 After the installation of ROS noetic, you could make the setup.sh file executable and run it:
 ```
