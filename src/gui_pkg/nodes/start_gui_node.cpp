@@ -11,12 +11,12 @@
 const QString path = QDir::homePath() + "/Alice/Log/";
 UserList userList;
 User *currentUser;
-std::shared_ptr<ConnectedComponent> connectedComponent;
 
 int main(int argc, char *argv[])
 {
 
-  connectedComponent.reset(new ConnectedComponent(argc, argv));
+  ConnectedComponent::getInstance().initialize(argc, argv);
+
   //ros::init(argc, argv, "start_gui_node");
   QApplication a(argc, argv);
 
@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
   // load the icon from our qrc file and set it as the application icon
   QIcon icon(":/icons/Icons/exoskeleton_icon.png");
   frame->setWindowIcon(icon);
+  frame->showMaximized();
   userList.loadXml(path + "users.xml");
   currentUser = nullptr;
   frame->show();

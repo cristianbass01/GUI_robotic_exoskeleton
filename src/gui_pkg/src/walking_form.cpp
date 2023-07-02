@@ -21,6 +21,7 @@ WalkingForm::WalkingForm(SessionForm *parent, Log *log) :
 WalkingForm::~WalkingForm()
 {
   delete log_;
+  delete ui;
 }
 
 void WalkingForm::on_startButton_clicked()
@@ -29,25 +30,31 @@ void WalkingForm::on_startButton_clicked()
     ui->startButton->setEnabled(false);
     session_->setEnabled(false);
 
-    if (!connectedComponent->isConnected())
+    if (!ConnectedComponent::getInstance().isConnected())
         session_->on_connectButton_clicked();
 
-    if(connectedComponent->isConnected()){
-        //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
+    if(ConnectedComponent::getInstance().isConnected()){
+        try {
+            int numSteps = ui->walkingSteps->value();
+            ui->progressBar->setRange(0, numSteps*2);
+            ui->progressBar->setValue(0);
+            ui->progressBar->show();
 
-        int numSteps = ui->walkingSteps->value();
-        ui->progressBar->setRange(0, numSteps*2);
-        ui->progressBar->setValue(0);
-        ui->progressBar->show();
+            thread_.reset(new WalkThread(numSteps, log_));
+            thread_->start();
 
-        thread_.reset(new WalkThread(numSteps, log_));
-        thread_->start();
+            QObject::connect(thread_.get(), &WalkThread::progressUpdated, this, &WalkingForm::updateProgressBar);
+            QObject::connect(thread_.get(), &WalkThread::stopped, this, &WalkingForm::finishProgressBar);
+        } catch (...) {
+            ConnectedComponent::getInstance().errorConnectionMsg("Error while calling the service");
+            session_->setEnabled(true);
+            ui->stopButton->setEnabled(false);
+            ui->startButton->setEnabled(true);
+        }
 
-        QObject::connect(thread_.get(), &WalkThread::progressUpdated, this, &WalkingForm::updateProgressBar);
-        QObject::connect(thread_.get(), &WalkThread::stopped, this, &WalkingForm::finishProgressBar);
     }
     else {
-        connectedComponent->errorMsg("Error while calling the service");
+        ConnectedComponent::getInstance().errorConnectionMsg("Error while connecting to the service");
         session_->setConnected(false);
         session_->setEnabled(true);
         ui->stopButton->setEnabled(false);
@@ -57,6 +64,9 @@ void WalkingForm::on_startButton_clicked()
 
 void WalkingForm::on_stopButton_clicked()
 {
+    ui->stopButton->setText("Stopping...");
+    ui->stopButton->setEnabled(false);
+
     if(thread_)
         thread_->stop();
 }
@@ -64,15 +74,31 @@ void WalkingForm::on_stopButton_clicked()
 void WalkingForm::updateProgressBar(int value){
     ui->progressBar->setValue(value);
     if(value%2 == 0){
-        if(value == ui->progressBar->maximum())
-            session_->setImage(session_->LEFTCLOSE);
-        else session_->setImage(session_->LEFTSTEP);
-    } else session_->setImage(session_->RIGHTSTEP);
+        if(value == ui->progressBar->maximum()){
+            frame_->showStatus("Walking: final step...");
+        }
+        else{
+            frame_->showStatus("Walking: left step...");
+        }
+    } else {
+        frame_->showStatus("Walking: right step...");
+    }
+    session_->updateImage();
 }
 
 void WalkingForm::finishProgressBar(){
     ui->progressBar->hide();
+
     ui->stopButton->setEnabled(false);
+    ui->stopButton->setText("Stop");
+
     ui->startButton->setEnabled(true);
     session_->setEnabled(true);
+
+    frame_->clearStatus();
+}
+
+void WalkingForm::setEnabled(bool state){
+    //ui->stopButton->setEnabled(state);
+    ui->startButton->setEnabled(state);
 }

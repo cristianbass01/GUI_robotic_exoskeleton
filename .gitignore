@@ -1,4 +1,5 @@
 devel/
+install/
 logs/
 build/
 bin/
@@ -38,10 +39,6 @@ srv/_*.py
 qtcreator-*
 *.user
 
-/planning/cfg
-/planning/docs
-/planning/src
-
 *~
 
 # Emacs
@@ -52,4 +49,7 @@ CATKIN_IGNORE
 *.workspace
 .catkin_workspace
 .catkin_tools/
+
+# Other
+launch.sh
 

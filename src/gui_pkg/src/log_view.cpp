@@ -114,11 +114,11 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
         parentText = item->parent()->text(0);
 
     if (parentText.compare("Control Ex") == 0)
-        logType = 0;
+        logType = CONTROL;
     else if (parentText.compare("Step Ex") == 0)
-        logType = 1;
+        logType = STEP;
     else
-        logType = 2;
+        logType = WALKING;
 
     QFile file(path + user->getDir() + "/" + item->text(0) + ".log");
 
@@ -147,7 +147,7 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
             for(int j = 0; j < log_line.size(); j++){
               item = log_line.at(j);
 
-              if(logType < 2 && j > 0){
+              if(j > 2 && (logType == CONTROL || logType == STEP)){
                 if(item == "0")
                     item = "False";
                 else if(item== "1")

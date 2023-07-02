@@ -35,6 +35,8 @@
         <file>Icons/utente-uomo-cerchiato (4).png</file>
         <file>Icons/utente-uomo-cerchiato(0).png</file>
         <file>Icons/diario-di-bordo.png</file>
+        <file>Icons/passeggiare.png</file>
+        <file>Icons/ridurre.png</file>
     </qresource>
     <qresource prefix="/INDI">
         <file>INDI/INDI Logo (Negro con fondo blanco)-100.jpg</file>

@@ -17,13 +17,17 @@ class TrainingForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit TrainingForm(FrameWindow *parent = nullptr, User *user = nullptr);
+    explicit TrainingForm(FrameWindow *parent = nullptr);
     ~TrainingForm();
 
     FrameWindow* getFrame(){return this->frame_;}
     void setConnected(bool state);
 
     void displayUser();
+
+    void movement(const std::string);
+
+    void setEnabled(bool state);
 
 
 private slots:
@@ -39,19 +43,19 @@ private slots:
 
     void on_connectButton_clicked();
 
+    void tryConnection();
+
+    void on_sitButton_clicked();
+
+    void on_storageButton_clicked();
+
+    Log* createLog();
+
+    void on_shutdownButton_clicked();
+
 private:
     Ui::TrainingForm *ui;
     FrameWindow *frame_;
-
-    QSharedPointer<Log> log;
-
-    QSharedPointer<User> user_;
-
-    //FrameWindow *frame_;
-
-    //Log *log;
-
-    //User *user_;
 };
 
 #endif // TRAINING_WINDOW_H

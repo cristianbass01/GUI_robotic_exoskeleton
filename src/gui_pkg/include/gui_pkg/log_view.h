@@ -40,10 +40,14 @@ private:
 
   const QVector< QVector< QString > > columnName = {
     {"#", "Leg", "Correct", "Time"},           // ControlLog
-    {"#", "Leg", "Correct", "Closed", "Time"}, // StepLog
-    {"#", "Set", "Executed", "Pause", "Time"}  // walkingLog
+    {"#", "Leg", "Step Count", "Correct", "Last", "Time"}, // StepLog
+    {"#", "Selected", "Executed", "Pause", "Time"}  // walkingLog
 
   };
+  const int CONTROL = 0;
+  const int STEP = 1;
+  const int WALKING = 2;
+
 
   QTreeWidgetItem* controlItem;
   QTreeWidgetItem* stepItem;

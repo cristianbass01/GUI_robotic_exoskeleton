@@ -13,19 +13,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">QPushButton#BT_cancel{
-	background-color:#D72638;
-	color:#F4F4F6;
-	font-weight:600
-}
-
-QPushButton#BT_create, QPushButton#BT_save{
-	background-color:#40B8A6;
-	color:#F4F4F6;
-	font-weight:600
-}</string>
-  </property>
   <layout class="QHBoxLayout" name="horizontalLayout_9">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -602,6 +589,8 @@ QPushButton#BT_create, QPushButton#BT_save{
                  <property name="font">
                   <font>
                    <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
                   </font>
                  </property>
                  <property name="text">
@@ -610,6 +599,30 @@ QPushButton#BT_create, QPushButton#BT_save{
                 </widget>
                </item>
               </layout>
+             </item>
+             <item>
+              <widget class="QPushButton" name="BT_delete">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>410</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Delete</string>
+               </property>
+              </widget>
              </item>
              <item>
               <spacer name="verticalSpacer_3">
@@ -765,10 +778,20 @@ QPushButton#BT_create, QPushButton#BT_save{
   <tabstop>TB_name</tabstop>
   <tabstop>TB_id</tabstop>
   <tabstop>DE_birthday</tabstop>
+  <tabstop>RB_male</tabstop>
+  <tabstop>RB_female</tabstop>
+  <tabstop>RB_other</tabstop>
   <tabstop>NB_height</tabstop>
   <tabstop>NB_weight</tabstop>
   <tabstop>NB_upperLeg</tabstop>
   <tabstop>NB_lowerLeg</tabstop>
+  <tabstop>BT_create</tabstop>
+  <tabstop>BT_cancel</tabstop>
+  <tabstop>BT_save</tabstop>
+  <tabstop>BT_delete</tabstop>
+  <tabstop>BT_selectUser</tabstop>
+  <tabstop>BT_viewLog</tabstop>
+  <tabstop>finishButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

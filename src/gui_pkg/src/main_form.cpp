@@ -13,44 +13,49 @@ MainForm::MainForm(FrameWindow *parent) :
   frame_ = parent;
   ui->setupUi(this);
 }
+
 MainForm::~MainForm()
 {
    delete ui;
 }
 
+/**
+ * @brief visualizza la creazione di un nuovo utente
+ */
 void MainForm::on_BT_createUser_clicked()
 {
-    //CreateUserForm *CreateUserF = new CreateUserForm();
-
-    //CreateUserF->show();
-
-
     frame_->customizeWindow(new SelectUserForm(frame_, true));
     frame_->show();
 
     this->close();
-    //this->deleteLater();
 }
 
+/**
+ * @brief visualizza i veri utenti e da la possibilità di selezionarne uno
+ */
 void MainForm::on_BT_selectUser_clicked()
 {
-    //SelectUserForm *SelectUserF = new SelectUserForm();
     frame_->customizeWindow(new SelectUserForm(frame_));
     frame_->show();
-    //SelectUserF->show();
 
     this->close();
-    //this->deleteLater();
 }
 
+/**
+ * @brief Avvia l'esoscheletro in modalità Demo
+ */
 void MainForm::on_BT_demo_clicked()
 {
+    currentUser = nullptr;
     frame_->customizeWindow(new TrainingForm(frame_));
     frame_->show();
 
     this->close();
 }
 
+/**
+ * @brief Chiude la schermata
+ */
 void MainForm::on_finishButton_clicked()
 {
     frame_->close();

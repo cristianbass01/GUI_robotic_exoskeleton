@@ -88,7 +88,7 @@ find_package(catkin REQUIRED COMPONENTS ${ROS_DEPENDS} message_generation)
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
-  serv.srv
+  Test.srv
 )
 
 generate_messages(

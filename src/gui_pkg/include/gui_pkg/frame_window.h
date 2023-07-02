@@ -20,6 +20,12 @@ public:
 
     void setConnected(bool state);
 
+    void setEnabled(bool state);
+
+    void showStatus(std::string msg);
+
+    std::string clearStatus();
+
 private slots:
     void on_actionHome_triggered();
     void on_actionClose_triggered();
@@ -31,6 +37,24 @@ private slots:
     void on_actionView_User_triggered();
 
     void on_actionEdit_User_triggered();
+
+    void on_actionTraining_Log_triggered();
+
+    void on_actionMaximize_Window_triggered();
+
+    void on_actionChange_settings_triggered();
+
+    void on_actionView_triggered();
+
+    void on_actionInfo_triggered();
+
+    void on_actionHelp_triggered();
+
+    void on_actionTraining_triggered();
+
+    void closeEvent(QCloseEvent *event);
+
+    void on_actionMinimize_Window_triggered();
 
 private:
     Ui::FrameWindow *ui;

@@ -18,9 +18,9 @@ void Log::addControlEx(QString leg, bool correct, QTime time)
   addToFile(QString("log%1_ControlEx.log").arg(date), logMessage);
 }
 
-void Log::addStepEx(QString leg, bool correct, bool close, QTime time)
+void Log::addStepEx(QString leg, int count, bool correct, bool close, QTime time)
 {
-  QString logMessage = QString("%1;%2;%3;%4").arg(leg).arg(correct).arg(close).arg(time.toString("hh:mm:ss:ms"));
+  QString logMessage = QString("%1;%2;%3;%4;%5").arg(leg).arg(count).arg(correct).arg(close).arg(time.toString("hh:mm:ss:ms"));
 
   addToFile(QString("log%1_StepEx.log").arg(date), logMessage);
 }

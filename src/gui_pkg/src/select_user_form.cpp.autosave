@@ -218,7 +218,7 @@ void SelectUserForm::setReadOnly(bool status)
     ui->TB_name->setReadOnly(status);
     ui->TB_surname->setReadOnly(status);
     ui->DE_birthday->setReadOnly(status);
-    ui->RB_male->setEnabled(!status);
+    ui->RB_male->setEnabled(!status);50
     ui->RB_female->setEnabled(!status);
     ui->RB_other->setEnabled(!status);
     ui->NB_height->setReadOnly(status);

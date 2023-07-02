@@ -39,6 +39,26 @@ Press to connect...</string>
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="shutdownButton">
+         <property name="text">
+          <string>Shutdown</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="connectLoadingIcon">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/icons/Icons/update-left-rotation.png&quot; width=&quot;30&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="scaledContents">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -140,28 +160,40 @@ Press to connect...</string>
          <item>
           <widget class="QGroupBox" name="groupBox">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="title">
-            <string>Fast movements</string>
+            <string>Configurations</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
             <property name="spacing">
-             <number>0</number>
+             <number>20</number>
+            </property>
+            <property name="leftMargin">
+             <number>20</number>
+            </property>
+            <property name="topMargin">
+             <number>20</number>
+            </property>
+            <property name="rightMargin">
+             <number>20</number>
+            </property>
+            <property name="bottomMargin">
+             <number>20</number>
             </property>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_3">
               <property name="spacing">
-               <number>20</number>
+               <number>30</number>
               </property>
               <property name="topMargin">
-               <number>20</number>
+               <number>0</number>
               </property>
               <item>
                <widget class="QPushButton" name="standButton">
@@ -180,7 +212,7 @@ Press to connect...</string>
                 <property name="maximumSize">
                  <size>
                   <width>400</width>
-                  <height>50</height>
+                  <height>100</height>
                  </size>
                 </property>
                 <property name="text">
@@ -208,7 +240,7 @@ Press to connect...</string>
                 <property name="maximumSize">
                  <size>
                   <width>400</width>
-                  <height>50</height>
+                  <height>100</height>
                  </size>
                 </property>
                 <property name="text">
@@ -236,7 +268,7 @@ Press to connect...</string>
                 <property name="maximumSize">
                  <size>
                   <width>400</width>
-                  <height>50</height>
+                  <height>100</height>
                  </size>
                 </property>
                 <property name="text">
@@ -287,8 +319,11 @@ Press to connect...</string>
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <item>
           <widget class="QGroupBox" name="groupBox_2">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -301,15 +336,27 @@ Press to connect...</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <property name="spacing">
-             <number>0</number>
+             <number>20</number>
+            </property>
+            <property name="leftMargin">
+             <number>20</number>
+            </property>
+            <property name="topMargin">
+             <number>20</number>
+            </property>
+            <property name="rightMargin">
+             <number>20</number>
+            </property>
+            <property name="bottomMargin">
+             <number>20</number>
             </property>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_6">
               <property name="spacing">
-               <number>20</number>
+               <number>30</number>
               </property>
               <property name="topMargin">
-               <number>20</number>
+               <number>0</number>
               </property>
               <item>
                <widget class="QPushButton" name="stepButton">
@@ -328,7 +375,7 @@ Press to connect...</string>
                 <property name="maximumSize">
                  <size>
                   <width>400</width>
-                  <height>50</height>
+                  <height>100</height>
                  </size>
                 </property>
                 <property name="sizeIncrement">
@@ -362,7 +409,7 @@ Press to connect...</string>
                 <property name="maximumSize">
                  <size>
                   <width>400</width>
-                  <height>50</height>
+                  <height>100</height>
                  </size>
                 </property>
                 <property name="text">
@@ -390,7 +437,7 @@ Press to connect...</string>
                 <property name="maximumSize">
                  <size>
                   <width>400</width>
-                  <height>50</height>
+                  <height>100</height>
                  </size>
                 </property>
                 <property name="text">

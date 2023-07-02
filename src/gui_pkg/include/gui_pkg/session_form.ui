@@ -18,6 +18,18 @@
     <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
       <widget class="QFrame" name="topFrame">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>100</height>
+        </size>
+       </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <property name="sizeConstraint">
          <enum>QLayout::SetDefaultConstraint</enum>
@@ -46,6 +58,26 @@ Press to connect...</string>
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="shutdownButton">
+          <property name="text">
+           <string>Shutdown</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="connectLoadingIcon">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/icons/Icons/update-left-rotation.png&quot; width=&quot;30&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="scaledContents">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -61,7 +93,7 @@ Press to connect...</string>
         <item>
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/INDI/INDI/Logo.png&quot; width=&quot;50&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/INDI/INDI/Logo.png&quot; width=&quot;70&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -79,9 +111,40 @@ Press to connect...</string>
          </spacer>
         </item>
         <item>
+         <spacer name="horizontalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>100</width>
+            <height>30</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <widget class="QLabel" name="userLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>50</height>
+           </size>
+          </property>
           <property name="text">
            <string>User</string>
+          </property>
+          <property name="margin">
+           <number>0</number>
           </property>
          </widget>
         </item>
@@ -92,6 +155,16 @@ Press to connect...</string>
       <widget class="Line" name="line">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbStatus">
+       <property name="text">
+        <string>       The exoskeleton must be in STAND position to perform the training.</string>
+       </property>
+       <property name="margin">
+        <number>2</number>
        </property>
       </widget>
      </item>
@@ -136,7 +209,7 @@ Press to connect...</string>
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>40</height>
+              <height>20</height>
              </size>
             </property>
            </spacer>
@@ -157,6 +230,12 @@ Press to connect...</string>
                 <height>600</height>
                </size>
               </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+    background-color: rgb(255, 255, 255);
+}
+</string>
+              </property>
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>
@@ -170,7 +249,7 @@ Press to connect...</string>
                <string/>
               </property>
               <property name="pixmap">
-               <pixmap resource="../../rc/aliceresources.qrc">:/Alice/Alice/Alice_not_connected.png</pixmap>
+               <pixmap>:/Alice/Alice/Alice_not_connected.png</pixmap>
               </property>
               <property name="scaledContents">
                <bool>false</bool>
@@ -229,7 +308,7 @@ Press to connect...</string>
               <property name="maximumSize">
                <size>
                 <width>400</width>
-                <height>50</height>
+                <height>70</height>
                </size>
               </property>
               <property name="text">
@@ -257,7 +336,7 @@ Press to connect...</string>
               <property name="maximumSize">
                <size>
                 <width>400</width>
-                <height>50</height>
+                <height>70</height>
                </size>
               </property>
               <property name="text">
@@ -285,7 +364,7 @@ Press to connect...</string>
               <property name="maximumSize">
                <size>
                 <width>400</width>
-                <height>50</height>
+                <height>70</height>
                </size>
               </property>
               <property name="text">
@@ -320,6 +399,19 @@ Press to connect...</string>
       </layout>
      </item>
      <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
       <widget class="Line" name="line_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -344,19 +436,6 @@ Press to connect...</string>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_7">
          <item>
-          <spacer name="verticalSpacer_8">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
           <widget class="QLabel" name="label_3">
            <property name="maximumSize">
             <size>
@@ -378,7 +457,7 @@ Press to connect...</string>
             <number>20</number>
            </property>
            <item>
-            <widget class="QPushButton" name="stepWindowButton">
+            <widget class="QPushButton" name="stepButton">
              <property name="sizePolicy">
               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
                <horstretch>0</horstretch>
@@ -394,7 +473,7 @@ Press to connect...</string>
              <property name="maximumSize">
               <size>
                <width>400</width>
-               <height>50</height>
+               <height>70</height>
               </size>
              </property>
              <property name="text">
@@ -406,7 +485,7 @@ Press to connect...</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="walkWindowButton">
+            <widget class="QPushButton" name="walkButton">
              <property name="sizePolicy">
               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
                <horstretch>0</horstretch>
@@ -422,7 +501,7 @@ Press to connect...</string>
              <property name="maximumSize">
               <size>
                <width>400</width>
-               <height>50</height>
+               <height>70</height>
               </size>
              </property>
              <property name="text">
@@ -434,7 +513,7 @@ Press to connect...</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="controlWindowButton">
+            <widget class="QPushButton" name="controlButton">
              <property name="sizePolicy">
               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
                <horstretch>0</horstretch>
@@ -450,7 +529,7 @@ Press to connect...</string>
              <property name="maximumSize">
               <size>
                <width>400</width>
-               <height>50</height>
+               <height>70</height>
               </size>
              </property>
              <property name="text">
@@ -545,8 +624,6 @@ Press to connect...</string>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../rc/aliceresources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

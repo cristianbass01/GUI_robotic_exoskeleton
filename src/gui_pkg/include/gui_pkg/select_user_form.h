@@ -16,6 +16,9 @@ namespace Ui {
 class SelectUserForm;
 }
 
+/**
+ * @brief Widget che si occupa della selezione e creazione di un Utente
+ */
 class SelectUserForm : public QWidget
 {
     Q_OBJECT
@@ -28,23 +31,52 @@ signals:
     //void on_BT_select_clicked();
 
 private slots:
-    void setReadOnly(bool status, bool id);
-    void on_BT_create_clicked();
-    void on_BT_selectUser_clicked();
-    void createComboBox(int start, QString id);
-    void on_CB_selectUser_currentIndexChanged(int index);
+    /**
+     * @brief Cambia lo stato tra modalità solo lettura e modalità di modifica, sono interessati gli elementi adibiti al inserimento dei dati
+     * @param status True se si vole impostare in modalitè solo lettura, False per disattivarla
+     */
+    void setReadOnly(bool status);
 
+    /**
+     * @brief Esegue l'aggiunta del utente o la sua modifica a seconda se si è in Create o in Edit (Select)
+     */
+    void on_BT_create_clicked();
+
+    /**
+     * @brief Recupera l'utente e avvia il @link(TrainingForm)
+     */
+    void on_BT_selectUser_clicked();
+
+    /**
+     * @brief Visualizza LogView passando l'utente selezionato
+     */
     void on_BT_viewLog_clicked();
 
-    void on_finishButton_clicked();
-    void editMode(bool edit);
-
-    void on_BT_save_clicked();
-    int checkCorrect(bool edit);
+    /**
+     * @brief chiamata quando cambia l'elemento selezionato, si occupa di impostare i parametri
+     * del utente selezionato al inteno dei vari cambi
+     * @param index indice del elemento selezionato
+     */
+    void on_CB_selectUser_currentIndexChanged(int index);
 
     void on_BT_cancel_clicked();
+    void on_BT_save_clicked();
+    void on_finishButton_clicked();
+
+    /**
+     * @brief Si occupa del popolamento della comboBox
+     * @param start elemento da selezionare, ma se è presente un id valido allora viene selezionato quello
+     * @param id imposta nella comboBox l'utente passato, se trovato
+     */
+    void createComboBox(int start, QString id);
+
+    void editMode(bool edit);
+
+    int checkCorrect(bool edit);
 
     void createUser(bool overwrite);
+
+    void on_BT_delete_clicked();
 
 public slots:
     void setEditMode();
@@ -52,10 +84,12 @@ public slots:
 private:
     Ui::SelectUserForm *ui;
     QString id_user;
-    QList<QPair<QString, int>> users;
+    QList<QPair<QString, int>> users; // lista contenente (cognome + nome) del utente e la sua posizione nella ComboBox
+    // ho fatto così per consentire di visualizzare solo nome e cognome senza l'id, poi recupero l'id tramite l'intero
+
     FrameWindow *frame_;
     int selectUser;
-    bool overWriteMsg(QString text, QString InformativeText);
+    bool popUpMsg(QString text, QString InformativeText);
 };
 
 #endif // SELECT_USER_FORM_H

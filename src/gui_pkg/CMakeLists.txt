@@ -92,7 +92,7 @@ add_message_files(
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
-  serv.srv
+  Test.srv
 )
 
 generate_messages(
@@ -193,6 +193,7 @@ install(TARGETS ${NODE_LIST}
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   PATTERN ".svn" EXCLUDE
+
 )
 
 install(DIRECTORY launch/

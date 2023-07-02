@@ -15,13 +15,19 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow{
-	background-color:#F4F4F6
+	background-color:#F4F4F6;
+}
+
+QWidget{
+	font-size: 18px;
 }
 
 QPushButton{
 	border: 1px solid #000000;
 	background-color: #68ACE4;
 	border-radius: 15px;
+	font: bold;
+	padding: 10px;
 }
 
 QPushButton:hover {
@@ -32,11 +38,34 @@ QPushButton:pressed {
     background-color: #2176AE;     
 }
 
-
-
 QLineEdit:Focus {
 	border: 2px solid #2176AE;
-	
+}
+
+QPushButton:!enabled{
+	color: rgb(125, 125, 125);
+}
+
+QPushButton:enabled{
+	color: rgb(255, 255, 255);
+	/*font-weight: 600*/
+}
+
+QPushButton#BT_createUser, QPushButton#BT_selectUser, QPushButton#BT_demo{
+	padding: 20px;
+}
+
+QPushButton#BT_cancel, QPushButton#BT_delete, QPushButton#stopButton, QPushButton#returnButton, QPushButton#shutdownButton{
+	background-color:#D72638;
+	/*color: #F4F4F6;*/
+	/*font-weight: 600*/
+}
+
+QPushButton#BT_create, QPushButton#BT_save, QPushButton#startButton{
+	background-color:#40B8A6;
+	padding: 0px;
+	/*color: #F4F4F6;*/
+	/*font-weight: 600*/
 }
 
 QLabel#Alice, QFrame#home{
@@ -44,24 +73,57 @@ QLabel#Alice, QFrame#home{
 	border-radius: 15px;
 }
 
-QPushButton#connectButton{
+QPushButton#connectButton, QLabel#lbStatus, QPushButton#shutdownButton{
 	background-color: rgb(255, 213, 213);
 	color: rgb(239, 41, 41);
 	border: 1px;
 	border-radius: 5px;
 	text-align: left;
+	padding: 10px;
 }
 
 QPushButton#finishButton{
 	background-color:#D72638;
-	color:#F4F4F6;
-	font-weight:600
+	/*color: #F4F4F6;*/
+	/*font-weight: 600*/
 }
 
 QLabel#userLabel{
-	border: 1px;
+	color: rgb(32, 74, 135);
+	background-color: rgb(176, 241, 255);
+	border: 3px;
 	padding: 10px;
 	border-radius: 5px;
+}
+
+QPushButton#standButton, QPushButton#sitButton, QPushButton#storageButton{
+	
+	background-color: #3993DD;
+	padding: 20px;
+	/*color: #F4F4F6;*/
+}
+
+QPushButton#walkButton, QPushButton#stepButton, QPushButton#controlButton{
+	
+	background-color: #2176AE;
+	padding: 20px;
+	/*color: #F4F4F6;*/˚
+   /*font-weight: 600*/
+}
+
+QPushButton#startButton{
+background-color: rgb(131, 215, 145)
+}
+
+QPushButton#stopButton{
+	
+	background-color: rgb(255, 137, 137)
+}
+ 
+QPushButton#rightFirstStepButton, QPushButton#leftFirstStepButton, QPushButton#feetTogetherButton{
+	
+	background-color: rgba(40, 185, 166, 188);
+	padding: 10px;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -84,7 +146,7 @@ QLabel#userLabel{
      <x>0</x>
      <y>0</y>
      <width>1214</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -93,30 +155,20 @@ QLabel#userLabel{
     </property>
     <addaction name="actionHome"/>
     <addaction name="separator"/>
-    <addaction name="actionnew"/>
-    <addaction name="actionClose"/>
+    <addaction name="actionTraining"/>
     <addaction name="actionTraining_Log"/>
     <addaction name="separator"/>
-    <addaction name="actionSave"/>
-    <addaction name="actionSave_As"/>
+    <addaction name="actionMaximize_Window"/>
+    <addaction name="actionMinimize_Window"/>
+    <addaction name="separator"/>
+    <addaction name="actionClose"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
      <string>Edit</string>
     </property>
-    <widget class="QMenu" name="menuUser">
-     <property name="title">
-      <string>Change User...</string>
-     </property>
-     <addaction name="actionNew_User"/>
-     <addaction name="actionLoad_User"/>
-    </widget>
-    <addaction name="actionCopy"/>
-    <addaction name="actionPaste"/>
-    <addaction name="actionCut"/>
-    <addaction name="separator"/>
     <addaction name="actionDemo"/>
-    <addaction name="menuUser"/>
+    <addaction name="actionNew_User"/>
     <addaction name="actionEdit_User"/>
     <addaction name="actionView_User"/>
    </widget>
@@ -151,39 +203,27 @@ QLabel#userLabel{
    </attribute>
    <addaction name="actionHome"/>
    <addaction name="separator"/>
-   <addaction name="actionnew"/>
    <addaction name="actionClose"/>
-   <addaction name="separator"/>
-   <addaction name="actionCopy"/>
-   <addaction name="actionPaste"/>
-   <addaction name="actionCut"/>
-   <addaction name="separator"/>
-   <addaction name="actionSave"/>
-   <addaction name="actionSave_As"/>
    <addaction name="separator"/>
    <addaction name="actionDemo"/>
    <addaction name="actionNew_User"/>
    <addaction name="actionEdit_User"/>
    <addaction name="actionView_User"/>
    <addaction name="separator"/>
+   <addaction name="actionTraining"/>
+   <addaction name="actionTraining_Log"/>
+   <addaction name="separator"/>
    <addaction name="actionView"/>
    <addaction name="actionChange_settings"/>
    <addaction name="separator"/>
+   <addaction name="actionMaximize_Window"/>
+   <addaction name="actionMinimize_Window"/>
+   <addaction name="separator"/>
    <addaction name="actionHelp"/>
    <addaction name="actionInfo"/>
+   <addaction name="separator"/>
+   <addaction name="separator"/>
   </widget>
-  <action name="actionnew">
-   <property name="icon">
-    <iconset>
-     <normaloff>:/icons/Icons/aggiungi.png</normaloff>:/icons/Icons/aggiungi.png</iconset>
-   </property>
-   <property name="text">
-    <string>New Training</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+N</string>
-   </property>
-  </action>
   <action name="actionChange_settings">
    <property name="icon">
     <iconset>
@@ -200,36 +240,6 @@ QLabel#userLabel{
    </property>
    <property name="text">
     <string>View params</string>
-   </property>
-  </action>
-  <action name="actionCopy">
-   <property name="icon">
-    <iconset>
-     <normaloff>:/icons/Icons/copia.png</normaloff>:/icons/Icons/copia.png</iconset>
-   </property>
-   <property name="text">
-    <string>Copy</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+C</string>
-   </property>
-  </action>
-  <action name="actionPaste">
-   <property name="icon">
-    <iconset>
-     <normaloff>:/icons/Icons/incolla.png</normaloff>:/icons/Icons/incolla.png</iconset>
-   </property>
-   <property name="text">
-    <string>Paste</string>
-   </property>
-  </action>
-  <action name="actionCut">
-   <property name="icon">
-    <iconset>
-     <normaloff>:/icons/Icons/taglia.png</normaloff>:/icons/Icons/taglia.png</iconset>
-   </property>
-   <property name="text">
-    <string>Cut</string>
    </property>
   </action>
   <action name="actionNew_User">
@@ -286,7 +296,10 @@ QLabel#userLabel{
      <normaloff>:/icons/Icons/aiuto.png</normaloff>:/icons/Icons/aiuto.png</iconset>
    </property>
    <property name="text">
-    <string>?</string>
+    <string>Help</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+'</string>
    </property>
   </action>
   <action name="actionTraining_Log">
@@ -296,6 +309,9 @@ QLabel#userLabel{
    </property>
    <property name="text">
     <string>Training Log</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
   <action name="actionEdit_User">
@@ -313,10 +329,10 @@ QLabel#userLabel{
      <normaloff>:/icons/Icons/eliminare.png</normaloff>:/icons/Icons/eliminare.png</iconset>
    </property>
    <property name="text">
-    <string>Close Training</string>
+    <string>Quit</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+W</string>
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="actionHome">
@@ -334,7 +350,10 @@ QLabel#userLabel{
      <normaloff>:/icons/Icons/informazioni.png</normaloff>:/icons/Icons/informazioni.png</iconset>
    </property>
    <property name="text">
-    <string>!</string>
+    <string>Info</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+1</string>
    </property>
   </action>
   <action name="actionView_User">
@@ -343,7 +362,55 @@ QLabel#userLabel{
      <normaloff>:/icons/Icons/utente-uomo-cerchiato (4).png</normaloff>:/icons/Icons/utente-uomo-cerchiato (4).png</iconset>
    </property>
    <property name="text">
-    <string>View Users</string>
+    <string>View User</string>
+   </property>
+  </action>
+  <action name="actionMaximize_Window">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/icons/Icons/full-page-view.png</normaloff>:/icons/Icons/full-page-view.png</iconset>
+   </property>
+   <property name="text">
+    <string>Maximize Window</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionView_Log">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/icons/Icons/diario-di-bordo.png</normaloff>:/icons/Icons/diario-di-bordo.png</iconset>
+   </property>
+   <property name="text">
+    <string>View Log</string>
+   </property>
+   <property name="toolTip">
+    <string>View Log</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionTraining">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/icons/Icons/passeggiare.png</normaloff>:/icons/Icons/passeggiare.png</iconset>
+   </property>
+   <property name="text">
+    <string>Training</string>
+   </property>
+   <property name="toolTip">
+    <string>Training</string>
+   </property>
+  </action>
+  <action name="actionMinimize_Window">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/icons/Icons/ridurre.png</normaloff>:/icons/Icons/ridurre.png</iconset>
+   </property>
+   <property name="text">
+    <string>Minimize Window</string>
    </property>
   </action>
  </widget>

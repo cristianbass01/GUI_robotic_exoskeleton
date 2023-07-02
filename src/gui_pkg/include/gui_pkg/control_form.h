@@ -7,6 +7,7 @@
 #include "frame_window.h"
 #include <log.h>
 #include <QTime>
+#include "walk_thread.h"
 
 namespace Ui {
 class ControlForm;
@@ -20,14 +21,24 @@ public:
     explicit ControlForm(SessionForm *parent = nullptr, Log *log = nullptr);
     ~ControlForm();
 
+    void setEnabled(bool state);
+
+private slots:
+    void on_startButton_clicked();
+
+    void on_stopButton_clicked();
+
+    void updateProgressBar(int value);
+
+    void finishProgressBar();
+
 private:
     Ui::ControlForm *ui;
     SessionForm *session_;
     FrameWindow *frame_;
 
-    std::shared_ptr<Log> log_;
-    int stepCount;
-    void addLog(QString leg, bool correct, bool close, QTime time);
+    Log* log_;
+    QSharedPointer<WalkThread> thread_;
 };
 
 #endif // CONTROL_FORM_H

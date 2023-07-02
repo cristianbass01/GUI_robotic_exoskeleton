@@ -8,6 +8,7 @@
 #include <QMovie>
 #include <QTimer>
 #include <QElapsedTimer>
+#include <QMessageBox>
 
 StepForm::StepForm(SessionForm *parent, Log *log) :
     QWidget(parent),
@@ -17,8 +18,9 @@ StepForm::StepForm(SessionForm *parent, Log *log) :
     frame_ = parent->getFrame();
     ui->setupUi(this);
 
+    this->setEnabled(true);
     log_ = log;
-    stepCount = 1;
+    stepCount = 0;
 }
 
 StepForm::~StepForm()
@@ -29,17 +31,23 @@ StepForm::~StepForm()
 
 void StepForm::on_leftFirstStepButton_clicked()
 {
-    this->movement(connectedComponent->LEFTSTEP);
+    frame_->showStatus("Moving: left step...");
+    this->movement(ConnectedComponent::getInstance().LEFTSTEP);
+    frame_->clearStatus();
 }
 
 void StepForm::on_rightFirstStepButton_clicked()
 {
-    this->movement(connectedComponent->RIGHTSTEP);
+    frame_->showStatus("Moving: right step...");
+    this->movement(ConnectedComponent::getInstance().RIGHTSTEP);
+    frame_->clearStatus();
 }
 
 void StepForm::on_feetTogetherButton_clicked()
 {
-    this->movement(connectedComponent->LEFTCLOSE);
+    frame_->showStatus("Moving: closing step...");
+    this->movement(ConnectedComponent::getInstance().LEFTCLOSE);
+    frame_->clearStatus();
 }
 
 void StepForm::movement(const std::string code){
@@ -58,57 +66,69 @@ void StepForm::movement(const std::string code){
     int ms = 0;
     //--
 
-    if (!connectedComponent->isConnected())
+    if (!ConnectedComponent::getInstance().isConnected())
         session_->on_connectButton_clicked();
 
-    if (connectedComponent->isConnected()){
+    QApplication::processEvents();
+
+    if (ConnectedComponent::getInstance().isConnected()){
         //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
+        try {
+            QElapsedTimer timer;
+            timer.start();
 
-        QElapsedTimer timer;
-        timer.start();
+            if(!ConnectedComponent::getInstance().step(code)){
+                QMessageBox msgBox;
+                msgBox.setIcon(QMessageBox::Warning);
+                msgBox.setWindowTitle("Warning");
+                msgBox.setText("Movement failed");
+                msgBox.setInformativeText("Exoskeleton failed the step");
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.exec();
+                correct = false;
+            }
 
-        connectedComponent->step(code);
-        lastStep = code;
+            this->setEnabled(true);
+            session_->setEnabled(true);
+            session_->updateImage();
 
-        this->setEnabled(true);
-        session_->setEnabled(true);
+            ui->loadingLabel->setText("");
+            ui->loadingLabel->setMargin(9);
 
-        if(code.compare(connectedComponent->LEFTCLOSE) == 0){
-            session_->setImage(session_->LEFTCLOSE);
-            leg = "LEFT";
-            close = true;
-        } else if(code.compare(connectedComponent->LEFTSTEP)== 0){
-            session_->setImage(session_->LEFTSTEP);
-            leg = "LEFT";
-        } else if(code.compare(connectedComponent->RIGHTSTEP)== 0){
-            session_->setImage(session_->RIGHTSTEP);
-            leg = "RIGHT";
+            ms = static_cast<int>(timer.elapsed());
+        } catch (...) {
+            ConnectedComponent::getInstance().errorConnectionMsg("Error while calling the service");
+            correct = false;
         }
-        ms = static_cast<int>(timer.elapsed());
-        //timer.stop();
-        //Qint milliseconds = 1500;  // Esempio di tempo in millisecondi
 
-        ui->loadingLabel->setText("");
-        ui->loadingLabel->setMargin(9);
     }
     else {
-        connectedComponent->errorMsg("Error while calling the service");
+        ConnectedComponent::getInstance().errorConnectionMsg("Error during the connection to the service");
         session_->setConnected(false);
         correct = false;
         this->setEnabled(true);
         session_->setEnabled(true);
     }
+
+    if(code.compare(ConnectedComponent::getInstance().LEFTCLOSE) == 0){
+        leg = "LEFT";
+        close = true;
+    } else if(code.compare(ConnectedComponent::getInstance().LEFTSTEP)== 0){
+        leg = "LEFT";
+    } else if(code.compare(ConnectedComponent::getInstance().RIGHTSTEP)== 0){
+        leg = "RIGHT";
+    }
+
     addLog(leg, correct, close, t.addMSecs(ms));
 }
 
 void StepForm::addLog(QString leg, bool correct, bool close, QTime time)
 {
-    if(log_ != nullptr) // sono in demo
+    if(log_ != nullptr) // non sono in demo
     {
-        stepCount++;
-        log_->addStepEx(leg, correct, close, time);
+        log_->addStepEx(leg, ++stepCount, correct, close, time);
         if(close)
-            stepCount = 1;
+            stepCount = 0;
     }
 }
 
@@ -119,18 +139,18 @@ void StepForm::setEnabled(bool state){
         ui->rightFirstStepButton->setEnabled(false);
     }
     else {
-        if(lastStep.compare("") != 0){
-            if(lastStep.compare(connectedComponent->LEFTCLOSE)){
-                ui->leftFirstStepButton->setEnabled(true);
-                ui->rightFirstStepButton->setEnabled(true);
-            } else if(lastStep.compare(connectedComponent->LEFTSTEP)){
-                ui->rightFirstStepButton->setEnabled(true);
-            } else if(lastStep.compare(connectedComponent->RIGHTSTEP)){
-                ui->feetTogetherButton->setEnabled(true);
-                ui->leftFirstStepButton->setEnabled(true);
-            }
-        }
-        else{
+        std::string lastStep = ConnectedComponent::getInstance().getCurrentState();
+
+        ui->feetTogetherButton->setEnabled(false);
+        ui->leftFirstStepButton->setEnabled(false);
+        ui->rightFirstStepButton->setEnabled(false);
+
+        if(lastStep.compare(ConnectedComponent::getInstance().LEFTSTEP) == 0){
+            ui->rightFirstStepButton->setEnabled(true);
+        } else if(lastStep.compare(ConnectedComponent::getInstance().RIGHTSTEP) == 0){
+            ui->feetTogetherButton->setEnabled(true);
+            ui->leftFirstStepButton->setEnabled(true);
+        } else{
             ui->leftFirstStepButton->setEnabled(true);
             ui->rightFirstStepButton->setEnabled(true);
         }
