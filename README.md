@@ -37,6 +37,12 @@ A new launch.sh file is being created, run it:
 ```
 ./launch.sh
 ```
+### 2.4 Debug Mode
+It is possible to run the application in debug mode without the connection to the exoskeleton (just to test how it works):
+```
+./launch.sh debug
+```
+
 
 ## 3. Authors
 - Cristian Bassotto
