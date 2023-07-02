@@ -16,11 +16,11 @@ or download the zip file and then decompress it:
 
 ```
 wget https://github.com/cristianbass01/GUI_robotic_exoskeleton/archive/refs/heads/main.zip
-unzip main.zip -d ./GUI_robotic_exoskeleton
+unzip main.zip
 ```
 Go to the repo directory created:
 ```
-cd GUI_robotic_exoskeleton 
+cd GUI_robotic_exoskeleton-main
 ```
 
 ### 2.2 Setup environment
