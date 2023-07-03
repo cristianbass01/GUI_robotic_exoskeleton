@@ -6,16 +6,14 @@
 
 Log::Log(QString userDir){
     dir = path + userDir+ "/";
-//    QDateTime date2 = QDateTime::currentDateTime();
-//    date = date2.toString("ddMMyyyy");
-    date= (QDateTime::currentDateTime()).toString("yyyyMMdd");
+    date= (QDateTime::currentDateTime()).toString("yyyyMMdd"); // recupero orario attuale
 }
 
 void Log::addControlEx(QString leg, bool correct, QTime time)
 {
-  QString logMessage = QString("%1;%2;%3").arg(leg).arg(correct).arg(time.toString("hh:mm:ss:ms"));
+  QString logMessage = QString("%1;%2;%3").arg(leg).arg(correct).arg(time.toString("hh:mm:ss:ms")); // trasformo i dati passati in stringa
 
-  addToFile(QString("log%1_ControlEx.log").arg(date), logMessage);
+  addToFile(QString("log%1_ControlEx.log").arg(date), logMessage); // inserisco nel file
 }
 
 void Log::addStepEx(QString leg, int count, bool correct, bool close, QTime time)
@@ -35,7 +33,7 @@ void Log::addWalkingEx(int set, int executed, int pause, QTime time)
 
 void Log::addToFile(QString fileName, QString log) // restituisce l'ultimo interno della prima colonna
 {
-  QFile file(dir + fileName);
+  QFile file(dir + fileName); // dove salvare il file
   int nLine = 0;
   file.open(QIODevice::ReadWrite);
   QString line;
@@ -47,8 +45,7 @@ void Log::addToFile(QString fileName, QString log) // restituisce l'ultimo inter
   }
   int n = 0;
   if(nLine>0)
-    n = line.split(";")[0].toInt();  // non us nLine, perchè nel caso venisse eliminata una riga dal file allora l'ultima verrebeb sovrascritta
-  stream << QString::number(n + 1) << ";" << log << "\n";
+    n = line.split(";")[0].toInt();  // non us nLine, perchè nel caso venisse eliminata una riga dal file allora l'ultima verrebbe sovrascritta
+  stream << QString::number(n + 1) << ";" << log << "\n"; //aggiungo numero di riga
   file.close();
-  //return nLine;
 }

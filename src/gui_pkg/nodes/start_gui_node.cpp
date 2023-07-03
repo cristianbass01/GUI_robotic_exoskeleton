@@ -8,6 +8,7 @@
 
 #include <QDir>
 
+// inizializzazione variabili globale
 const QString path = QDir::homePath() + "/Alice/Log/";
 UserList userList;
 User *currentUser;

@@ -118,10 +118,10 @@ void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
 
 void SelectUserForm::on_BT_create_clicked()
 {
-    if(ui->BT_create->text()=="Edit"){
+    if(ui->BT_create->text()=="Edit"){ // sono in edit mode
         setEditMode();
     }
-    else {
+    else { // altrimenti sto creando un utente
       int status = checkCorrect(false);
       if (status < 0)
           return;
@@ -140,7 +140,7 @@ int SelectUserForm::checkCorrect(bool edit){
 
   id_user = ui->TB_id->text();
 
-  if(ui->TB_name->text().size() < 3 || ui->TB_surname->text().size() < 3) // || id_user.length() < 3 || id_user.contains(" ")) // 16 caratteri è giusto?
+  if(ui->TB_name->text().size() < 3 || ui->TB_surname->text().size() < 3)
   {
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Warning);
@@ -218,7 +218,7 @@ void SelectUserForm::setReadOnly(bool status)
     ui->TB_name->setReadOnly(status);
     ui->TB_surname->setReadOnly(status);
     ui->DE_birthday->setReadOnly(status);
-    ui->RB_male->setEnabled(!status);
+    ui->RB_male->setEnabled(!status);50
     ui->RB_female->setEnabled(!status);
     ui->RB_other->setEnabled(!status);
     ui->NB_height->setReadOnly(status);

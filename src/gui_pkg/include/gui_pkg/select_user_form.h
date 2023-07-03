@@ -62,6 +62,7 @@ private slots:
     void on_BT_cancel_clicked();
     void on_BT_save_clicked();
     void on_finishButton_clicked();
+    void on_BT_delete_clicked();
 
     /**
      * @brief Si occupa del popolamento della comboBox
@@ -70,13 +71,24 @@ private slots:
      */
     void createComboBox(int start, QString id);
 
+    /**
+     * @brief editMode Cambia la grafica in base la modalità
+     * @param edit true se sto modificando l'utente
+     */
     void editMode(bool edit);
 
+    /**
+     * @brief checkCorrect Controlla che i dati inseriti rispettino dei canoni
+     * @param edit true se sto modificando l'utente
+     * @return
+     */
     int checkCorrect(bool edit);
 
+    /**
+     * @brief createUser Crea l'utente
+     * @param overwrite obbliga la sovrascrizione
+     */
     void createUser(bool overwrite);
-
-    void on_BT_delete_clicked();
 
 public slots:
     void setEditMode();
@@ -89,6 +101,13 @@ private:
 
     FrameWindow *frame_;
     int selectUser;
+
+    /**
+     * @brief popUpMsg Mostra un PopUp
+     * @param text testo da mostrare
+     * @param InformativeText informazioni aggiuntive
+     * @return
+     */
     bool popUpMsg(QString text, QString InformativeText);
 };
 

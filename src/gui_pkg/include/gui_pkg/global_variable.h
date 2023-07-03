@@ -7,8 +7,9 @@
 
 #include "connected_component.h"
 
-extern UserList userList;
-extern User* currentUser;
-extern const QString path;
+extern UserList userList;  // lista degli utenti
+extern User* currentUser;  // utente attualmente selezionato
+extern const QString path; // directory dove vengono salvati i commenti
+//! l'assegnamento avviene nel file nodes/start_gui_node
 
 #endif // GLOBAL_VARIABLE_H

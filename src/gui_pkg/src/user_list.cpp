@@ -2,8 +2,8 @@
 #include "user.h"
 
 void UserList::add(const User& user) {
-  int p = findPos(user.getId());
-  if(p != -1)
+  int p = findPos(user.getId()); // cerco se l'utente è gia' presente
+  if(p != -1) // se è presente allora lo modifico
   {
     userList[p].setName(user.getName());
     userList[p].setSurname(user.getSurname());
@@ -15,7 +15,7 @@ void UserList::add(const User& user) {
     userList[p].setLowerLeg(user.getLowerLeg());
     return;
   }
-  userList.append(user);
+  userList.append(user); // altrimenti aggiungo
 }
 
 void UserList::remove(const QString& id) {
@@ -65,6 +65,7 @@ void UserList::saveXml(const QString& fileName) {
     return;
   }
 
+  //salvataggio su xml
   QXmlStreamWriter xmlWriter(&xmlFile);
   xmlWriter.setAutoFormatting(true);
   xmlWriter.writeStartDocument();
@@ -99,6 +100,7 @@ void UserList::loadXml(const QString& fileName) {
     return;
   }
 
+  //caricamento da xml
   QXmlStreamReader xmlReader(&xmlFile);
 
   User currentUser;
@@ -127,7 +129,7 @@ void UserList::loadXml(const QString& fileName) {
   }
 
   if (xmlReader.hasError()) {
-    // gestione dell'errore
+    // eventuale gestione dell'errore
   }
 
   xmlFile.close();
