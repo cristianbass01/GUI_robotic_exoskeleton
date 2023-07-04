@@ -17,8 +17,17 @@ class LogView : public QWidget
 {
   Q_OBJECT
 private slots:
-  void createComboBox(QString id);
 
+  /**
+   * @brief Inserisce gli elementi al interno del comboBox, e imposta quello passato
+   * @param id identidicativo del utente
+   */
+  void createComboBox(QString id = "");
+
+  /**
+   * @brief Richiamata quando l'elemento selezionato cambia
+   * @param index indice del elemento selezionato
+   */
   void on_CB_user_currentIndexChanged(int index);
 
   void on_treeW_log_itemClicked(QTreeWidgetItem *item, int column);
@@ -26,7 +35,7 @@ private slots:
   void on_finishButton_clicked();
 
 private:
-  QList<QPair<QString, int>> users;
+  QList<QPair<QString, int>> users; // gestione utente e la sua posizione
 
 public:
   explicit LogView(FrameWindow *parent = nullptr, QString id = nullptr);
@@ -38,6 +47,7 @@ private:
 
   User* user;
 
+  // nomi delle colonne
   const QVector< QVector< QString > > columnName = {
     {"#", "Leg", "Correct", "Time"},           // ControlLog
     {"#", "Leg", "Step Count", "Correct", "Last", "Time"}, // StepLog
@@ -48,16 +58,9 @@ private:
   const int STEP = 1;
   const int WALKING = 2;
 
-
   QTreeWidgetItem* controlItem;
   QTreeWidgetItem* stepItem;
   QTreeWidgetItem* walkingItem;
-
-  /*
-  const QString walkingLog[5] = {"#", "Set", "Executed", "Pause", "Time"};
-  const QString StepLog[5] = {"#", "Leg", "Correct", "Closed", "Time"};
-  const QString ControlLog[5] = {"#", "Leg", "Correct", "Time"};
-  */
 };
 
 #endif // LOG_VIEW_H

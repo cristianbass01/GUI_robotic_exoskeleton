@@ -23,16 +23,20 @@ LogView::~LogView()
   delete walkingItem;
 }
 
+/**
+ * @brief Inserisce gli elementi al interno del comboBox
+ * @param id identidicativo del utente
+ */
 void LogView::createComboBox(QString id){
   ui->CB_user->clear();
   users.clear();
 
-  std::shared_ptr<User> u;
-  for(int i = 0; i<userList.size(); i++) {
-    u = std::make_shared<User>(*userList.getAt(i));
-    users.append(QPair<QString, int>(u->getSurname() + " " + u->getName(), i)); // i è la posizione nel xml
-  }
+  // creo una lista formata dalla coppia QString e int, dove l'itero è la posizione del utente nella userList
+  // in questo modo posso recuperare l'elemento dalla userList tramite la sua posizione e non tramite il nome e il cognome
+  for(int i = 0; i<userList.size(); i++)
+    users.append(QPair<QString, int>(userList.getAt(i)->getSurname() + " " + userList.getAt(i)->getName(), i));
 
+  // metodo per confrontare stringhe per ordinare gli elementi
   auto pairStringComparator = [](const QPair<QString, int>& pair1, const QPair<QString, int>& pair2) {
       return pair1.first < pair2.first;
   };
@@ -42,21 +46,24 @@ void LogView::createComboBox(QString id){
 
   int p = 0, start = 0;
   for(const auto& user : users) {
-      ui->CB_user->addItem(user.first);
+      ui->CB_user->addItem(user.first); // aggiungo l'elemento della combobox
       if(!QString::compare(userList.getAt(user.second)->getId(),id))
-        start = p;
+        start = p; // se trovo l'elemeneto passato mi salvo la posizione
       p++;
   }
-
-  //ui->CB_selectUser->addItems(users);
 
   ui->CB_user->setCurrentIndex(start);
 }
 
+/**
+ * @brief Richiamata quando l'elemento selezionato cambia
+ * @param index indice del elemento selezionato
+ */
 void LogView::on_CB_user_currentIndexChanged(int index)
 {
   ui->treeW_log->clear();
-  user = userList.getAt(users[index].second);
+  user = userList.getAt(users[index].second); // recupero l'utente, index mi da la posizione della lista ordinata,
+  // quindi con devo estrapolare la sua posizione in userList tramite users[index].second
 
   ui->TB_name->setText(user->getName());
   ui->TB_surname->setText(user->getSurname());
@@ -65,6 +72,7 @@ void LogView::on_CB_user_currentIndexChanged(int index)
   QDir logsDir(path + user->getDir());
   QStringList logFiles = logsDir.entryList(QDir::Files);
 
+  // aggiungo le categorie del TreeWidget
   controlItem = new QTreeWidgetItem(QStringList() << "Control Ex");
   stepItem = new QTreeWidgetItem(QStringList() << "Step Ex");
   walkingItem = new QTreeWidgetItem(QStringList() << "Walking Ex");
@@ -73,26 +81,21 @@ void LogView::on_CB_user_currentIndexChanged(int index)
   ui->treeW_log->addTopLevelItem(stepItem);
   ui->treeW_log->addTopLevelItem(walkingItem);
 
+  // popolo la QTreeWidget
   foreach (QString logFile, logFiles) {
     QTreeWidgetItem* item = new QTreeWidgetItem(QStringList() << logFile);
     item->setText(0, logFile.mid(0,logFile.length() - 4)); // tolgo .log
     QDate date = QDate::fromString(logFile.mid(3, 8),"yyyyMMdd");
     item->setText(1, date.toString("dd/MM/yyyy"));  // mostro la data
-    if (logFile.endsWith("ControlEx.log"))
+    if (logFile.endsWith("ControlEx.log")) // controllo tipo di log
             controlItem->addChild(item);
     else if (logFile.endsWith("StepEx.log"))
         stepItem->addChild(item);
     else if (logFile.endsWith("WalkingEx.log"))
         walkingItem->addChild(item);
-    // per evitarte altri log l'ultimo caso non è un else
   }
-  //ui->treeW_log->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
-  //ui->treeW_log->setHorizontalScrollBarPolicy(ScrollBarAlwaysOff)
-  //ui ->treeW_log->header()->setSectionResizeMode(QHeaderView::Stretch);
-  //ui ->treeW_log->setVerticalScrollBar(QScrollBar::Disabled(true))
 
   ui->treeW_log->header()->setSectionResizeMode(QHeaderView::Stretch);
-
   ui->treeW_log->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
   controlItem->sortChildren(0, Qt::DescendingOrder);
@@ -108,6 +111,8 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
 
     int logType;
     QString parentText;
+
+    // recupero che log è stato premuto e il tipo
     if (item->parent() == nullptr)
         parentText = item->text(0);
     else
@@ -120,11 +125,14 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
     else
         logType = WALKING;
 
+    // apro il file di log
     QFile file(path + user->getDir() + "/" + item->text(0) + ".log");
 
+
+    // inserisco i nomi delle colonne in base al tipo di Log
     for(int j =0; j< columnName[logType].size(); j++)
     {
-        ui ->TableW_log->insertColumn(j);
+        ui->TableW_log->insertColumn(j);
         ui->TableW_log->setHorizontalHeaderItem(j, new QTableWidgetItem(columnName[logType][j]));
     }
     ui ->TableW_log->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -132,22 +140,20 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
 
     // Apre il file in modalità di lettura
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        // Crea un oggetto QTextStream per leggere il file
         QTextStream in(&file);
 
-        // Legge il contenuto del file riga per riga
+        // Legge il contenuto del file
         int i = 0;
         while (!in.atEnd()) {
             QString line = in.readLine();
-            // Fai qualcosa con la riga letta, ad esempio stampala
-            // qDebug() << line;
+
             ui->TableW_log->insertRow(i);
-            QStringList log_line = line.split(";");
+            QStringList log_line = line.split(";"); // splitto line per recuperare i vari campi
             QString item;
-            for(int j = 0; j < log_line.size(); j++){
+            for(int j = 0; j < log_line.size(); j++){ // gli inserisco nelle giuste colonne
               item = log_line.at(j);
 
-              if(j > 2 && (logType == CONTROL || logType == STEP)){
+              if(j > 2 && (logType == CONTROL || logType == STEP)){ // sostituisco 0 e 1 per facilitare lettura
                 if(item == "0")
                     item = "False";
                 else if(item== "1")
@@ -158,12 +164,7 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
             i++;
 
         }
-
-        // Chiude il file dopo aver finito di leggere
         file.close();
-    } else {
-        // Se non è possibile aprire il file, gestisci l'errore
-        //qDebug() << "Impossibile aprire il file" << fileName;
     }
 }
 

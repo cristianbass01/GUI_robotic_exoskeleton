@@ -15,7 +15,7 @@ private:
   int nLineWalk, nLineStep;
 
   /**
-   * @brief addToFile Salva il log nel file
+   * @brief Salva il log nel file
    * @param fileName Nome del file dove salvare il log
    * @param log Log da inserire
    */
@@ -25,13 +25,13 @@ public:
   Log() {}
 
   /**
-   * @brief Log istanzia Log
+   * @brief istanzia Log
    * @param dir Dove va salvato il file, percorso del utente
    */
   Log(QString dir);
 
   /**
-   * @brief addWalkingEx Aggiunge Log per l'azione Walking
+   * @brief Aggiunge Log per l'azione Walking
    * @param set Numero di passi impostati
    * @param executed Numero di passi eseguiti
    * @param pause Numero di passi rimanenti
@@ -40,7 +40,7 @@ public:
   void addWalkingEx(int set, int executed, int pause, QTime time);
 
   /**
-   * @brief addStepEx Aggiunge Log per l'azione Step
+   * @brief Aggiunge Log per l'azione Step
    * @param leg Gamba con cui è stata eseguito il movimento
    * @param count Numero del passo eseguito di seguito
    * @param correct Se il passo si è concluso correttamente
@@ -50,7 +50,7 @@ public:
   void addStepEx(QString leg, int count, bool correct, bool close, QTime time);
 
   /**
-   * @brief addControlEx Aggiunge Log per l'azione Control
+   * @brief Aggiunge Log per l'azione Control
    * @param leg Gamba con cui è stata eseguito il movimento
    * @param correct Se il passo si è concluso correttamente
    * @param time Tempo di esecuzione
