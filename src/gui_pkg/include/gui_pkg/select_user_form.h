@@ -72,20 +72,20 @@ private slots:
     void createComboBox(int start, QString id);
 
     /**
-     * @brief editMode Cambia la grafica in base la modalità
+     * @brief Cambia la grafica in base la modalità
      * @param edit true se sto modificando l'utente
      */
     void editMode(bool edit);
 
     /**
-     * @brief checkCorrect Controlla che i dati inseriti rispettino dei canoni
+     * @brief Controlla che i dati inseriti rispettino dei canoni
      * @param edit true se sto modificando l'utente
      * @return
      */
     int checkCorrect(bool edit);
 
     /**
-     * @brief createUser Crea l'utente
+     * @brief Crea l'utente
      * @param overwrite obbliga la sovrascrizione
      */
     void createUser(bool overwrite);
@@ -103,7 +103,7 @@ private:
     int selectUser;
 
     /**
-     * @brief popUpMsg Mostra un PopUp
+     * @brief Mostra un PopUp
      * @param text testo da mostrare
      * @param InformativeText informazioni aggiuntive
      * @return
