@@ -37,8 +37,17 @@ private:
     SessionForm *session_;
     FrameWindow *frame_;
 
-    Log* log_;
     QSharedPointer<WalkThread> thread_;
+
+    Log* log_;
+
+    /**
+     * @brief Aggiunge Log per l'azione Control
+     * @param leg Gamba con cui è stata eseguito il movimento
+     * @param correct Se il passo si è concluso correttamente
+     * @param time Tempo di esecuzione
+     */
+    void addLog(QString leg, bool correct, QTime time);
 };
 
 #endif // CONTROL_FORM_H

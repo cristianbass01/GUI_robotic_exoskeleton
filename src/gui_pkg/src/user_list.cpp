@@ -1,6 +1,10 @@
 #include "user_list.h"
 #include "user.h"
 
+/**
+ * @brief Aggiunge un utente alla lista degli utenti.
+ * @param user L'utente da aggiungere.
+ */
 void UserList::add(const User& user) {
   int p = findPos(user.getId()); // cerco se l'utente è gia' presente
   if(p != -1) // se è presente allora lo modifico
@@ -18,12 +22,21 @@ void UserList::add(const User& user) {
   userList.append(user); // altrimenti aggiungo
 }
 
+/**
+ * @brief Rimuove un utente dalla lista degli utenti dato l'ID.
+ * @param id L'ID dell'utente da rimuovere.
+ */
 void UserList::remove(const QString& id) {
   int p = findPos(id);
   if(p>=0)
     userList.removeAt(p);
 }
 
+/**
+ * @brief Trova un utente nella lista degli utenti dato l'ID.
+ * @param id L'ID dell'utente da cercare.
+ * @return Un puntatore all'utente trovato, o nullptr se non trovato.
+ */
 User* UserList::find(const QString& id) {
   foreach (const User& user, userList) {
     if (user.getId() == id) {
@@ -33,6 +46,11 @@ User* UserList::find(const QString& id) {
   return nullptr;
 }
 
+/**
+ * @brief Trova la posizione di un utente nella lista degli utenti dato l'ID.
+ * @param id L'ID dell'utente da cercare.
+ * @return La posizione dell'utente trovato, o -1 se non trovato.
+ */
 int UserList::findPos(const QString& id) {
   int pos = 0;
   foreach (User user, userList) {
@@ -44,12 +62,21 @@ int UserList::findPos(const QString& id) {
   return -1;
 }
 
+/**
+ * @brief Restituisce un puntatore all'utente nella lista dato l'indice.
+ * @param pos L'indice dell'utente da restituire.
+ * @return Un puntatore all'utente, o nullptr se l'indice è fuori dai limiti.
+ */
 User* UserList::getAt(const int pos){
   if(pos >= 0 && pos < userList.size())
     return &userList[pos];
   return nullptr;
 }
 
+/**
+ * @brief Restituisce un puntatore all'ultimo utente nella lista.
+ * @return Un puntatore all'ultimo utente, o nullptr se la lista è vuota.
+ */
 User* UserList::getLast() {
   if (userList.isEmpty()) {
     // lista vuota, restituisce un utente vuoto
@@ -58,6 +85,10 @@ User* UserList::getLast() {
   return &userList.last();
 }
 
+/**
+ * @brief Salva la lista degli utenti in un file XML.
+ * @param fileName Il nome del file XML in cui salvare la lista degli utenti.
+ */
 void UserList::saveXml(const QString& fileName) {
   QFile xmlFile(fileName);
   if (!xmlFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -93,6 +124,10 @@ void UserList::saveXml(const QString& fileName) {
   xmlFile.close();
 }
 
+/**
+ * @brief Carica la lista degli utenti da un file XML.
+ * @param fileName Il nome del file XML da cui caricare la lista degli utenti.
+ */
 void UserList::loadXml(const QString& fileName) {
   QFile xmlFile(fileName);
   if (!xmlFile.open(QIODevice::ReadOnly | QIODevice::Text)) {

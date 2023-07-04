@@ -101,3 +101,14 @@ void ControlForm::setEnabled(bool state){
     //ui->stopButton->setEnabled(state);
     ui->startButton->setEnabled(state);
 }
+
+/**
+ * @brief Aggiunge Log per l'azione Control
+ * @param leg Gamba con cui è stata eseguito il movimento
+ * @param correct Se il passo si è concluso correttamente
+ * @param time Tempo di esecuzione
+ */
+void ControlForm::addLog(QString leg, bool correct, QTime time){
+  if(log_ != nullptr) // non sono in demo
+      log_->addControlEx(leg, correct, time);
+}

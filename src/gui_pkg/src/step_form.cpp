@@ -122,12 +122,19 @@ void StepForm::movement(const std::string code){
     addLog(leg, correct, close, t.addMSecs(ms));
 }
 
+/**
+ * @brief Aggiunge Log per l'azione Step
+ * @param leg Gamba con cui è stata eseguito il movimento
+ * @param correct Se il passo si è concluso correttamente
+ * @param close Se il passo è di chiusura
+ * @param time Tempo di esecuzione
+ */
 void StepForm::addLog(QString leg, bool correct, bool close, QTime time)
 {
     if(log_ != nullptr) // non sono in demo
     {
         log_->addStepEx(leg, ++stepCount, correct, close, time);
-        if(close)
+        if(close) // se è l'ultimo passo allora azzero il numero di passi
             stepCount = 0;
     }
 }

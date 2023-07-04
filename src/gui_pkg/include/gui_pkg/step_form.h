@@ -36,6 +36,14 @@ private:
     int stepCount;
 
     void movement(const std::string code);
+
+    /**
+     * @brief Aggiunge Log per l'azione Step
+     * @param leg Gamba con cui è stata eseguito il movimento
+     * @param correct Se il passo si è concluso correttamente
+     * @param close Se il passo è di chiusura
+     * @param time Tempo di esecuzione
+     */
     void addLog(QString leg, bool correct, bool close, QTime time);
 };
 

@@ -27,6 +27,11 @@ SelectUserForm::~SelectUserForm()
     delete ui;
 }
 
+/**
+ * @brief Si occupa del popolamento della comboBox
+ * @param start elemento da selezionare, ma se è presente un id valido allora viene selezionato quello
+ * @param id imposta nella comboBox l'utente passato, se trovato
+ */
 void SelectUserForm::createComboBox(int start, QString id){
     // svuoto il contenuto attuale
     ui->CB_selectUser->clear();
@@ -65,6 +70,199 @@ void SelectUserForm::createComboBox(int start, QString id){
 }
 
 
+void SelectUserForm::setEditMode()
+{
+    setReadOnly(false);
+    editMode(true);
+}
+
+/**
+ * @brief Controlla che i dati inseriti rispettino dei canoni
+ * @param edit true se sto modificando l'utente
+ * @return
+ */
+int SelectUserForm::checkCorrect(bool edit){
+  bool create = true;
+
+  id_user = ui->TB_id->text();
+
+  if(ui->TB_name->text().size() < 3 || ui->TB_surname->text().size() < 3)
+  {
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setWindowTitle("Warning");
+    msgBox.setText("One or more fields may be incomplete");
+    msgBox.setInformativeText("First name and Last name must have at least 3 letters");
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
+    return -1;
+    }
+
+    if(!edit && userList.findPos(id_user)>=0) // utente già presente
+    {
+      if(ui->TB_id->isReadOnly()) // sto modificando
+          create = popUpMsg("You will overwrite a user", "Are you sure?");
+      else
+          create = popUpMsg("The user already exists", "Do you want overwrite?");
+
+      return create * 2 -1; // -1 -> no save, 1 overwrite
+    }
+    return 0; // save
+}
+
+/**
+ * @brief Crea l'utente
+ * @param overwrite obbliga la sovrascrizione
+ */
+void SelectUserForm::createUser(bool overwrite){
+
+    QString sex;
+    if(ui->RB_male->isChecked())
+      sex="Male";
+    else if(ui->RB_female->isChecked())
+      sex="Female";
+    else
+      sex="Other";
+
+    QString dir;
+    if(!overwrite){
+        dir = "a000";
+        User *tmp = userList.getLast();
+        if(tmp != nullptr)
+        {
+          QString lastDir = userList.getLast()->getDir();
+          QChar chr = lastDir[0];
+          int ch = chr.unicode();
+          int num = lastDir.mid(1,3).toInt();
+          num++;
+          if(num == 1000)
+          {
+            num = 0;
+            chr = QChar(++ch);
+          }
+          QString n = QString::number(num);
+          dir = chr + n.rightJustified(3, '0', true);
+        }
+    }
+    else {
+      dir = userList.find(ui->TB_id->text())->getDir();
+    }
+    id_user = dir;
+    User u(dir,id_user,ui->TB_name->text(),ui->TB_surname->text(),ui->DE_birthday->date(), sex,
+           ui->NB_height->value(), ui->NB_weight->value(), ui->NB_upperLeg->value(), ui->NB_lowerLeg->value());
+
+    userList.add(u);
+
+    QDir direct;
+    if (!direct.exists(path+dir))
+        direct.mkpath(path+dir);
+
+    userList.saveXml(path + "users.xml");
+
+
+    createComboBox(0,id_user);
+}
+
+/**
+ * @brief Cambia lo stato tra modalità solo lettura e modalità di modifica, sono interessati gli elementi adibiti al inserimento dei dati
+ * @param status True se si vole impostare in modalitè solo lettura, False per disattivarla
+ */
+void SelectUserForm::setReadOnly(bool status)
+{
+    ui->TB_name->setReadOnly(status);
+    ui->TB_surname->setReadOnly(status);
+    ui->DE_birthday->setReadOnly(status);
+    ui->RB_male->setEnabled(!status);
+    ui->RB_female->setEnabled(!status);
+    ui->RB_other->setEnabled(!status);
+    ui->NB_height->setReadOnly(status);
+    ui->NB_weight->setReadOnly(status);
+    ui->NB_upperLeg->setReadOnly(status);
+    ui->NB_lowerLeg->setReadOnly(status);
+}
+
+/**
+ * @brief Cambia la grafica in base la modalità
+ * @param edit true se sto modificando l'utente
+ */
+void SelectUserForm::editMode(bool edit)
+{
+    int size = 30 * edit; // true -> 1, false -> 0
+    ui->BT_save->setMaximumHeight(size);
+    ui->BT_cancel->setMaximumHeight(size);
+    ui->BT_create->setMaximumHeight(30 - size);
+
+    ui->BT_save->setMinimumHeight(size);
+    ui->BT_cancel->setMinimumHeight(size);
+    ui->BT_create->setMinimumHeight(30 - size);
+
+    ui->BT_delete->setVisible(!edit);
+    ui->BT_selectUser->setVisible(!edit);
+    ui->BT_viewLog->setVisible(!edit);
+}
+
+/**
+ * @brief Mostra un PopUp
+ * @param text testo da mostrare
+ * @param InformativeText informazioni aggiuntive
+ * @return
+ */
+bool SelectUserForm::popUpMsg(QString text, QString InformativeText){
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setWindowTitle("Warning");
+    msgBox.setText(text);
+    msgBox.setInformativeText(InformativeText);
+    msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+    msgBox.setDefaultButton(QMessageBox::No);
+
+    int ret = msgBox.exec();
+    msgBox.close();
+    return (ret == QMessageBox::Yes);
+}
+
+/**
+ * @brief Esegue l'aggiunta del utente o la sua modifica a seconda se si è in Create o in Edit (Select)
+ */
+void SelectUserForm::on_BT_create_clicked()
+{
+    if(ui->BT_create->text()=="Edit"){ // sono in edit mode
+        setEditMode();
+    }
+    else { // altrimenti sto creando un utente
+      int status = checkCorrect(false);
+      if (status < 0)
+          return;
+      createUser(status);
+    }
+}
+
+/**
+ * @brief Recupera l'utente e avvia il @link(TrainingForm)
+ */
+void SelectUserForm::on_BT_selectUser_clicked()
+{
+    currentUser = userList.getAt(selectUser); // imposto l'utente corrente
+    frame_->customizeWindow(new TrainingForm(frame_));
+    frame_->show();
+}
+
+/**
+ * @brief Visualizza LogView passando l'utente selezionato
+ */
+void SelectUserForm::on_BT_viewLog_clicked()
+{
+    frame_->customizeWindow(new LogView(frame_, ui->TB_id->text()));
+    frame_->show();
+
+    this->hide();
+}
+
+/**
+ * @brief chiamata quando cambia l'elemento selezionato, si occupa di impostare i parametri
+ * del utente selezionato al inteno dei vari cambi
+ * @param index indice del elemento selezionato
+ */
 void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
 {
     setReadOnly(index>0); // se è maggiore di zero allora sono in selezione
@@ -116,167 +314,6 @@ void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
     ui->NB_lowerLeg->setValue(u->getLowerLeg());
 }
 
-void SelectUserForm::on_BT_create_clicked()
-{
-    if(ui->BT_create->text()=="Edit"){ // sono in edit mode
-        setEditMode();
-    }
-    else { // altrimenti sto creando un utente
-      int status = checkCorrect(false);
-      if (status < 0)
-          return;
-      createUser(status);
-    }
-}
-
-void SelectUserForm::setEditMode()
-{
-    setReadOnly(false);
-    editMode(true);
-}
-
-int SelectUserForm::checkCorrect(bool edit){
-  bool create = true;
-
-  id_user = ui->TB_id->text();
-
-  if(ui->TB_name->text().size() < 3 || ui->TB_surname->text().size() < 3)
-  {
-    QMessageBox msgBox;
-    msgBox.setIcon(QMessageBox::Warning);
-    msgBox.setWindowTitle("Warning");
-    msgBox.setText("One or more fields may be incomplete");
-    msgBox.setInformativeText("First name and Last name must have at least 3 letters");
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.exec();
-    return -1;
-    }
-
-    if(!edit && userList.findPos(id_user)>=0) // utente già presente
-    {
-      if(ui->TB_id->isReadOnly()) // sto modificando
-          create = popUpMsg("You will overwrite a user", "Are you sure?");
-      else
-          create = popUpMsg("The user already exists", "Do you want overwrite?");
-
-      return create * 2 -1; // -1 -> no save, 1 overwrite
-    }
-    return 0; // save
-}
-
-void SelectUserForm::createUser(bool overwrite){
-
-    QString sex;
-    if(ui->RB_male->isChecked())
-      sex="Male";
-    else if(ui->RB_female->isChecked())
-      sex="Female";
-    else
-      sex="Other";
-
-    QString dir;
-    if(!overwrite){
-        dir = "a000";
-        User *tmp = userList.getLast();
-        if(tmp != nullptr)
-        {
-          QString lastDir = userList.getLast()->getDir();
-          QChar chr = lastDir[0];
-          int ch = chr.unicode();
-          int num = lastDir.mid(1,3).toInt();
-          num++;
-          if(num == 1000)
-          {
-            num = 0;
-            chr = QChar(++ch);
-          }
-          QString n = QString::number(num);
-          dir = chr + n.rightJustified(3, '0', true);
-        }
-    }
-    else {
-      dir = userList.find(ui->TB_id->text())->getDir();
-    }
-    id_user = dir;
-    User u(dir,id_user,ui->TB_name->text(),ui->TB_surname->text(),ui->DE_birthday->date(), sex,
-           ui->NB_height->value(), ui->NB_weight->value(), ui->NB_upperLeg->value(), ui->NB_lowerLeg->value());
-
-    userList.add(u);
-
-    QDir direct;
-    if (!direct.exists(path+dir))
-        direct.mkpath(path+dir);
-
-    userList.saveXml(path + "users.xml");
-
-
-    createComboBox(0,id_user);
-}
-
-void SelectUserForm::setReadOnly(bool status)
-{
-    ui->TB_name->setReadOnly(status);
-    ui->TB_surname->setReadOnly(status);
-    ui->DE_birthday->setReadOnly(status);
-    ui->RB_male->setEnabled(!status);
-    ui->RB_female->setEnabled(!status);
-    ui->RB_other->setEnabled(!status);
-    ui->NB_height->setReadOnly(status);
-    ui->NB_weight->setReadOnly(status);
-    ui->NB_upperLeg->setReadOnly(status);
-    ui->NB_lowerLeg->setReadOnly(status);
-}
-
-void SelectUserForm::editMode(bool edit)
-{
-    int size = 30 * edit; // true -> 1, false -> 0
-    ui->BT_save->setMaximumHeight(size);
-    ui->BT_cancel->setMaximumHeight(size);
-    ui->BT_create->setMaximumHeight(30 - size);
-
-    ui->BT_save->setMinimumHeight(size);
-    ui->BT_cancel->setMinimumHeight(size);
-    ui->BT_create->setMinimumHeight(30 - size);
-
-    ui->BT_delete->setVisible(!edit);
-    ui->BT_selectUser->setVisible(!edit);
-    ui->BT_viewLog->setVisible(!edit);
-}
-
-void SelectUserForm::on_BT_selectUser_clicked()
-{
-    currentUser = userList.getAt(selectUser); // imposto l'utente corrente
-    frame_->customizeWindow(new TrainingForm(frame_));
-    frame_->show();
-}
-
-void SelectUserForm::on_BT_viewLog_clicked()
-{
-    frame_->customizeWindow(new LogView(frame_, ui->TB_id->text()));
-    frame_->show();
-
-    this->hide();
-}
-
-bool SelectUserForm::popUpMsg(QString text, QString InformativeText){
-    QMessageBox msgBox;
-    msgBox.setIcon(QMessageBox::Warning);
-    msgBox.setWindowTitle("Warning");
-    msgBox.setText(text);
-    msgBox.setInformativeText(InformativeText);
-    msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
-    msgBox.setDefaultButton(QMessageBox::No);
-
-    int ret = msgBox.exec();
-    msgBox.close();
-    return (ret == QMessageBox::Yes);
-}
-
-void SelectUserForm::on_finishButton_clicked()
-{
-  frame_->close();
-}
-
 void SelectUserForm::on_BT_save_clicked()
 {
     if(checkCorrect(true) >= 0)
@@ -322,3 +359,5 @@ void SelectUserForm::on_BT_delete_clicked()
       createComboBox(1, "");
     }
 }
+
+void SelectUserForm::on_finishButton_clicked() { frame_->close(); }

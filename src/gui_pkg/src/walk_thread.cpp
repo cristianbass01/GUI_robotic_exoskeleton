@@ -19,6 +19,7 @@ void WalkThread::run()
     QTime t = QTime(0,0,0);
     QElapsedTimer timer;
     timer.start();
+
     int step;
     for (step = 1; step <= numSteps_; ++step)
     {
@@ -73,7 +74,13 @@ void WalkThread::stop(){
     stopped_ = true;
 }
 
-
+/**
+ * @brief aggiunta del Log
+ * @param set passi impostati
+ * @param executed passi eseguiti
+ * @param pause passi rimanenti dopo pause
+ * @param time tempo rimaneto
+ */
 void WalkThread::addLog(int set, int executed, int pause, QTime time){
     if(log_ != nullptr) // sono se non è in demo
         log_->addWalkingEx(set, executed, pause, time);
