@@ -13,8 +13,13 @@
 #include <log_view.h>
 #include <training_form.h>
 
-SelectUserForm::SelectUserForm(FrameWindow *parent, bool create, QString id) :
-  QWidget(parent), ui(new Ui::SelectUserForm)
+/**
+ * @brief inizializza la form
+ * @param parent
+ * @param create True se sono in modalità creazione per l'utente
+ * @param id seleziona l'utente passato
+ */
+SelectUserForm::SelectUserForm(FrameWindow *parent, bool create, QString id) : QWidget(parent), ui(new Ui::SelectUserForm)
 {
     frame_ = parent;
     ui->setupUi(this);
@@ -86,6 +91,7 @@ int SelectUserForm::checkCorrect(bool edit){
 
   id_user = ui->TB_id->text();
 
+  // la lunghezza minima del nome è cognome deve essere di 3 caratteri
   if(ui->TB_name->text().size() < 3 || ui->TB_surname->text().size() < 3)
   {
     QMessageBox msgBox;
@@ -105,7 +111,7 @@ int SelectUserForm::checkCorrect(bool edit){
       else
           create = popUpMsg("The user already exists", "Do you want overwrite?");
 
-      return create * 2 -1; // -1 -> no save, 1 overwrite
+      return create ? 1 : -1; // -1 -> no save, 1 overwrite
     }
     return 0; // save
 }
@@ -116,6 +122,7 @@ int SelectUserForm::checkCorrect(bool edit){
  */
 void SelectUserForm::createUser(bool overwrite){
 
+    // trasformo il radiobutton in una string
     QString sex;
     if(ui->RB_male->isChecked())
       sex="Male";
@@ -126,6 +133,7 @@ void SelectUserForm::createUser(bool overwrite){
 
     QString dir;
     if(!overwrite){
+        // calcolo id del utente
         dir = "a000";
         User *tmp = userList.getLast();
         if(tmp != nullptr)
@@ -145,6 +153,7 @@ void SelectUserForm::createUser(bool overwrite){
         }
     }
     else {
+      // trovo l'utente da modificare
       dir = userList.find(ui->TB_id->text())->getDir();
     }
     id_user = dir;
@@ -153,12 +162,12 @@ void SelectUserForm::createUser(bool overwrite){
 
     userList.add(u);
 
+    //creo la cartella
     QDir direct;
     if (!direct.exists(path+dir))
         direct.mkpath(path+dir);
 
     userList.saveXml(path + "users.xml");
-
 
     createComboBox(0,id_user);
 }
@@ -318,16 +327,13 @@ void SelectUserForm::on_BT_save_clicked()
 {
     if(checkCorrect(true) >= 0)
     {
-      createUser(true);
-      editMode(false);
+        createUser(true);
+        editMode(false);
     }
 }
 
 void SelectUserForm::on_BT_cancel_clicked()
 {
-    int curr = ui->CB_selectUser->currentIndex();
-    ui->CB_selectUser->setCurrentIndex(0);
-    ui->CB_selectUser->setCurrentIndex(curr);
     editMode(false);
     setReadOnly(true);
 }
@@ -336,9 +342,6 @@ void SelectUserForm::on_BT_delete_clicked()
 {
     if(popUpMsg("The current user will be deleted", "All their information and log will be deleted.\nAre you sure?"))
     {
-
-      QString directoryPath = "/percorso/della/directory";
-
       QDir directory(path + userList.find(ui->TB_id->text())->getDir());
 
       if (directory.exists()) {
@@ -346,7 +349,6 @@ void SelectUserForm::on_BT_delete_clicked()
 
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Critical);
-            msgBox.setText("Si è verificato un errore!");
             msgBox.setWindowTitle("Error");
             msgBox.setText("Unable to delete user");
             msgBox.setInformativeText("Error deleting directory");
@@ -354,10 +356,13 @@ void SelectUserForm::on_BT_delete_clicked()
           }
       }
 
+      // rimuovo l'utente e aggiorno l'xml
       userList.remove(ui->TB_id->text());
       userList.saveXml(path + "users.xml");
-      createComboBox(1, "");
+      createComboBox(1, ""); // ricarico la ComboBox
     }
 }
 
-void SelectUserForm::on_finishButton_clicked() { frame_->close(); }
+void SelectUserForm::on_finishButton_clicked() {
+  frame_->close();
+}

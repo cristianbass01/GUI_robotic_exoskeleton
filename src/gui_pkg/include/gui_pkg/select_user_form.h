@@ -24,6 +24,12 @@ class SelectUserForm : public QWidget
     Q_OBJECT
 
 public:
+    /**
+     * @brief inizializza la form
+     * @param parent
+     * @param create True se sono in modalità creazione per l'utente
+     * @param id seleziona l'utente passato
+     */
     explicit SelectUserForm(FrameWindow  *parent = nullptr, bool create = false, QString id = nullptr);
     ~SelectUserForm();
 
