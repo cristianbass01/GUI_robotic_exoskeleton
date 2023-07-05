@@ -27,7 +27,7 @@ QPushButton{
 	background-color: #68ACE4;
 	border-radius: 15px;
 	font: bold;
-	padding: 10px;
+	/*padding: 10px;*/
 }
 
 QPushButton:hover {
@@ -221,7 +221,6 @@ QPushButton#rightFirstStepButton, QPushButton#leftFirstStepButton, QPushButton#f
    <addaction name="separator"/>
    <addaction name="actionHelp"/>
    <addaction name="actionInfo"/>
-   <addaction name="separator"/>
    <addaction name="separator"/>
   </widget>
   <action name="actionChange_settings">

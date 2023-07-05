@@ -22,7 +22,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../../rc/resource.qrc">:/INDI/INDI/INDI Logo-50.png</pixmap>
+        <pixmap>:/INDI/INDI/INDI Logo-50.png</pixmap>
        </property>
       </widget>
      </item>
@@ -78,10 +78,10 @@
               <enum>QAbstractItemView::ScrollPerItem</enum>
              </property>
              <property name="headerHidden">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
              <attribute name="headerVisible">
-              <bool>false</bool>
+              <bool>true</bool>
              </attribute>
              <attribute name="headerCascadingSectionResizes">
               <bool>true</bool>
@@ -247,8 +247,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../rc/resource.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

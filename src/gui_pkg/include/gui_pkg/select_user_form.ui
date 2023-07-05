@@ -370,7 +370,7 @@
            <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
-             <height>5</height>
+             <height>30</height>
             </size>
            </property>
           </spacer>
@@ -520,7 +520,7 @@
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>30</height>
+                 <height>40</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -551,7 +551,7 @@
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
-                   <height>30</height>
+                   <height>40</height>
                   </size>
                  </property>
                  <property name="maximumSize">
@@ -577,7 +577,7 @@
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
-                   <height>30</height>
+                   <height>40</height>
                   </size>
                  </property>
                  <property name="maximumSize">
@@ -605,7 +605,7 @@
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>30</height>
+                 <height>40</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -641,11 +641,11 @@
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="BT_selectUser">
+              <widget class="QPushButton" name="BT_select">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>30</height>
+                 <height>40</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -669,7 +669,7 @@
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>30</height>
+                 <height>40</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -789,7 +789,7 @@
   <tabstop>BT_cancel</tabstop>
   <tabstop>BT_save</tabstop>
   <tabstop>BT_delete</tabstop>
-  <tabstop>BT_selectUser</tabstop>
+  <tabstop>BT_select</tabstop>
   <tabstop>BT_viewLog</tabstop>
   <tabstop>finishButton</tabstop>
  </tabstops>

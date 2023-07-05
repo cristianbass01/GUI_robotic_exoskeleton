@@ -196,17 +196,17 @@ void SelectUserForm::setReadOnly(bool status)
  */
 void SelectUserForm::editMode(bool edit)
 {
-    int size = 30 * edit; // true -> 1, false -> 0
-    ui->BT_save->setMaximumHeight(size);
-    ui->BT_cancel->setMaximumHeight(size);
-    ui->BT_create->setMaximumHeight(30 - size);
+    int size = 40;
+    ui->BT_save->setMaximumHeight(size * edit); // true -> 1, false -> 0
+    ui->BT_cancel->setMaximumHeight(size * edit);
+    ui->BT_create->setMaximumHeight(size * !edit);
 
-    ui->BT_save->setMinimumHeight(size);
-    ui->BT_cancel->setMinimumHeight(size);
-    ui->BT_create->setMinimumHeight(30 - size);
+    ui->BT_save->setMinimumHeight(size * edit);
+    ui->BT_cancel->setMinimumHeight(size * edit);
+    ui->BT_create->setMinimumHeight(size * !edit);
 
     ui->BT_delete->setVisible(!edit);
-    ui->BT_selectUser->setVisible(!edit);
+    ui->BT_select->setVisible(!edit);
     ui->BT_viewLog->setVisible(!edit);
 }
 
@@ -249,7 +249,7 @@ void SelectUserForm::on_BT_create_clicked()
 /**
  * @brief Recupera l'utente e avvia il @link(TrainingForm)
  */
-void SelectUserForm::on_BT_selectUser_clicked()
+void SelectUserForm::on_BT_select_clicked()
 {
     currentUser = userList.getAt(selectUser); // imposto l'utente corrente
     frame_->customizeWindow(new TrainingForm(frame_));
@@ -275,7 +275,7 @@ void SelectUserForm::on_BT_viewLog_clicked()
 void SelectUserForm::on_CB_selectUser_currentIndexChanged(int index)
 {
     setReadOnly(index>0); // se è maggiore di zero allora sono in selezione
-    ui->BT_selectUser->setVisible(index>0);
+    ui->BT_select->setVisible(index>0);
     ui->BT_viewLog->setVisible(index>0);
     ui->BT_delete->setVisible(index>0);
 

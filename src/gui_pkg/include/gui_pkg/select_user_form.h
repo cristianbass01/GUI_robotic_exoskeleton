@@ -51,7 +51,7 @@ private slots:
     /**
      * @brief Recupera l'utente e avvia il @link(TrainingForm)
      */
-    void on_BT_selectUser_clicked();
+    void on_BT_select_clicked();
 
     /**
      * @brief Visualizza LogView passando l'utente selezionato

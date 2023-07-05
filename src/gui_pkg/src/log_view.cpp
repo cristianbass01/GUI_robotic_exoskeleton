@@ -73,9 +73,9 @@ void LogView::on_CB_user_currentIndexChanged(int index)
   QStringList logFiles = logsDir.entryList(QDir::Files);
 
   // aggiungo le categorie del TreeWidget
-  controlItem = new QTreeWidgetItem(QStringList() << "Control Ex");
-  stepItem = new QTreeWidgetItem(QStringList() << "Step Ex");
-  walkingItem = new QTreeWidgetItem(QStringList() << "Walking Ex");
+  controlItem = new QTreeWidgetItem(QStringList() << "Control exercise");
+  stepItem = new QTreeWidgetItem(QStringList() << "Step exercise");
+  walkingItem = new QTreeWidgetItem(QStringList() << "Walking exercise");
 
   ui->treeW_log->addTopLevelItem(controlItem);
   ui->treeW_log->addTopLevelItem(stepItem);
@@ -95,7 +95,7 @@ void LogView::on_CB_user_currentIndexChanged(int index)
         walkingItem->addChild(item);
   }
 
-  ui->treeW_log->header()->setSectionResizeMode(QHeaderView::Stretch);
+  //ui->treeW_log->header()->setSectionResizeMode(QHeaderView::Stretch);
   ui->treeW_log->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
   controlItem->sortChildren(0, Qt::DescendingOrder);
