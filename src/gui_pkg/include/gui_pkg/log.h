@@ -12,7 +12,6 @@ class Log
 private:
   QString date;
   QString dir;
-  int nLineWalk, nLineStep;
 
   /**
    * @brief Salva il log nel file
@@ -22,7 +21,6 @@ private:
   void addToFile(QString fileName, QString log);
 
 public:
-  Log() {}
 
   /**
    * @brief istanzia Log
