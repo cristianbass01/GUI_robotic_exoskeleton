@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8.3)
 #get_filename_component(PACKAGE_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 message("Creating Package: ${PACKAGE_NAME}")
 
-project(gui_pkg)  ## this package name is the name of the directory this cmake file is in
+project(alice_pkg)  ## this package name is the name of the directory this cmake file is in
 
 
 ################################

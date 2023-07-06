@@ -1,5 +1,5 @@
 #include "connected_component.h"
-#include "gui_pkg/Test.h"
+#include "alice_pkg/Test.h"
 #include <QMessageBox>
 #include <QString>
 #include <QCoreApplication>
@@ -107,7 +107,7 @@ void ConnectedComponent::initialize(int argc, char **argv){
  * @param code
  */
 bool ConnectedComponent::step(const std::string &code){
-    gui_pkg::Test srv;
+    alice_pkg::Test srv;
     srv.request.input = code;
     ROS_INFO("Trying to send a service call");
     if (this->client_.call(srv))
@@ -166,7 +166,7 @@ bool ConnectedComponent::connect(){
         nh_.reset(new ros::NodeHandle("~"));
 
         //Trying to connect to the server
-        client_ = nh_->serviceClient<gui_pkg::Test>("/Movement_srv");
+        client_ = nh_->serviceClient<alice_pkg::Test>("/Movement_srv");
 
         if(!isConnected()){
 
