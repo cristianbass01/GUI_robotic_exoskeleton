@@ -139,6 +139,9 @@ bool ConnectedComponent::connect(){
     bool active = this->timer_->isActive();
     if(active) this->timer_->stop();
 
+    // DEBUG MANUALE
+    // this->debug_ == true;
+
     if(!this->isConnected() ){
         // initialize ROS
         ros::init(this->argc, this->argv, "serial_connection");
