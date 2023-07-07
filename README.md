@@ -6,12 +6,17 @@ The interface is implemented in C++ with the aid of the Qt libraries for the gra
 
 The validation of the interface was conducted through tests on a prototype exoskeleton, demonstrating its effectiveness and ease of use. 
 
-## 2. Installation
+## 2. Explanation of branches
+- **main**: contains **only alice_pkg** (if you want to debug it setup will download also test branch) -> need to install manually the rosserial_python package
+- **test**: contains **only fake_exo_pkg** in order to debug without the exoskeleton -> need to install manually both alice_pkg and rosserial_python packages
+- **workspace**: contains **both the packages and rosserial_python** package (you don't need to install it)
+
+## 3. Installation
 If you have Windows 10 or 11 and want to run it, you must install wsl and install an Ubuntu-20.04 distribution by using prompt:
 ```
 wsl --install -d Ubuntu-20.04
 ```
-### 2.1 Download files
+### 3.1 Download files
 Open the terminal and clone the repo:
 ```
 git clone https://github.com/cristianbass01/GUI_robotic_exoskeleton.git
@@ -31,7 +36,7 @@ Go to the repo directory created:
 cd GUI_robotic_exoskeleton-workspace
 ```
 
-### 2.2 Setup environment (only on Ubuntu 20.04)
+### 3.2 Setup environment (only on Ubuntu 20.04)
 In order to be able to run this application, you need to have ROS Noetic installed on your system.
 If not, you can install it using:
 ```
@@ -44,7 +49,7 @@ After the installation of ROS noetic, you could make the setup.sh file executabl
 chmod +x setup.sh
 ```
 
-### 2.3 Launch file  
+### 3.3 Launch file  
 Now you can run setup.sh:
 ```
 ./setup.sh
@@ -54,7 +59,7 @@ A new launch.sh file is being created, run it:
 ```
 ./launch.sh
 ```
-### 2.4 Debug Mode
+### 3.4 Debug Mode
 It is possible to run the application in debug mode without the connection to the exoskeleton (just to test how it works)
 Configurate the setup adding debug and run it:
 ```
@@ -66,6 +71,6 @@ A new launch.sh file is being created, run it using debug (or not if you don't w
 ./launch.sh debug
 ```
 
-## 3. Authors
+## 4. Authors
 - Cristian Bassotto
 - Nicola Busato
