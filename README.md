@@ -19,8 +19,8 @@ git clone https://github.com/cristianbass01/GUI_robotic_exoskeleton.git
 or download the zip file and then decompress it:
 
 ```
-wget https://github.com/cristianbass01/GUI_robotic_exoskeleton/archive/refs/heads/main.zip
-unzip main.zip
+wget https://github.com/cristianbass01/GUI_robotic_exoskeleton/archive/refs/heads/workspace.zip
+unzip workspace.zip
 ```
 If you don't have unzip installed:
 ```
@@ -28,7 +28,7 @@ sudo apt install unzip
 ```
 Go to the repo directory created:
 ```
-cd GUI_robotic_exoskeleton-main
+cd GUI_robotic_exoskeleton-workspace
 ```
 
 ### 2.2 Setup environment
