@@ -6,56 +6,10 @@ The interface is implemented in C++ with the aid of the Qt libraries for the gra
 
 The validation of the interface was conducted through tests on a prototype exoskeleton, demonstrating its effectiveness and ease of use. 
 
-## 2. Installation on Ubuntu
-If you have Windows 10 or 11 and want to run it, you must install wsl and install an Ubuntu-20.04 distribution by using prompt:
-```
-wsl --install -d Ubuntu-20.04
-```
-### 2.1 Download files
-Open the terminal and clone the repo:
-```
-git clone https://github.com/cristianbass01/GUI_robotic_exoskeleton.git
-```
-or download the zip file and then decompress it:
+## 2. Fake_exo_pkg
+This is just a pkg to simulate the response of ALICE exoskeleton
 
-```
-wget https://github.com/cristianbass01/GUI_robotic_exoskeleton/archive/refs/heads/main.zip
-unzip main.zip
-```
-If you don't have unzip installed:
-```
-sudo apt install unzip
-```
-Go to the repo directory created:
-```
-cd GUI_robotic_exoskeleton-main
-```
+In order to download the GUI go to main or workspace branch
 
-### 2.2 Setup environment
-In order to be able to run this application, you need to have ROS Noetic installed on your system.
-If not, you can install it using:
-```
-wget -c https://raw.githubusercontent.com/qboticslabs/ros_install_noetic/master/ros_install_noetic.sh && chmod +x ./ros_install_noetic.sh && ./ros_install_noetic.sh
-```
-If you have problems installing it, please refer to the official [ROS Noetic website](http://wiki.ros.org/noetic/Installation) for instructions.
-
-After the installation of ROS noetic, you could make the setup.sh file executable and run it:
-```
-chmod +x setup.sh
-./setup.sh
-```
-### 2.3 Launch file  
-A new launch.sh file is being created, run it:
-```
-./launch.sh
-```
-### 2.4 Debug Mode
-It is possible to run the application in debug mode without the connection to the exoskeleton (just to test how it works):
-```
-./launch.sh debug
-```
-
-
-## 3. Authors
+## 3. Author
 - Cristian Bassotto
-- Nicola Busato
