@@ -150,9 +150,9 @@ bool ConnectedComponent::connect(){
 
         if(!ros::master::check()){
             if(this->debug_mode_ == true)
-                stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
+                stream_ = popen("roslaunch fake_exo_pkg fake_exo_pkg.launch", "w");
             else
-                stream_ = popen("roslaunch gui_pkg rosserial.launch", "w");
+                stream_ = popen("roslaunch alice_pkg rosserial.launch", "w");
 
             if(!stream_){
                 errorConnectionMsg("Error occurred during initialization.");
@@ -172,9 +172,9 @@ bool ConnectedComponent::connect(){
 
             if(!isRosserialActive){
                 if(debug_mode_ == true)
-                    stream_ = popen("roslaunch fake_exo fake_exo.launch", "w");
+                    stream_ = popen("roslaunch fake_exo_pkg fake_exo_pkg.launch", "w");
                 else
-                    stream_ = popen("roslaunch gui_pkg rosserial.launch", "w");
+                    stream_ = popen("roslaunch alice_pkg rosserial.launch", "w");
 
                 if(!stream_){
                     errorConnectionMsg("Error occurred during initialization.");

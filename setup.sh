@@ -15,7 +15,7 @@ if [ "$1" == "debug" ]; then
     	unzip test.zip
     	
     	echo "Moving directory"
-    	mv ./GUI_robotic_exoskeleton-test/fake_exo ./src/fake_exo_pkg
+    	mv ./GUI_robotic_exoskeleton-test/fake_exo_pkg ./src/fake_exo_pkg
    	
     	rm -r ./GUI_robotic_exoskeleton-test
     	rm test.zip
@@ -36,7 +36,7 @@ if [ \"\$1\" == \"debug\" ]; then
     # Comando per avviare l'applicazione in modalità debug
     
     # Controllo se che fake_exo sia già compilato
-    if [ -f ./install/lib/fake_exo/exoskeleton_node ]; then
+    if [ -f ./install/lib/fake_exo_pkg/exoskeleton_node ]; then
     	./install/lib/alice_pkg/start_gui_node debug
     else
     	echo \"Fake_exo not compiled. Execute './setup.sh debug' in order to debug\"
