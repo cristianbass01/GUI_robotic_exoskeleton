@@ -6,7 +6,7 @@ The interface is implemented in C++ with the aid of the Qt libraries for the gra
 
 The validation of the interface was conducted through tests on a prototype exoskeleton, demonstrating its effectiveness and ease of use. 
 
-## 2. Installation on Ubuntu
+## 2. Installation
 If you have Windows 10 or 11 and want to run it, you must install wsl and install an Ubuntu-20.04 distribution by using prompt:
 ```
 wsl --install -d Ubuntu-20.04
@@ -31,7 +31,7 @@ Go to the repo directory created:
 cd GUI_robotic_exoskeleton-main
 ```
 
-### 2.2 Setup environment
+### 2.2 Setup environment (only Ubuntu 20.04)
 In order to be able to run this application, you need to have ROS Noetic installed on your system.
 If not, you can install it using:
 ```
@@ -39,18 +39,29 @@ wget -c https://raw.githubusercontent.com/qboticslabs/ros_install_noetic/master/
 ```
 If you have problems installing it, please refer to the official [ROS Noetic website](http://wiki.ros.org/noetic/Installation) for instructions.
 
-After the installation of ROS noetic, you could make the setup.sh file executable and run it:
+After the installation of ROS noetic, you could make the setup.sh file executable:
 ```
 chmod +x setup.sh
+```
+
+### 2.3 Launch file  
+Now you can run setup.sh:
+```
 ./setup.sh
 ```
-### 2.3 Launch file  
+
 A new launch.sh file is being created, run it:
 ```
 ./launch.sh
 ```
 ### 2.4 Debug Mode
-It is possible to run the application in debug mode without the connection to the exoskeleton (just to test how it works):
+It is possible to run the application in debug mode without the connection to the exoskeleton (just to test how it works)
+Configurate the setup adding debug and run it:
+```
+./setup.sh debug
+```
+
+A new launch.sh file is being created, run it using debug (or not if you don't want the debug mode anymore):
 ```
 ./launch.sh debug
 ```
