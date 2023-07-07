@@ -39,18 +39,29 @@ SessionForm::~SessionForm()
 
 void SessionForm::on_controlButton_clicked()
 {
-    this->customizeForm(new ControlForm(this));
+    this->customizeForm(new ControlForm(this, createLog()));
 }
-
 
 void SessionForm::on_stepButton_clicked()
 {
-    this->customizeForm(new StepForm(this));
+    this->customizeForm(new StepForm(this, createLog()));
 }
 
 void SessionForm::on_walkButton_clicked()
 {
-    this->customizeForm(new WalkingForm(this));
+    this->customizeForm(new WalkingForm(this, createLog()));
+}
+
+/**
+ * @brief Crea un file di log associato al utente
+ * @return log associato al utente
+ */
+Log* SessionForm::createLog()
+{
+  if(currentUser == nullptr)
+      return nullptr;
+  else
+      return new Log(currentUser->getDir());
 }
 
 void SessionForm::on_returnButton_clicked()

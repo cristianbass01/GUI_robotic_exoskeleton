@@ -140,7 +140,7 @@ bool ConnectedComponent::connect(){
     if(active) this->timer_->stop();
 
     // DEBUG MANUALE
-    // this->debug_ == true;
+    // this->debug_mode_ == true;
 
     if(!this->isConnected() ){
         // initialize ROS

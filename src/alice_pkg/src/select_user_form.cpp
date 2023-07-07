@@ -261,10 +261,9 @@ void SelectUserForm::on_BT_select_clicked()
  */
 void SelectUserForm::on_BT_viewLog_clicked()
 {
+    currentUser = userList.getAt(selectUser); // imposto l'utente corrente
     frame_->customizeWindow(new LogView(frame_, ui->TB_id->text()));
     frame_->show();
-
-    this->hide();
 }
 
 /**

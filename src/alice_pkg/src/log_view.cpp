@@ -118,9 +118,9 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
     else
         parentText = item->parent()->text(0);
 
-    if (parentText.compare("Control Ex") == 0)
+    if (parentText.compare("Control exercise") == 0)
         logType = CONTROL;
-    else if (parentText.compare("Step Ex") == 0)
+    else if (parentText.compare("Step exercise") == 0)
         logType = STEP;
     else
         logType = WALKING;

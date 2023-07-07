@@ -49,6 +49,10 @@ private slots:
 
     void on_storageButton_clicked();
 
+    /**
+     * @brief Crea un file di log associato al utente
+     * @return log associato al utente
+     */
     Log* createLog();
 
     void on_shutdownButton_clicked();

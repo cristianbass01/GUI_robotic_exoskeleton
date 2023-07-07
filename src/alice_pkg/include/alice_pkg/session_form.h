@@ -5,6 +5,7 @@
 #include "connected_component.h"
 #include "frame_window.h"
 #include "user.h"
+#include <log.h>
 
 namespace Ui {
 class SessionForm;
@@ -56,6 +57,12 @@ private slots:
     void updateStatus();
 
     void on_shutdownButton_clicked();
+
+    /**
+     * @brief Crea un file di log associato al utente
+     * @return log associato al utente
+     */
+    Log* createLog();
 
 private:
     Ui::SessionForm *ui;

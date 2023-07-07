@@ -84,7 +84,7 @@ void TrainingForm::on_controlButton_clicked()
     frame_->customizeWindow(session);
 
     //session->setWindowState(Qt::WindowMaximized);
-    session->customizeForm(new ControlForm(session));
+    session->customizeForm(new ControlForm(session, createLog()));
 }
 
 void TrainingForm::on_finishButton_clicked()
@@ -188,7 +188,11 @@ void TrainingForm::setEnabled(bool state){
     }
 }
 
-Log* TrainingForm::createLog() // troppo un casino con log condiviso in caso de delete
+/**
+ * @brief Crea un file di log associato al utente
+ * @return log associato al utente
+ */
+Log* TrainingForm::createLog()
 {
   if(currentUser == nullptr)
       return nullptr;
