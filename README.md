@@ -39,22 +39,32 @@ wget -c https://raw.githubusercontent.com/qboticslabs/ros_install_noetic/master/
 ```
 If you have problems installing it, please refer to the official [ROS Noetic website](http://wiki.ros.org/noetic/Installation) for instructions.
 
-After the installation of ROS noetic, you could make the setup.sh file executable and run it:
+After the installation of ROS noetic, you could make the setup.sh file executable:
 ```
 chmod +x setup.sh
+```
+
+### 2.3 Launch file  
+Now you can run setup.sh:
+```
 ./setup.sh
 ```
-### 2.3 Launch file  
+
 A new launch.sh file is being created, run it:
 ```
 ./launch.sh
 ```
 ### 2.4 Debug Mode
-It is possible to run the application in debug mode without the connection to the exoskeleton (just to test how it works):
+It is possible to run the application in debug mode without the connection to the exoskeleton (just to test how it works)
+Configurate the setup adding debug and run it:
+```
+./setup.sh debug
+```
+
+A new launch.sh file is being created, run it using debug (or not if you don't want the debug mode anymore):
 ```
 ./launch.sh debug
 ```
-
 
 ## 3. Authors
 - Cristian Bassotto
