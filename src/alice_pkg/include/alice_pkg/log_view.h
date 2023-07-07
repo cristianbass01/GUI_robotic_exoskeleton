@@ -49,11 +49,11 @@ private:
 
   // nomi delle colonne
   const QVector< QVector< QString > > columnName = {
-    {"#", "Leg", "Correct", "Time"},           // ControlLog
-    {"#", "Leg", "Step Count", "Correct", "Last", "Time"}, // StepLog
-    {"#", "Selected", "Executed", "Pause", "Time"}  // walkingLog
-
+    {"#", "Timestamp", "Leg", "Correct", "Time"},           // ControlLog
+    {"#", "Timestamp", "Leg", "Step Count", "Correct", "Last", "Time"}, // StepLog
+    {"#", "Timestamp", "Selected", "Executed", "Pause", "Time"}  // walkingLog
   };
+
   const int CONTROL = 0;
   const int STEP = 1;
   const int WALKING = 2;

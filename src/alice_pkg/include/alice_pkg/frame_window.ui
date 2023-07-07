@@ -99,14 +99,14 @@ QLabel#userLabel{
 QPushButton#standButton, QPushButton#sitButton, QPushButton#storageButton{
 	
 	background-color: #3993DD;
-	padding: 20px;
+	padding: 8px;
 	/*color: #F4F4F6;*/
 }
 
 QPushButton#walkButton, QPushButton#stepButton, QPushButton#controlButton{
 	
 	background-color: #2176AE;
-	padding: 20px;
+	padding: 8px;
 	/*color: #F4F4F6;*/˚
    /*font-weight: 600*/
 }

@@ -153,7 +153,7 @@ void LogView::on_treeW_log_itemClicked(QTreeWidgetItem *item, int column)
             for(int j = 0; j < log_line.size(); j++){ // gli inserisco nelle giuste colonne
               item = log_line.at(j);
 
-              if(j > 2 && (logType == CONTROL || logType == STEP)){ // sostituisco 0 e 1 per facilitare lettura
+              if(j > 3 && (logType == CONTROL || logType == STEP)){ // sostituisco 0 e 1 per facilitare lettura
                 if(item == "0")
                     item = "False";
                 else if(item== "1")
