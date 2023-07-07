@@ -6,7 +6,7 @@ The interface is implemented in C++ with the aid of the Qt libraries for the gra
 
 The validation of the interface was conducted through tests on a prototype exoskeleton, demonstrating its effectiveness and ease of use. 
 
-## 2. Installation on Ubuntu
+## 2. Installation
 If you have Windows 10 or 11 and want to run it, you must install wsl and install an Ubuntu-20.04 distribution by using prompt:
 ```
 wsl --install -d Ubuntu-20.04
@@ -31,7 +31,7 @@ Go to the repo directory created:
 cd GUI_robotic_exoskeleton-workspace
 ```
 
-### 2.2 Setup environment
+### 2.2 Setup environment (only on Ubuntu 20.04)
 In order to be able to run this application, you need to have ROS Noetic installed on your system.
 If not, you can install it using:
 ```
