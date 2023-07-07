@@ -6,6 +6,11 @@ The interface is implemented in C++ with the aid of the Qt libraries for the gra
 
 The validation of the interface was conducted through tests on a prototype exoskeleton, demonstrating its effectiveness and ease of use. 
 
+## Explanation of branches
+- main: contains only the package alice_pkg (if you want to debug it setup will download also test branch) -> need to install manually the rosserial_python package
+- test: contains only the fake_exo_pkg in order to debug without the exoskeleton -> need to install manually both alice_pkg and rosserial_python packages
+- workspace: contains both the packages and also the rosserial_python package (you don't need to install it)
+
 ## 2. Installation
 If you have Windows 10 or 11 and want to run it, you must install wsl and install an Ubuntu-20.04 distribution by using prompt:
 ```
@@ -30,6 +35,7 @@ Go to the repo directory created:
 ```
 cd GUI_robotic_exoskeleton-main
 ```
+Now you can put the alice_pkg package inside your workspace/src and the setup.sh file in the workspace directory
 
 ### 2.2 Setup environment (only Ubuntu 20.04)
 In order to be able to run this application, you need to have ROS Noetic installed on your system.
@@ -54,6 +60,7 @@ A new launch.sh file is being created, run it:
 ```
 ./launch.sh
 ```
+
 ### 2.4 Debug Mode
 It is possible to run the application in debug mode without the connection to the exoskeleton (just to test how it works)
 Configurate the setup adding debug and run it:
