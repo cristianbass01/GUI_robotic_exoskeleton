@@ -7,9 +7,9 @@ The interface is implemented in C++ with the aid of the Qt libraries for the gra
 The validation of the interface was conducted through tests on a prototype exoskeleton, demonstrating its effectiveness and ease of use. 
 
 ## 2. Explanation of branches
-- main: contains only the package alice_pkg (if you want to debug it setup will download also test branch) -> need to install manually the rosserial_python package
-- test: contains only the fake_exo_pkg in order to debug without the exoskeleton -> need to install manually both alice_pkg and rosserial_python packages
-- workspace: contains both the packages and also the rosserial_python package (you don't need to install it)
+- **main**: contains **only alice_pkg** (if you want to debug it setup will download also test branch) -> need to install manually the rosserial_python package
+- **test**: contains **only fake_exo_pkg** in order to debug without the exoskeleton -> need to install manually both alice_pkg and rosserial_python packages
+- **workspace**: contains **both the packages and rosserial_python** package (you don't need to install it)
 
 ## 3. Installation
 If you have Windows 10 or 11 and want to run it, you must install wsl and install an Ubuntu-20.04 distribution by using prompt:
