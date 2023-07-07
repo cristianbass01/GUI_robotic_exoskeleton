@@ -1,11 +1,11 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-#include "gui_pkg/Test.h"
+#include "fake_exo_pkg/Test.h"
 
 #include <sstream>
 
-bool exoResponse(gui_pkg::Test::Request  &req,
-            gui_pkg::Test::Response &res)
+bool exoResponse(fake_exo_pkg::Test::Request  &req,
+            fake_exo_pkg::Test::Response &res)
 {
     srand(time(nullptr));
     ROS_INFO("Service received from the node");

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>
+  	<!-- fake_exo_pkg node -->
+        <node name="fake_exo_pkg" pkg="fake_exo_pkg" type="exoskeleton_node" output="log"/>
+  
+</launch>
