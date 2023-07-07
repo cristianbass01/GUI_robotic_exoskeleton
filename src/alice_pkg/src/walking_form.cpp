@@ -3,7 +3,6 @@
 #include "global_variable.h"
 
 #include <QObject>
-#include <QMessageBox>
 
 WalkingForm::WalkingForm(SessionForm *parent, Log *log) :
     QWidget(parent),
@@ -37,19 +36,6 @@ void WalkingForm::on_startButton_clicked()
     if(ConnectedComponent::getInstance().isConnected()){
         try {
             int numSteps = ui->walkingSteps->value();
-            if(numSteps <= 0){
-                QMessageBox msgBox;
-                msgBox.setIcon(QMessageBox::Warning);
-                msgBox.setWindowTitle("Warning");
-                msgBox.setText("Invalid number of steps");
-                msgBox.setInformativeText("Must be over 0");
-                msgBox.setStandardButtons(QMessageBox::Ok);
-                msgBox.exec();
-                session_->setEnabled(true);
-                ui->stopButton->setEnabled(false);
-                ui->startButton->setEnabled(true);
-                return;
-            }
             ui->progressBar->setRange(0, numSteps*2);
             ui->progressBar->setValue(0);
             ui->progressBar->show();
