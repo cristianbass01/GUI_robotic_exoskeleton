@@ -224,7 +224,6 @@ void SessionForm::movement(const std::string code){
     }
 
     if (ConnectedComponent::getInstance().isConnected()){
-        //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
         if(!ConnectedComponent::getInstance().step(code)){
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Warning);

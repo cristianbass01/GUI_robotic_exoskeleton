@@ -156,7 +156,6 @@ void TrainingForm::movement(const std::string code){
     }
 
     if (ConnectedComponent::getInstance().isConnected()){
-        //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
         ConnectedComponent::getInstance().step(code);
     }
     else {

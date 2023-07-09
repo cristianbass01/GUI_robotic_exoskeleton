@@ -72,7 +72,6 @@ void StepForm::movement(const std::string code){
     QApplication::processEvents();
 
     if (ConnectedComponent::getInstance().isConnected()){
-        //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
         try {
             QElapsedTimer timer;
             timer.start();
