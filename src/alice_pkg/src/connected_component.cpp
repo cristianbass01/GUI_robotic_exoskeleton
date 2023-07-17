@@ -11,9 +11,6 @@
 #include <stdio.h>
 #include <sys/wait.h>
 
-/**
- * @brief ConnectedComponent::~ConnectedComponent
- */
 ConnectedComponent::~ConnectedComponent(){
     if(stream_)
         pclose(stream_);
@@ -86,11 +83,6 @@ void ConnectedComponent::shutdown(){
     }
 }
 
-/**
- * @brief ConnectedComponent::initialize
- * @param argc
- * @param argv
- */
 void ConnectedComponent::initialize(int argc, char **argv){
     this->argc = argc;
     this->argv = argv;
@@ -102,10 +94,7 @@ void ConnectedComponent::initialize(int argc, char **argv){
     }
 }
 
-/**
- * @brief ConnectedComponent::step
- * @param code
- */
+
 bool ConnectedComponent::step(const std::string &code){
     alice_pkg::Test srv;
     srv.request.input = code;
@@ -131,10 +120,7 @@ bool ConnectedComponent::step(const std::string &code){
     }
 }
 
-/**
- * @brief ConnectedComponent::connect
- * @return
- */
+
 bool ConnectedComponent::connect(){
     bool active = this->timer_->isActive();
     if(active) this->timer_->stop();
@@ -190,10 +176,6 @@ bool ConnectedComponent::connect(){
     return this->isConnected();
 }
 
-/**
- * @brief ConnectedComponent::isConnected
- * @return
- */
 bool ConnectedComponent::isConnected(){
 
     if(nh_ && nh_->ok() && client_ && client_.isValid()){
@@ -228,10 +210,6 @@ void ConnectedComponent::errorConnectionMsg(std::string error){
     }
 }
 
-/**
- * @brief ConnectedComponent::getSerialPort
- * @return
- */
 std::string ConnectedComponent::getSerialPort(){
     if(this->isConnected()){
         std::string serialPort;
@@ -243,10 +221,6 @@ std::string ConnectedComponent::getSerialPort(){
     return nullptr;
 }
 
-/**
- * @brief ConnectedComponent::getBaudRate
- * @return
- */
 int ConnectedComponent::getBaudRate(){
     if(this->isConnected()){
         int baudRate=0;
@@ -259,10 +233,6 @@ int ConnectedComponent::getBaudRate(){
     return 0;
 }
 
-/**
- * @brief ConnectedComponent::getParamsList
- * @return
- */
 std::vector<std::string> ConnectedComponent::getParamsList(){
     std::vector<std::string> paramsList;
     if(this->isConnected()){
@@ -271,11 +241,7 @@ std::vector<std::string> ConnectedComponent::getParamsList(){
     return paramsList;
 }
 
-/**
- * @brief ConnectedComponent::getParam
- * @param key
- * @return
- */
+
 XmlRpc::XmlRpcValue ConnectedComponent::getParam(const std::string key){
     XmlRpc::XmlRpcValue param_value;
     if(this->isConnected() and nh_->hasParam(key)){

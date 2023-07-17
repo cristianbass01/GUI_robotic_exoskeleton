@@ -24,7 +24,7 @@ SessionForm::SessionForm(FrameWindow *parent) :
 
     this->updateImage();
 
-    // se è già attivo il timer vuol dire che la connessione è già in corso
+    // if timer is active than the connection is active
     if(ConnectedComponent::getInstance().timer_->isActive()){
         this->tryConnection();
         QObject::connect(ConnectedComponent::getInstance().timer_.get(), SIGNAL(timeout()), this, SLOT(tryConnection()));
