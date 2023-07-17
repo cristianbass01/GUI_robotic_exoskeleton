@@ -95,13 +95,16 @@ void TrainingForm::on_finishButton_clicked()
 void TrainingForm::on_connectButton_clicked()
 {
     ui->connectLoadingIcon->show();
+    std::string msg = frame_->clearStatus();
+    QApplication::processEvents();
     frame_->showStatus("Connecting...");
     QApplication::processEvents();
 
     this->tryConnection();
 
     ui->connectLoadingIcon->hide();
-    frame_->clearStatus();
+    if(msg.size() > 0) frame_->showStatus(msg);
+    else frame_->clearStatus();
 }
 
 void TrainingForm::tryConnection(){

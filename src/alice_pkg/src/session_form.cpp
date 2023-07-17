@@ -133,11 +133,16 @@ void SessionForm::updateStatus()
 void SessionForm::on_connectButton_clicked()
 {
     ui->connectLoadingIcon->show();
+    std::string msg = frame_->clearStatus();
+    QApplication::processEvents();
+    frame_->showStatus("Connecting...");
     QApplication::processEvents();
 
     this->tryConnection();
 
     ui->connectLoadingIcon->hide();
+    if(msg.size() > 0) frame_->showStatus(msg);
+    else frame_->clearStatus();
 }
 
 void SessionForm::tryConnection(){
