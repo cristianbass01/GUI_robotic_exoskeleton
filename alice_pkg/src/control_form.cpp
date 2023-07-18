@@ -3,6 +3,7 @@
 #include "global_variable.h"
 
 #include <QObject>
+#include <QMessageBox>
 
 ControlForm::ControlForm(SessionForm *parent, Log *log) :
     QWidget(parent),
@@ -35,15 +36,28 @@ void ControlForm::on_startButton_clicked()
     if(ConnectedComponent::getInstance().isConnected()){
         try {
             int numSteps = ui->walkingSteps->value();
-            ui->progressBar->setRange(0, numSteps*2);
-            ui->progressBar->setValue(0);
-            ui->progressBar->show();
+            if(numSteps <=0){
+                QMessageBox msgBox;
+                msgBox.setIcon(QMessageBox::Warning);
+                msgBox.setWindowTitle("Warning");
+                msgBox.setText("Number of steps equal or less than zero");
+                msgBox.setInformativeText("Insert valid number");
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.exec();
+                session_->setEnabled(true);
+                ui->stopButton->setEnabled(false);
+                ui->startButton->setEnabled(true);
+            } else{
+                ui->progressBar->setRange(0, numSteps*2);
+                ui->progressBar->setValue(0);
+                ui->progressBar->show();
 
-            thread_.reset(new WalkThread(numSteps, log_));
-            thread_->start();
+                thread_.reset(new WalkThread(numSteps, log_));
+                thread_->start();
 
-            QObject::connect(thread_.get(), &WalkThread::progressUpdated, this, &ControlForm::updateProgressBar);
-            QObject::connect(thread_.get(), &WalkThread::stopped, this, &ControlForm::finishProgressBar);
+                QObject::connect(thread_.get(), &WalkThread::progressUpdated, this, &ControlForm::updateProgressBar);
+                QObject::connect(thread_.get(), &WalkThread::stopped, this, &ControlForm::finishProgressBar);
+            }
         } catch (...) {
             ConnectedComponent::getInstance().errorConnectionMsg("Error while calling the service");
             session_->setEnabled(true);

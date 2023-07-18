@@ -84,7 +84,7 @@ void TrainingForm::on_controlButton_clicked()
     frame_->customizeWindow(session);
 
     //session->setWindowState(Qt::WindowMaximized);
-    session->customizeForm(new ControlForm(session));
+    session->customizeForm(new ControlForm(session, createLog()));
 }
 
 void TrainingForm::on_finishButton_clicked()
@@ -95,13 +95,16 @@ void TrainingForm::on_finishButton_clicked()
 void TrainingForm::on_connectButton_clicked()
 {
     ui->connectLoadingIcon->show();
+    std::string msg = frame_->clearStatus();
+    QApplication::processEvents();
     frame_->showStatus("Connecting...");
     QApplication::processEvents();
 
     this->tryConnection();
 
     ui->connectLoadingIcon->hide();
-    frame_->clearStatus();
+    if(msg.size() > 0) frame_->showStatus(msg);
+    else frame_->clearStatus();
 }
 
 void TrainingForm::tryConnection(){
@@ -156,7 +159,6 @@ void TrainingForm::movement(const std::string code){
     }
 
     if (ConnectedComponent::getInstance().isConnected()){
-        //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
         ConnectedComponent::getInstance().step(code);
     }
     else {
@@ -188,7 +190,11 @@ void TrainingForm::setEnabled(bool state){
     }
 }
 
-Log* TrainingForm::createLog() // troppo un casino con log condiviso in caso de delete
+/**
+ * @brief Crea un file di log associato al utente
+ * @return log associato al utente
+ */
+Log* TrainingForm::createLog()
 {
   if(currentUser == nullptr)
       return nullptr;

@@ -22,7 +22,7 @@ Log::Log(QString userDir){
  */
 void Log::addWalkingEx(int set, int executed, int pause, QTime time)
 {
-  QString logMessage = QString("%1;%2;%3;%4").arg(set).arg(executed).arg(pause).arg(time.toString("hh:mm:ss:ms")); // trasformo i dati passati in stringa
+  QString logMessage = QString("%1;%2;%3;%4").arg(set).arg(executed).arg(pause).arg(time.toString("mm:ss.ms")); // trasformo i dati passati in stringa
   addToFile(QString("log%1_WalkingEx.log").arg(date), logMessage); // inserisco nel file
 }
 
@@ -36,7 +36,7 @@ void Log::addWalkingEx(int set, int executed, int pause, QTime time)
  */
 void Log::addStepEx(QString leg, int count, bool correct, bool close, QTime time)
 {
-  QString logMessage = QString("%1;%2;%3;%4;%5").arg(leg).arg(count).arg(correct).arg(close).arg(time.toString("hh:mm:ss:ms"));
+  QString logMessage = QString("%1;%2;%3;%4;%5").arg(leg).arg(count).arg(correct).arg(close).arg(time.toString("mm:ss.ms"));
   addToFile(QString("log%1_StepEx.log").arg(date), logMessage);
 }
 
@@ -48,7 +48,7 @@ void Log::addStepEx(QString leg, int count, bool correct, bool close, QTime time
  */
 void Log::addControlEx(QString leg, bool correct, QTime time)
 {
-  QString logMessage = QString("%1;%2;%3").arg(leg).arg(correct).arg(time.toString("hh:mm:ss:ms"));
+  QString logMessage = QString("%1;%2;%3").arg(leg).arg(correct).arg(time.toString("mm:ss.ms"));
   addToFile(QString("log%1_ControlEx.log").arg(date), logMessage);
 }
 
@@ -72,6 +72,8 @@ void Log::addToFile(QString fileName, QString log)
   int n = 0;
   if(nLine>0)
     n = line.split(";")[0].toInt();  // non us nLine, perchè nel caso venisse eliminata una riga dal file allora l'ultima verrebbe sovrascritta
-  stream << QString::number(n + 1) << ";" << log << "\n"; //aggiungo numero di riga
+
+  QDateTime currentTime = QDateTime::currentDateTime();
+  stream << QString::number(n + 1) << ";" << currentTime.toString("hh:mm:ss") << ";" << log << "\n"; //aggiungo numero di riga
   file.close();
 }

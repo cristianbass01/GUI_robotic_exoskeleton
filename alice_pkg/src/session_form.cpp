@@ -24,7 +24,7 @@ SessionForm::SessionForm(FrameWindow *parent) :
 
     this->updateImage();
 
-    // se è già attivo il timer vuol dire che la connessione è già in corso
+    // if timer is active than the connection is active
     if(ConnectedComponent::getInstance().timer_->isActive()){
         this->tryConnection();
         QObject::connect(ConnectedComponent::getInstance().timer_.get(), SIGNAL(timeout()), this, SLOT(tryConnection()));
@@ -39,18 +39,29 @@ SessionForm::~SessionForm()
 
 void SessionForm::on_controlButton_clicked()
 {
-    this->customizeForm(new ControlForm(this));
+    this->customizeForm(new ControlForm(this, createLog()));
 }
-
 
 void SessionForm::on_stepButton_clicked()
 {
-    this->customizeForm(new StepForm(this));
+    this->customizeForm(new StepForm(this, createLog()));
 }
 
 void SessionForm::on_walkButton_clicked()
 {
-    this->customizeForm(new WalkingForm(this));
+    this->customizeForm(new WalkingForm(this, createLog()));
+}
+
+/**
+ * @brief Crea un file di log associato al utente
+ * @return log associato al utente
+ */
+Log* SessionForm::createLog()
+{
+  if(currentUser == nullptr)
+      return nullptr;
+  else
+      return new Log(currentUser->getDir());
 }
 
 void SessionForm::on_returnButton_clicked()
@@ -122,11 +133,16 @@ void SessionForm::updateStatus()
 void SessionForm::on_connectButton_clicked()
 {
     ui->connectLoadingIcon->show();
+    std::string msg = frame_->clearStatus();
+    QApplication::processEvents();
+    frame_->showStatus("Connecting...");
     QApplication::processEvents();
 
     this->tryConnection();
 
     ui->connectLoadingIcon->hide();
+    if(msg.size() > 0) frame_->showStatus(msg);
+    else frame_->clearStatus();
 }
 
 void SessionForm::tryConnection(){
@@ -213,7 +229,6 @@ void SessionForm::movement(const std::string code){
     }
 
     if (ConnectedComponent::getInstance().isConnected()){
-        //TODO Inserire un try catch per gestire la disconnessione durante la chiamata
         if(!ConnectedComponent::getInstance().step(code)){
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Warning);
