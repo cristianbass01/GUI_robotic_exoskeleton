@@ -13,7 +13,7 @@ bool exoResponse(fake_exo_pkg::Test::Request  &req,
     ROS_INFO("Execution... ");
     sleep(2);
     float p = 0;
-    if(float(rand()%100)/100 > p){
+    if(float(rand()%100)/100 >= p){
         ROS_INFO("OK: Correct execution");
         res.output = "0";
         return true;
