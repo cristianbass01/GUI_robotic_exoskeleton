@@ -35,7 +35,7 @@ Go to the repo directory created:
 ```
 cd GUI_robotic_exoskeleton-main
 ```
-Now you can put the alice_pkg package inside your workspace/src and the setup.sh file in the workspace directory
+Now you can put the alice_pkg package inside your workspace/src and the setup.sh file in the workspace directory.
 
 ### 3.2 Setup environment (only Ubuntu 20.04)
 In order to be able to run this application, you need to have ROS Noetic installed on your system.
